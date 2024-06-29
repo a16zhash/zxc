@@ -8,11 +8,11 @@
         body, html {
             margin: 0;
             padding: 0;
-            overflow: auto; /* Обеспечиваем возможность прокрутки */
+            overflow: auto;
             background-color: black;
             color: white;
             font-family: Arial, sans-serif;
-            min-height: 100%; /* Гарантируем, что фон тянется на всю длину контента */
+            min-height: 100%;
             width: 100%;
         }
 
@@ -36,24 +36,29 @@
             margin: 20px 0;
             font-size: 25px;
             font-weight: bold;
-            color: white;
         }
 
-        .gold-box, .how-to-claim {
+        .gold-box {
+            color: #FFD700;
+            font-size: 24px;
             font-weight: bold;
             margin: 20px 0;
         }
 
         .how-to-claim {
+            font-weight: bold;
             text-align: left;
             margin-left: 20px;
+            color: gray;
         }
 
         .list-item {
             background-color: yellow;
             color: black;
             display: inline-block;
-            padding: 3px 6px;
+            padding: 8px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             margin: 5px;
             font-weight: bold;
@@ -61,52 +66,11 @@
         }
 
         .the-story {
-            margin-top: 20px;
+            color: white;
+            margin-top: 30px;
         }
 
         .bottom-info {
             display: flex;
             justify-content: space-between;
-            padding: 0 50px;
-        }
-
-        .hard-cap, .holders {
-            text-align: left;
-        }
-    </style>
-</head>
-<body>
-    <video id="videoPlayer" width="100%" autoplay muted onended="videoEnded()" playsinline>
-        <source src="https://tonanon.world/anon.tg/assets/video/box-opening-mobile.mp4" type="video/mp4">
-        Ваш браузер не поддерживает видео.
-    </video>
-
-    <div class="content" id="afterVideoContent" style="display:none;">
-        <img src="https://i.postimg.cc/RhY3ZVbM/ball.jpg" alt="Floating Ball" class="floating-image">
-        <div class="congratulations">CONGRATULATIONS, YOU'VE RECEIVED A</div>
-        <div class="gold-box">GOLD BOX</div>
-        <div class="how-to-claim">
-            HOW TO CLAIM
-            <div><span class="list-item">1</span> To claim rewards, connect your wallet to the AirDrop platform.</div>
-            <div><span class="list-item">2</span> You must have a TON to pay the transaction fee, otherwise you will not be able to receive the AirDrop.</div>
-            <div><span class="list-item">3</span> Transaction is required to confirm ownership of your wallet. Don't worry about your funds. They will be returned in a reverse transaction.</div>
-        </div>
-        <div class="the-story">
-            THE STORY
-            <p>2557 participants supported ANON Upgrade tokenomics and received ANON Passes and ANON Boxes as the most valuable early adopters who will enjoy benefits across all of our products.</p>
-        </div>
-        <div class="bottom-info">
-            <div class="hard-cap">HARD CAP $1M</div>
-            <div class="holders">ALL HOLDERS 33,800+</div>
-        </div>
-    </div>
-
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
-        function videoEnded() {
-            document.getElementById('videoPlayer').style.display = 'none';
-            document.getElementById('afterVideoContent').style.display = 'block';
-        }
-    </script>
-</body>
-</html>
+            padding: 0 50px
