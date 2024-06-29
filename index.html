@@ -57,13 +57,19 @@
             min-width: 30px;
             height: 30px;
             margin-right: 10px;
-            display: inline-block;
+            display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
             font-weight: bold;
             background-color: #FFD700;
             color: black;
+        }
+
+        .how-to-claim-content div {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
         }
 
         .the-story-title {
@@ -76,7 +82,7 @@
 
         .how-to-claim-content {
             color: gray;
-            font-size: 22px; /* Немного увеличенный размер шрифта */
+            font-size: 18px;
             margin-bottom: 40px;
         }
 
@@ -126,7 +132,7 @@
     <script>
         function videoEnded() {
             document.getElementById('videoPlayer').style.display = 'none';
-            document.getElementById('afterVideoContent'). style.display = 'block';
+            document.getElementById('afterVideoContent').style.display = 'block';
         }
     </script>
 </body>
