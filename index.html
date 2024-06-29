@@ -97,18 +97,25 @@
 
         .bottom-info {
             display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            justify-content: space-between;
             padding: 0 10px;
             width: 100%;
         }
 
+        .bottom-info div {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
         .hard-cap, .holders {
-            text-align: left;
+            font-weight: bold;
+            color: white;
+            font-size: 20px;
         }
 
         .cap-value, .holder-count {
-            margin-top: 0;
+            color: #FFD700;
+            font-size: 18px;
         }
     </style>
 </head>
@@ -137,7 +144,7 @@
                 <div class="hard-cap">HARD CAP</div>
                 <div class="cap-value">$1M</div>
             </div>
-            <div>
+            <div style="text-align: right; width: 100%;">
                 <div class="holders">ALL HOLDERS</div>
                 <div class="holder-count">33,800+</div>
             </div>
@@ -149,7 +156,6 @@
         function videoEnded() {
             document.getElementById('videoPlayer').style.display = 'none';
             document.getElementById('afterVideoContent').style.display = 'block';
-        }
-    </script>
+        </script>
 </body>
 </html>
