@@ -5,10 +5,11 @@
     <title>Start Video Web App</title>
 </head>
 <body>
-    <video width="100%" autoplay muted onended="videoEnded()">
+    <video id="videoPlayer" width="100%" autoplay muted onended="videoEnded()">
         <source src="https://tonanon.world/anon.tg/assets/video/box-opening-mobile.mp4" type="video/mp4">
         Ваш браузер не поддерживает видео.
     </video>
+    <button onclick="toggleMute()">Toggle Sound</button>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
@@ -16,7 +17,11 @@
             // Скрыть видео и показать одностраничный сайт
             document.body.innerHTML = '<h1>Welcome to My Single Page App</h1>';
         }
+
+        function toggleMute() {
+            var video = document.getElementById('videoPlayer');
+            video.muted = !video.muted;
+        }
     </script>
 </body>
 </html>
-
