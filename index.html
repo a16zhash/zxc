@@ -11,6 +11,8 @@
             background-color: black;
             color: white;
             font-family: Arial, sans-serif;
+            height: 100%;
+            width: 100%;
         }
 
         .content {
@@ -18,20 +20,28 @@
             padding: 20px;
         }
 
-        .congratulations {
-            color: white;
+        .floating-image {
+            width: auto;
+            height: 200px;
+            animation: floatAnimation 4s ease-in-out infinite;
+        }
+
+        @keyframes floatAnimation {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .congratulations, .gold-box, .how-to-claim, .the-story, .hard-cap, .holders {
             margin: 20px 0;
         }
 
         .gold-box {
             color: yellow;
             font-size: 24px;
-            margin: 10px 0;
         }
 
         .how-to-claim {
             color: gray;
-            margin: 30px 0;
         }
 
         .list-item {
@@ -41,10 +51,6 @@
             padding: 5px 10px;
             border-radius: 50%;
             margin-right: 5px;
-        }
-
-        .the-story, .hard-cap, .holders {
-            margin: 20px 0;
         }
 
         .bottom-info {
@@ -61,7 +67,7 @@
     </video>
 
     <div class="content" id="afterVideoContent" style="display:none;">
-        <img src="path_to_your_animated_gif.gif" alt="Animated Gif">
+        <img src="https://i.postimg.cc/RhY3ZVbM/ball.jpg" alt="Floating Ball" class="floating-image">
         <div class="congratulations">Congratulations, you've received a</div>
         <div class="gold-box">GOLD BOX</div>
         <!-- Placeholder for web3 wallet integration -->
