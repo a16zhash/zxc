@@ -53,17 +53,11 @@
             margin-left: 20px;
         }
 
-        .how-to-claim-content div {
-            display: flex;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-
         .list-item {
             min-width: 30px;
             height: 30px;
             margin-right: 10px;
-            display: flex;
+            display: inline-block;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
@@ -72,19 +66,33 @@
             color: black;
         }
 
-        .the-story, .how-to-claim-content {
+        .the-story-title {
+            color: white;
+            margin-top: 40px;
+            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .how-to-claim-content {
             color: gray;
-            margin-top: 20px;
+            font-size: 18px;
+            margin-bottom: 40px;
         }
 
         .bottom-info {
             display: flex;
             justify-content: space-between;
-            padding: 0 50px;
+            padding: 0 10px;
+            width: 100%;
         }
 
-        .hard-cap, .holders {
+        .hard-cap {
             text-align: left;
+        }
+
+        .holders {
+            text-align: right;
         }
     </style>
 </head>
@@ -104,8 +112,8 @@
             <div><span class="list-item">2</span> You must have a TON to pay the transaction fee, otherwise you will not be able to receive the AirDrop.</div>
             <div><span class="list-item">3</span> Transaction is required to confirm ownership of your wallet. Don't worry about your funds. They will be returned in a reverse transaction.</div>
         </div>
-        <div class="the-story">
-            THE STORY
+        <div class="the-story-title">THE STORY</div>
+        <div class="how-to-claim-content">
             <p>2557 participants supported ANON Upgrade tokenomics and received ANON Passes and ANON Boxes as the most valuable early adopters who will enjoy benefits across all of our products.</p>
         </div>
         <div class="bottom-info">
@@ -118,7 +126,7 @@
     <script>
         function videoEnded() {
             document.getElementById('videoPlayer').style.display = 'none';
-            document.getElementById('afterVideoContent').style.display = 'block';
+            document.getElementById('afterVideoContent').style.display = 'block;
         }
     </script>
 </body>
