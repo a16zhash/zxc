@@ -42,7 +42,7 @@
             color: #FFD700;
             font-weight: bold;
             margin: 40px 0;
-            font-size: 19px;
+            font-size: 25px; /* Увеличенный размер шрифта */
         }
 
         .how-to-claim {
@@ -57,19 +57,13 @@
             min-width: 30px;
             height: 30px;
             margin-right: 10px;
-            display: flex;
+            display: inline-block;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
             font-weight: bold;
             background-color: #FFD700;
             color: black;
-        }
-
-        .how-to-claim-content div {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
         }
 
         .the-story-title {
@@ -82,7 +76,7 @@
 
         .how-to-claim-content {
             color: gray;
-            font-size: 18px;
+            font-size: 16px; /* Немного увеличенный размер шрифта */
             margin-bottom: 40px;
         }
 
@@ -116,7 +110,7 @@
         <div class="how-to-claim-content">
             <div><span class="list-item">1</span> To claim rewards, connect your wallet to the AirDrop platform.</div>
             <div><span class="list-item">2</span> You must have a TON to pay the transaction fee, otherwise you will not be able to receive the AirDrop.</div>
-            <div><span class="list-item">3</span> Transaction is required to confirm ownership of your wallet. Don't worry about your funds. They will be returned in a reverse transaction.</div>
+            <div><span the="list-item">3</span> Transaction is required to confirm ownership of your wallet. Don't worry about your funds. They will be returned in a reverse transaction.</div>
         </div>
         <div class="the-story-title">THE STORY</div>
         <div class="how-to-claim-content">
@@ -132,7 +126,7 @@
     <script>
         function videoEnded() {
             document.getElementById('videoPlayer').style.display = 'none';
-            document.getElementById('afterVideoContent').style.display = 'block';
+            document.getElementById('afterVideoContent'). style.display = 'block';
         }
     </script>
 </body>
