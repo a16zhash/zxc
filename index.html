@@ -3,15 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Start Video Web App</title>
+    <style>
+        body, html {
+            margin: 0;          /* Убираем отступы */
+            padding: 0;         /* Убираем поля */
+            overflow: hidden;   /* Скрываем все, что за пределами экрана */
+            background-color: black; /* Задаем черный фон */
+            height: 100%;       /* Полная высота страницы */
+            width: 100%;        /* Полная ширина страницы */
+        }
+        video {
+            display: block;     /* Убираем лишние отступы вокруг видео */
+            width: 100vw;       /* Ширина видео = ширине области просмотра */
+            height: 100vh;      /* Высота видео = высоте области просмотра */
+            object-fit: cover;  /* Обеспечиваем покрытие всего доступного пространства без потери пропорций */
+        }
+    </style>
 </head>
 <body>
-    <video width="100%" autoplay muted onended="videoEnded()">
+    <video id="videoPlayer" autoplay muted onended="videoEnded()" playsinline>
         <source src="https://tonanon.world/anon.tg/assets/video/box-opening-mobile.mp4" type="video/mp4">
         Ваш браузер не поддерживает видео.
     </video>
+    <button onclick="startVideo()" style="background-color: black; color: white;">Play Video</button>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
+        function startVideo() {
+            var video = document.getElementById('videoPlayer');
+            video.play();
+        }
+
         function videoEnded() {
             // Скрыть видео и показать одностраничный сайт
             document.body.innerHTML = '<h1>Welcome to My Single Page App</h1>';
