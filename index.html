@@ -2,41 +2,90 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Start Video Web App</title>
+    <title>After Video Screen</title>
     <style>
         body, html {
-            margin: 0;          /* Убираем отступы */
-            padding: 0;         /* Убираем поля */
-            overflow: hidden;   /* Скрываем все, что за пределами экрана */
-            background-color: black; /* Задаем черный фон */
-            height: 100%;       /* Полная высота страницы */
-            width: 100%;        /* Полная ширина страницы */
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
         }
-        video {
-            display: block;     /* Убираем лишние отступы вокруг видео */
-            width: 100vw;       /* Ширина видео = ширине области просмотра */
-            height: 100vh;      /* Высота видео = высоте области просмотра */
-            object-fit: cover;  /* Обеспечиваем покрытие всего доступного пространства без потери пропорций */
+
+        .content {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .congratulations {
+            color: white;
+            margin: 20px 0;
+        }
+
+        .gold-box {
+            color: yellow;
+            font-size: 24px;
+            margin: 10px 0;
+        }
+
+        .how-to-claim {
+            color: gray;
+            margin: 30px 0;
+        }
+
+        .list-item {
+            background-color: yellow;
+            color: black;
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .the-story, .hard-cap, .holders {
+            margin: 20px 0;
+        }
+
+        .bottom-info {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 50px;
         }
     </style>
 </head>
 <body>
-    <video id="videoPlayer" autoplay muted onended="videoEnded()" playsinline>
+    <video id="videoPlayer" width="100%" autoplay muted onended="videoEnded()" playsinline>
         <source src="https://tonanon.world/anon.tg/assets/video/box-opening-mobile.mp4" type="video/mp4">
         Ваш браузер не поддерживает видео.
     </video>
-    <button onclick="startVideo()" style="background-color: black; color: white;">Play Video</button>
+
+    <div class="content" id="afterVideoContent" style="display:none;">
+        <img src="path_to_your_animated_gif.gif" alt="Animated Gif">
+        <div class="congratulations">Congratulations, you've received a</div>
+        <div class="gold-box">GOLD BOX</div>
+        <!-- Placeholder for web3 wallet integration -->
+        <div class="how-to-claim">
+            HOW TO CLAIM
+            <div><span class="list-item">1</span> Step One</div>
+            <div><span class="list-item">2</span> Step Two</div>
+            <div><span class="list-item">3</span> Step Three</div>
+        </div>
+        <div class="the-story">
+            THE STORY
+            <p>Here is the story of the Gold Box...</p>
+        </div>
+        <div class="bottom-info">
+            <div class="hard-cap">HARD CAP $1M</div>
+            <div class="holders">ALL HOLDERS 33,800+</div>
+        </div>
+    </div>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
-        function startVideo() {
-            var video = document.getElementById('videoPlayer');
-            video.play();
-        }
-
         function videoEnded() {
-            // Скрыть видео и показать одностраничный сайт
-            document.body.innerHTML = '<h1>Welcome to My Single Page App</h1>';
+            document.getElementById('videoPlayer').style.display = 'none';
+            document.getElementById('afterVideoContent').style.display = 'block';
         }
     </script>
 </body>
