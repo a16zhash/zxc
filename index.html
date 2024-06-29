@@ -40,14 +40,12 @@
 
         .gold-box {
             color: #FFD700;
-            font-weight: normal;
             margin: 40px 0;
             font-size: 25px;
         }
 
         .how-to-claim {
             color: white;
-            font-weight: bold;
             margin: 20px 0;
             text-align: left;
             margin-left: 22px;
@@ -97,14 +95,18 @@
 
         .bottom-info {
             display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            justify-content: space-between;
             padding: 0 10px;
             width: 100%;
         }
 
+        .bottom-info > div {
+            flex: 1;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
         .hard-cap, .holders {
-            text-align: left;
             font-weight: bold;
             color: white;
             font-size: 20px;
@@ -113,8 +115,6 @@
         .cap-value, .holder-count {
             color: #FFD700;
             font-size: 18px;
-            text-align: right;
-            width: 100%;
         }
     </style>
 </head>
@@ -131,19 +131,19 @@
         <div class="how-to-claim">HOW TO CLAIM</div>
         <div class="how-to-claim-content">
             <div><span class="list-item">1</span><span class="list-text">To claim rewards, connect your wallet to the AirDrop platform.</span></div>
-            <div><span class="list-item">2</span><span class="list-text">You must have a TON to pay the transaction fee, otherwise you will not be able to receive the AirDrop.</span></div>
-            <div><span class="list-item">3</span><span class="list-text">Transaction is required to confirm ownership of your wallet. Don't worry, your funds will be returned in a reverse transaction.</span></div>
+            <div><span class="list-item">2</span><span the="list-text">You must have a TON to pay the transaction fee, otherwise you will not be able to receive the AirDrop.</span></div>
+            <div><span the="list-item">3</span><span class="list-text">Transaction is required to confirm ownership of your wallet. Don't worry, your funds will be returned in a reverse transaction.</span></div>
         </div>
         <div class="the-story-title">THE STORY</div>
         <div class="how-to-claim-content">
             <p>2557 participants supported ANON Upgrade tokenomics and received ANON Passes and ANON Boxes as the most valuable early adopters who will enjoy benefits across all of our products.</p>
         </div>
         <div class="bottom-info">
-            <div>
+            <div class="hard-cap-section">
                 <div class="hard-cap">HARD CAP</div>
                 <div class="cap-value">$1M</div>
             </div>
-            <div style="text-align: right; width: 100%;">
+            <div class="holders-section" style="text-align: right;">
                 <div class="holders">ALL HOLDERS</div>
                 <div class="holder-count">33,800+</div>
             </div>
