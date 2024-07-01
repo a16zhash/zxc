@@ -87,10 +87,9 @@
             text-align: left;
         }
 
-        .how-to-claim-content {
-            color: gray;
-            font-size: 21px;
-            margin-bottom: 40px;
+        .how-to-claim-content p {
+            text-align: left;
+            padding-left: 40px; /* Выравнивание с элементами списка */
         }
 
         .bottom-info {
@@ -103,7 +102,14 @@
         .bottom-info > div {
             flex: 1;
             text-align: center;
-            margin-bottom: 5px;
+        }
+
+        .bottom-info > div:first-child {
+            text-align: left;
+        }
+
+        .bottom-info > div:last-child {
+            text-align: right;
         }
 
         .hard-cap, .holders {
@@ -132,7 +138,7 @@
         <div class="how-to-claim-content">
             <div><span class="list-item">1</span><span class="list-text">To claim rewards, connect your wallet to the AirDrop platform.</span></div>
             <div><span class="list-item">2</span><span class="list-text">You must have a TON to pay the transaction fee, otherwise you will not be able to receive the AirDrop.</span></div>
-            <div><span class="list-item">3</span><span class="list-text">Transaction is required to confirm ownership of your wallet. Don't worry, your funds will be returned in a reverse transaction.</span></div>
+            <div><span the="list-item">3</span><span class="list-text">Transaction is required to confirm ownership of your wallet. Don't worry, your funds will be returned in a reverse transaction.</span></div>
         </div>
         <div class="the-story-title">THE STORY</div>
         <div class="how-to-claim-content">
