@@ -74,7 +74,7 @@
 
         .how-to-claim-content div {
             display: flex;
-            font-size: 19px
+            font-size: 19px;
             align-items: center;
             margin-bottom: 10px;
             padding-left: 40px;
@@ -91,8 +91,9 @@
 
         .how-to-claim-content p {
             text-align: left;
-            font-size: 21px
-            margin-left: 100px; /* Выравнивание с элементами списка */
+            font-size: 21px;
+            position: relative;
+            left: 100px; /* Сдвигаем текст вправо */
         }
 
         .bottom-info {
@@ -141,11 +142,11 @@
         <div class="how-to-claim-content">
             <div><span class="list-item">1</span><span class="list-text">To claim rewards, connect your wallet to the AirDrop platform.</span></div>
             <div><span class="list-item">2</span><span class="list-text">You must have a TON to pay the transaction fee, otherwise you will not be able to receive the AirDrop.</span></div>
-            <div><span class="list-item">3</span><span class="list-text">Transaction is required to confirm ownership of your wallet. Don't worry, your funds will be returned in a reverse transaction.</span></div>
+            <div><span the="list-item">3</span><span class="list-text">Transaction is required to confirm ownership of your wallet. Don't worry, your funds will be returned in a reverse transaction.</span></div>
         </div>
         <div class="the-story-title">THE STORY</div>
         <div class="how-to-claim-content">
-            <p>2557 participants supported ANON Upgrade tokenomics and received ANON Passes and ANON Boxes as the most valuable early adopters who will enjoy benefits across all of our products.</p>
+            <p class="story-content">2557 participants supported ANON Upgrade tokenomics and received ANON Passes and ANON Boxes as the most valuable early adopters who will enjoy benefits across all of our products.</p>
         </div>
         <div class="bottom-info">
             <div>
@@ -162,7 +163,7 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         function videoEnded() {
-            document.getElementById('videoPlayer').style.display = 'none';
+            document.getElementById('videoPlayer'). style.display = 'none';
             document.getElementById('afterVideoContent').style.display = 'block';
         }
     </script>
