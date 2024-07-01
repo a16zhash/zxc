@@ -63,21 +63,18 @@
             color: black;
             font-weight: bold;
             margin-right: 10px;
-            flex-shrink: 0;
         }
 
         .list-text {
-            display: inline;
-            vertical-align: middle;
+            align-self: center;
+            text-align: left;
         }
 
-        .how-to-claim-content {
+        .how-to-claim-content div {
             display: flex;
-            flex-direction: column;
-            margin-left: 40px;
-            color: gray;
-            font-size: 21px;
-            margin-bottom: 40px;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-left: 40px;
         }
 
         .the-story-title {
@@ -87,6 +84,12 @@
             font-size: 30px;
             font-weight: bold;
             text-align: left;
+        }
+
+        .how-to-claim-content {
+            color: gray;
+            font-size: 21px;
+            margin-bottom: 40px;
         }
 
         .bottom-info {
@@ -150,7 +153,7 @@
     <script>
         function videoEnded() {
             document.getElementById('videoPlayer').style.display = 'none';
-            document.getElementById('afterVideoContent'). style.display = 'block';
+            document.getElementById('afterVideoContent').style.display = 'block';
         }
     </script>
 </body>
