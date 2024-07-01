@@ -72,12 +72,20 @@
             text-align: left;
         }
 
+        .how-to-claim-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Выравнивание по левому краю */
+            margin-left: 0; /* Убираем отступы слева */
+            padding-left: 0; /* Убираем отступы слева */
+        }
+
         .how-to-claim-content div {
             display: flex;
             font-size: 19px;
             align-items: center;
             margin-bottom: 10px;
-            padding-left: 40px;
+            padding-left: 0; /* Убираем отступы слева */
         }
 
         .the-story-title {
@@ -91,7 +99,9 @@
 
         .how-to-claim-content p {
             text-align: left;
-            font-size: 17px;
+            font-size: 21px;
+            position: relative;
+            left: 100px;
             margin-bottom: 30px;
         }
 
@@ -100,6 +110,7 @@
             justify-content: space-between;
             padding: 0 10px;
             width: 100%;
+            margin-top: 30px;
         }
 
         .bottom-info > div {
