@@ -34,7 +34,7 @@
 
         .congratulations {
             margin: 20px 0;
-            font-size: 28px;
+            font-size: 25px;
             font-weight: bold;
         }
 
@@ -48,9 +48,8 @@
             color: white;
             margin: 20px 0;
             text-align: left;
-            margin-left: 0px;
-            font-size: 23px;
-            font-weight: bold;
+            margin-left: 10px;
+            font-size: 30px;
         }
 
         .list-item {
@@ -73,13 +72,9 @@
             align-self: center;
         }
 
-        .how-to-claim-content div, .how-to-claim-content p {
+        .how-to-claim-content div {
             display: flex;
-            align-items: center;
-            text-align: left;
-            margin-left: 40px; /* Выравнивание текста */
-            font-size: 21px; /* Согласованность размера шрифта */
-            color: gray;
+            align-items: flex-start;
             margin-bottom: 10px;
         }
 
@@ -87,9 +82,15 @@
             color: white;
             margin-top: 40px;
             margin-bottom: 10px;
-            font-size: 23px;
+            font-size: 30px;
             font-weight: bold;
             text-align: left;
+        }
+
+        .how-to-claim-content {
+            color: gray;
+            font-size: 21px;
+            margin-bottom: 40px;
         }
 
         .bottom-info {
@@ -100,9 +101,14 @@
         }
 
         .bottom-info > div {
-            flex: 1;
-            text-align: center;
-            margin-bottom: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Выравнивание текста по левому краю для первого блока */
+            width: 50%;
+        }
+
+        .bottom-info > div:last-child {
+            align-items: flex-end; /* Выравнивание текста по правому краю для второго блока */
         }
 
         .hard-cap, .holders {
@@ -131,18 +137,18 @@
         <div class="how-to-claim-content">
             <div><span class="list-item">1</span><span class="list-text">To claim rewards, connect your wallet to the AirDrop platform.</span></div>
             <div><span class="list-item">2</span><span class="list-text">You must have a TON to pay the transaction fee, otherwise you will not be able to receive the AirDrop.</span></div>
-            <div><span class="list-item">3</span><span class="list-text">Transaction is required to confirm ownership of your wallet. Don't worry, your funds will be returned in a reverse transaction.</span></div>
+            <div><span the="list-item">3</span><span class="list-text">Transaction is required to confirm ownership of your wallet. Don't worry, your funds will be returned in a reverse transaction.</span></div>
         </div>
         <div class="the-story-title">THE STORY</div>
         <div class="how-to-claim-content">
             <p>2557 participants supported ANON Upgrade tokenomics and received ANON Passes and ANON Boxes as the most valuable early adopters who will enjoy benefits across all of our products.</p>
         </div>
         <div class="bottom-info">
-            <div class="hard-cap-section">
+            <div>
                 <div class="hard-cap">HARD CAP</div>
                 <div class="cap-value">$1M</div>
             </div>
-            <div class="holders-section" style="text-align: right;">
+            <div>
                 <div class="holders">ALL HOLDERS</div>
                 <div class="holder-count">33,800+</div>
             </div>
