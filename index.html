@@ -57,13 +57,13 @@
             min-width: 30px;
             height: 30px;
             display: flex;
-          
-            
+            justify-content: center;
+            align-items: center;
             border-radius: 50%;
             background-color: #FFD700;
             color: black;
             font-weight: bold;
-            
+            margin-right: 10px;
             flex-shrink: 0;
         }
 
@@ -75,9 +75,9 @@
         .how-to-claim-content div {
             display: flex;
             font-size: 19px;
-            
+            align-items: center;
             margin-bottom: 10px;
-           
+            padding-left: 40px;
         }
 
         .the-story-title {
@@ -93,7 +93,6 @@
             text-align: left;
             font-size: 17px;
             margin-bottom: 30px;
-            
         }
 
         .bottom-info {
@@ -136,7 +135,7 @@
 
     <div class="content" id="afterVideoContent" style="display:none;">
         <img src="https://i.postimg.cc/RhY3ZVbM/ball.jpg" alt="Floating Ball" class="floating-image">
-        <div class="congratulations">CONGRATULATIONS,YOU'VE RECEIVED A</div>
+        <div class="congratulations">CONGRATULATIONS, YOU'VE RECEIVED A</div>
         <div class="gold-box">GOLD BOX</div>
         <div class="how-to-claim">HOW TO CLAIM</div>
         <div class="how-to-claim-content">
@@ -163,7 +162,7 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         function videoEnded() {
-            document.getElementById('videoPlayer'). style.display = 'none';
+            document.getElementById('videoPlayer').style.display = 'none';
             document.getElementById('afterVideoContent').style.display = 'block';
         }
     </script>
