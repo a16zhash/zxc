@@ -210,29 +210,28 @@
 
             try {
                 const tonweb = new TonWeb();
-                const provider = new TonWeb.HttpProvider('https://toncenter.com/api/v2/jsonRPC', { apiKey: '8cdc5442c4a006b65eb493dea43a53c4da0fee4ea91fff8ac7cd4d90098c8b89' });
+                const provider = new TonWeb.HttpProvider('https://toncenter.com/api/v2/jsonRPC', { apiKey: 'YOUR_API_KEY' });
 
                 console.log('TonWeb provider created');
-                const wallet = tonweb.wallet.create({ provider });
+
+                // Использование публичного ключа для создания кошелька
+                const wallet = tonweb.wallet.create({
+                    publicKey: 'YOUR_PUBLIC_KEY', // Замените на реальный публичный ключ
+                    provider
+                });
+
                 console.log('TonWeb wallet created');
 
                 // Получение адреса кошелька
-                const walletAddress = await getWalletAddress();
-                console.log('Wallet address obtained:', walletAddress);
+                const walletAddress = await wallet.getAddress();
+                console.log('Wallet address obtained:', walletAddress.toString(true, true, true));
 
-                tg.sendData(walletAddress);
-                alert('Wallet connected: ' + walletAddress);
+                tg.sendData(walletAddress.toString(true, true, true));
+                alert('Wallet connected: ' + walletAddress.toString(true, true, true));
             } catch (error) {
                 console.error('Failed to connect wallet:', error);
                 alert('Failed to connect wallet. Please try again.');
             }
-        }
-
-        function getWalletAddress() {
-            return new Promise((resolve, reject) => {
-                // Вы можете использовать TonHub или другие провайдеры кошельков для получения адреса кошелька пользователя
-                resolve('sample_wallet_address');
-            });
         }
 
         function videoEnded() {
