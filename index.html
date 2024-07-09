@@ -23,7 +23,7 @@
 
         .floating-image {
             width: auto;
-            height: 160px; /* Уменьшаем высоту изображения на 20% */
+            height: 160px;
             animation: floatAnimation 4s ease-in-out infinite;
         }
 
@@ -50,8 +50,8 @@
         }
 
         .wallet-button img {
-            width: 200px; /* Уменьшаем ширину изображения */
-            height: auto; /* Автоматически подстраиваем высоту для сохранения пропорций */
+            width: 200px;
+            height: auto;
             animation: glow 1.5s infinite alternate;
         }
 
@@ -95,9 +95,9 @@
         .how-to-claim-content {
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* Выравнивание по левому краю */
-            margin-left: 0; /* Убираем отступы слева */
-            padding-left: 0; /* Убираем отступы слева */
+            align-items: flex-start;
+            margin-left: 0;
+            padding-left: 0;
         }
 
         .how-to-claim-content div {
@@ -105,7 +105,7 @@
             font-size: 18px;
             align-items: center;
             margin-bottom: 10px;
-            padding-left: 0; /* Убираем отступы слева */
+            padding-left: 0;
         }
 
         .the-story-title {
@@ -120,7 +120,7 @@
         .story-content {
             text-align: left;
             font-size: 18px;
-            margin-left: 0; /* Убираем отступы слева */
+            margin-left: 0;
         }
 
         .bottom-info {
@@ -195,14 +195,18 @@
         async function connectWallet() {
             const tg = window.Telegram.WebApp;
 
+            if (typeof TonWeb === 'undefined') {
+                alert('TonWeb library is not loaded');
+                return;
+            }
+
             try {
                 const tonweb = new TonWeb();
-                const provider = new TonWeb.HttpProvider('https://toncenter.com/api/v2/jsonRPC', { apiKey: '91a0a0a7f27ff419089687bd54bb00ae35d530957f0f1acf88d5b35ff4d70184' });
+                const provider = new TonWeb.HttpProvider('https://toncenter.com/api/v2/jsonRPC', { apiKey: '8cdc5442c4a006b65eb493dea43a53c4da0fee4ea91fff8ac7cd4d90098c8b89' });
 
                 const wallet = tonweb.wallet.create({ provider });
 
-                // Here you need to request permission to access the wallet
-                // You can use any method to get user's wallet address
+                // Получение адреса кошелька
                 const walletAddress = await getWalletAddress();
 
                 tg.sendData(walletAddress);
@@ -215,8 +219,7 @@
 
         function getWalletAddress() {
             return new Promise((resolve, reject) => {
-                // You should implement your own method to get the wallet address
-                // For example, you can use TonHub or other wallet providers
+                // Вы можете использовать TonHub или другие провайдеры кошельков для получения адреса кошелька пользователя
                 resolve('sample_wallet_address');
             });
         }
