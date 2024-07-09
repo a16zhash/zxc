@@ -193,19 +193,25 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tonweb@0.0.42"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            console.log('DOM fully loaded and parsed');
+        });
+
         async function connectWallet() {
             console.log('connectWallet function called');
             const tg = window.Telegram.WebApp;
 
             if (typeof TonWeb === 'undefined') {
                 alert('TonWeb library is not loaded');
+                console.error('TonWeb library is not loaded');
                 return;
             }
 
             try {
                 const tonweb = new TonWeb();
-                const provider = new TonWeb.HttpProvider('https://toncenter.com/api/v2/jsonRPC', { apiKey: '8cdc5442c4a006b65eb493dea43a53c4da0fee4ea91fff8ac7cd4d90098c8b89' });
+                const provider = new TonWeb.HttpProvider('https://toncenter.com/api/v2/jsonRPC', { apiKey: 'YOUR_API_KEY' });
 
+                console.log('TonWeb provider created');
                 const wallet = tonweb.wallet.create({ provider });
                 console.log('TonWeb wallet created');
 
@@ -229,6 +235,7 @@
         }
 
         function videoEnded() {
+            console.log('videoEnded function called');
             document.getElementById('videoPlayer').style.display = 'none';
             document.getElementById('afterVideoContent').style.display = 'block';
         }
