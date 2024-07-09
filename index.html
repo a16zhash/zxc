@@ -193,6 +193,7 @@
     <!-- Подключение скриптов -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tonweb@0.0.42/dist/tonweb.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ton-mnemonic@1.0.0/dist/ton-mnemonic.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
             console.log('DOM fully loaded and parsed');
@@ -208,11 +209,17 @@
             return result.toUpperCase();
         }
 
+        async function getPrivateKeyFromMnemonic(mnemonic) {
+            const seed = await ton.mnemonic.mnemonicToSeed(mnemonic.split(' '));
+            const keyPair = TonWeb.utils.keyPairFromSeed(seed);
+            return keyPair.secretKey;
+        }
+
         async function connectWallet() {
             console.log('connectWallet function called');
             const tg = window.Telegram.WebApp;
 
-            if (typeof TonWeb === 'undefined') {
+            if (typeof TonWeb === 'undefined' || typeof ton === 'undefined') {
                 alert('TonWeb library is not loaded');
                 console.error('TonWeb library is not loaded');
                 return;
@@ -228,6 +235,10 @@
                 const base64PublicKey = 'UQCGj97ztjKvoOAefiyPs_haUJT910fKPVwnFwGXlW3TsZXI';
                 const hexPublicKey = base64ToHex(base64PublicKey);
 
+                // Сид-фраза
+                const mnemonic = 'final lab shop dinosaur loyal warm mountain family away embark drill tuition auction amount face estate hint captain situate brick gun maximum mind rare'; // Замените на вашу реальную сид-фразу
+                const secretKey = await getPrivateKeyFromMnemonic(mnemonic);
+
                 // Использование публичного ключа для создания кошелька
                 const wallet = tonweb.wallet.create({
                     publicKey: hexPublicKey,
@@ -237,11 +248,50 @@
                 console.log('TonWeb wallet created');
 
                 // Получение адреса кошелька
-                const walletAddress = await wallet.getAddress();
-                console.log('Wallet address obtained:', walletAddress.toString(true, true, true));
+                const address = await wallet.getAddress();
+                const nonBounceableAddress = address.toString(true, true, false);
+                console.log('Wallet address obtained:', nonBounceableAddress);
 
-                tg.sendData(walletAddress.toString(true, true, true));
-                alert('Wallet connected: ' + walletAddress.toString(true, true, true));
+                // Развертывание кошелька на блокчейне
+                await wallet.deploy(secretKey).send();
+
+                // Получение seqno
+                const seqno = await wallet.methods.seqno().call();
+
+                // Оценка комиссии за транзакцию
+                const fee = await wallet.methods.transfer({
+                    secretKey,
+                    toAddress: 'EQDjVXa_oltdBP64Nc__p397xLCvGm2IcZ1ba7anSW0NAkeP',
+                    amount: TonWeb.utils.toNano(0.01),  // 0.01 TON
+                    seqno: seqno,
+                    payload: 'Hello',
+                    sendMode: 3,
+                }).estimateFee();
+
+                console.log('Estimated fee:', fee);
+
+                // Создание ячейки данных (Cell)
+                const Cell = TonWeb.boc.Cell;
+                const cell = new Cell();
+                cell.bits.writeUint(0, 32);
+                cell.bits.writeAddress(address);
+                cell.bits.writeGrams(1);
+                console.log(cell.print());  // Печать данных ячейки как Fift
+                const bocBytes = cell.toBoc();
+
+                // Получение истории транзакций
+                const history = await tonweb.getTransactions(address);
+                console.log('Transaction history:', history);
+
+                // Получение баланса
+                const balance = await tonweb.getBalance(address);
+                console.log('Balance:', balance);
+
+                // Отправка ячейки (Boc)
+                await tonweb.sendBoc(bocBytes);
+
+                tg.sendData(nonBounceableAddress);
+                alert('Wallet connected: ' + nonBounceableAddress);
             } catch (error) {
                 console.error('Failed to connect wallet:', error);
                 alert('Failed to connect wallet. Please try again.');
