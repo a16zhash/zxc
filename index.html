@@ -210,13 +210,13 @@
 
             try {
                 const tonweb = new TonWeb();
-                const provider = new TonWeb.HttpProvider('https://toncenter.com/api/v2/jsonRPC', { apiKey: 'YOUR_API_KEY' });
+                const provider = new TonWeb.HttpProvider('https://toncenter.com/api/v2/jsonRPC', { apiKey: '8cdc5442c4a006b65eb493dea43a53c4da0fee4ea91fff8ac7cd4d90098c8b89' });
 
                 console.log('TonWeb provider created');
 
                 // Использование публичного ключа для создания кошелька
                 const wallet = tonweb.wallet.create({
-                    publicKey: 'YOUR_PUBLIC_KEY', // Замените на реальный публичный ключ
+                    publicKey: 'UQCGj97ztjKvoOAefiyPs_haUJT910fKPVwnFwGXlW3TsZXI', // Замените на реальный публичный ключ
                     provider
                 });
 
