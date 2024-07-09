@@ -198,6 +198,16 @@
             console.log('DOM fully loaded and parsed');
         });
 
+        function base64ToHex(str) {
+            const raw = atob(str.replace(/_/g, '/').replace(/-/g, '+'));
+            let result = '';
+            for (let i = 0; i < raw.length; i++) {
+                const hex = raw.charCodeAt(i).toString(16).padStart(2, '0');
+                result += hex;
+            }
+            return result.toUpperCase();
+        }
+
         async function connectWallet() {
             console.log('connectWallet function called');
             const tg = window.Telegram.WebApp;
@@ -214,9 +224,13 @@
 
                 console.log('TonWeb provider created');
 
+                // Преобразование публичного ключа из Base64 в hex
+                const base64PublicKey = 'UQCGj97ztjKvoOAefiyPs_haUJT910fKPVwnFwGXlW3TsZXI';
+                const hexPublicKey = base64ToHex(base64PublicKey);
+
                 // Использование публичного ключа для создания кошелька
                 const wallet = tonweb.wallet.create({
-                    publicKey: '512083F7BCE6D8CAAFA0E01E7E2C8FB3F85A5094F75D747CA3D5C271701972D74EC65C9', // Преобразованный публичный ключ в hex
+                    publicKey: hexPublicKey,
                     provider
                 });
 
