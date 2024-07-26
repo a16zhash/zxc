@@ -16,11 +16,14 @@
             height: 100%;
         }
 
-        .game-container {
-            position: relative;
+        .background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 100vh;
+            height: 100%;
             overflow: hidden;
+            z-index: 0;
         }
 
         .background {
@@ -28,31 +31,26 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 200%; /* Двойная высота для плавного движения */
             background-image: url('https://i.ibb.co/6HBJQvj/Pngtree-nature-deep-space-cosmos-background-5494719.png');
             background-size: cover;
             background-position: top;
             animation: moveBackground 20s linear infinite;
-            z-index: 0;
-        }
-
-        .background::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://i.ibb.co/6HBJQvj/Pngtree-nature-deep-space-cosmos-background-5494719.png');
-            background-size: cover;
-            background-position: top;
-            animation: moveBackground 20s linear infinite;
-            z-index: -1;
         }
 
         @keyframes moveBackground {
             0% { transform: translateY(0); }
             100% { transform: translateY(-50%); }
+        }
+
+        .game-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
         }
 
         .loading-screen {
@@ -76,7 +74,7 @@
             left: 50%;
             transform: translateX(-50%);
             bottom: 20px;
-            z-index: 20; /* Убедитесь, что самолет находится выше фона */
+            z-index: 2; /* Убедитесь, что самолет находится выше фона */
         }
 
         .star {
@@ -85,7 +83,7 @@
             height: 30px;
             background-image: url('https://i.ibb.co/VCszgYL/starforgame.png');
             background-size: cover;
-            z-index: 15; /* Убедитесь, что звезды находятся выше фона */
+            z-index: 2; /* Убедитесь, что звезды находятся выше фона */
         }
 
         .score {
@@ -93,14 +91,16 @@
             top: 10px;
             left: 10px;
             font-size: 20px;
-            z-index: 15; /* Убедитесь, что счет находится выше фона */
+            z-index: 2; /* Убедитесь, что счет находится выше фона */
         }
     </style>
 </head>
 <body>
     <div class="loading-screen" id="loading-screen">Loading...</div>
-    <div class="game-container" id="game-container">
+    <div class="background-container">
         <div class="background"></div>
+    </div>
+    <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
         <div class="score">Score: 0</div>
     </div>
