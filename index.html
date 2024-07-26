@@ -133,10 +133,10 @@
             position: absolute;
             width: 100px;
             height: 100px;
-            background-image: url('https://media.tenor.com/igZCc-gVpjsAAAAi/%D0%B2%D0%B7%D1%80%D1%8B%D0%B2.gif');
+            background-image: url('https://media.tenor.com/b2N9acOXvVgAAAAi/взрыв.gif');
             background-size: cover;
             display: none;
-            z-index: 3; /* Убедитесь, что взрыв находится выше всех элементов */
+            z-index: 4; /* Убедитесь, что взрыв находится выше всех элементов */
         }
 
         .score {
@@ -294,12 +294,11 @@
             explosion.style.left = `${planeRect.left + planeRect.width / 2 - 50}px`; // Центрируем по оси X
             explosion.style.top = `${planeRect.top + planeRect.height / 2 - 50}px`; // Центрируем по оси Y
             explosion.style.display = 'block';
-            explosion.style.zIndex = '4'; // Убедитесь, что взрыв находится выше всех элементов
             plane.style.display = 'none';
             setTimeout(() => {
                 explosion.style.display = 'none';
                 endGame();
-            }, 1000); // Длительность анимации взрыва
+            }, 1500); // Длительность анимации взрыва
         }
 
         function startGame() {
