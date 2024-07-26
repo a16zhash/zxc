@@ -78,7 +78,7 @@
             background-size: cover;
             left: 50%;
             transform: translateX(-50%);
-            bottom: 20px;
+            bottom: 50px; /* Поднято выше от нижнего края */
             z-index: 2; /* Убедитесь, что самолет находится выше фона */
         }
 
@@ -92,8 +92,23 @@
                 transform: translateX(-50%) scale(5);
             }
             100% {
-                top: calc(100vh - 70px);
+                top: calc(100vh - 120px); /* Учитываем поднятие */
                 transform: translateX(-50%) scale(1);
+            }
+        }
+
+        .plane-end {
+            animation: planeEnd 3s forwards;
+        }
+
+        @keyframes planeEnd {
+            0% {
+                bottom: 50px;
+                transform: translateX(-50%) scale(1);
+            }
+            100% {
+                bottom: 110%;
+                transform: translateX(-50%) scale(0.5);
             }
         }
 
@@ -123,18 +138,34 @@
             font-family: 'PixelFont', Arial, sans-serif;
             z-index: 2;
         }
+
+        .end-screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 36px;
+            font-family: 'PixelFont', Arial, sans-serif;
+            z-index: 10;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="loading-screen" id="loading-screen">Loading...</div>
     <div class="background-container">
-        <div class="background"></div>
+        <div class="background" id="background"></div>
     </div>
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
         <div class="score">Score: 0</div>
         <div class="timer" id="timer">25</div>
     </div>
+    <div class="end-screen" id="end-screen">Thanks for playing <3</div>
 
     <script>
         const plane = document.getElementById('plane');
@@ -142,6 +173,8 @@
         const scoreElement = document.querySelector('.score');
         const timerElement = document.getElementById('timer');
         const loadingScreen = document.getElementById('loading-screen');
+        const endScreen = document.getElementById('end-screen');
+        const background = document.getElementById('background');
         let score = 0;
         let isDragging = false;
 
@@ -219,8 +252,12 @@
         }
 
         function endGame() {
-            alert(`Game Over! Your score is: ${score}`);
-            // Добавьте сюда логику завершения игры
+            plane.classList.add('plane-end');
+            background.style.animationPlayState = 'paused';
+            setTimeout(() => {
+                plane.style.display = 'none';
+                endScreen.style.display = 'flex';
+            }, 3000); // Время анимации полета самолета вверх
         }
     </script>
 </body>
