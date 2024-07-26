@@ -40,12 +40,12 @@
             background-image: url('https://i.ibb.co/6HBJQvj/Pngtree-nature-deep-space-cosmos-background-5494719.png');
             background-size: cover;
             background-repeat: repeat-y;
-            animation: moveBackground 25s linear infinite;
+            animation: moveBackground 20s linear infinite;
         }
 
         @keyframes moveBackground {
             0% { transform: translateY(0); }
-            100% { transform: translateY(-100%); }
+            100% { transform: translateY(-50%); }
         }
 
         .game-container {
@@ -163,7 +163,7 @@
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
         <div class="score">Score: 0</div>
-        <div class="timer" id="timer">25</div>
+        <div class="timer" id="timer">20</div>
     </div>
     <div class="end-screen" id="end-screen">Thanks for playing <3</div>
 
@@ -240,7 +240,7 @@
         }
 
         function startTimer() {
-            let timeLeft = 25;
+            let timeLeft = 20; // Уменьшено до 20 секунд
             const timerInterval = setInterval(() => {
                 timeLeft--;
                 timerElement.textContent = timeLeft;
