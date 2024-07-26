@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plane Game</title>
     <style>
+        @font-face {
+            font-family: 'PixelFont';
+            src: url('https://yourfonturl.com/pixelfont.ttf'); /* Замените на URL вашего пиксельного шрифта */
+        }
+
         body, html {
             margin: 0;
             padding: 0;
@@ -35,12 +40,12 @@
             background-image: url('https://i.ibb.co/6HBJQvj/Pngtree-nature-deep-space-cosmos-background-5494719.png');
             background-size: cover;
             background-repeat: repeat-y;
-            animation: moveBackground 20s linear infinite;
+            animation: moveBackground 25s linear infinite;
         }
 
         @keyframes moveBackground {
             0% { transform: translateY(0); }
-            100% { transform: translateY(-50%); }
+            100% { transform: translateY(-100%); }
         }
 
         .game-container {
@@ -77,6 +82,21 @@
             z-index: 2; /* Убедитесь, что самолет находится выше фона */
         }
 
+        .plane-start {
+            animation: planeStart 5s forwards;
+        }
+
+        @keyframes planeStart {
+            0% {
+                top: -100px;
+                transform: translateX(-50%) scale(5);
+            }
+            100% {
+                top: calc(100vh - 70px);
+                transform: translateX(-50%) scale(1);
+            }
+        }
+
         .star {
             position: absolute;
             width: 30px;
@@ -93,6 +113,16 @@
             font-size: 20px;
             z-index: 2; /* Убедитесь, что счет находится выше фона */
         }
+
+        .timer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            font-family: 'PixelFont', Arial, sans-serif;
+            z-index: 2;
+        }
     </style>
 </head>
 <body>
@@ -103,18 +133,21 @@
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
         <div class="score">Score: 0</div>
+        <div class="timer" id="timer">25</div>
     </div>
 
     <script>
         const plane = document.getElementById('plane');
         const gameContainer = document.getElementById('game-container');
         const scoreElement = document.querySelector('.score');
+        const timerElement = document.getElementById('timer');
         const loadingScreen = document.getElementById('loading-screen');
         let score = 0;
         let isDragging = false;
 
         window.addEventListener('load', () => {
             loadingScreen.style.display = 'none';
+            startGame();
         });
 
         plane.addEventListener('touchstart', (event) => {
@@ -164,7 +197,31 @@
             }, 30);
         }
 
-        setInterval(createStar, 1000);
+        function startGame() {
+            plane.classList.add('plane-start');
+            setTimeout(() => {
+                plane.classList.remove('plane-start');
+                startTimer();
+                setInterval(createStar, 1000);
+            }, 5000); // Задержка в 5 секунд для анимации самолета
+        }
+
+        function startTimer() {
+            let timeLeft = 25;
+            const timerInterval = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        function endGame() {
+            alert(`Game Over! Your score is: ${score}`);
+            // Добавьте сюда логику завершения игры
+        }
     </script>
 </body>
 </html>
