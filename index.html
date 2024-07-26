@@ -133,7 +133,7 @@
             position: absolute;
             width: 100px;
             height: 100px;
-            background-image: url('https://media.tenor.com/b2N9acOXvVgAAAAi/взрыв.gif');
+            background-image: url('https://i.ibb.co/9rCNn2z/Pngtree-3d-fire-explosion-transparent-background-15537891.png');
             background-size: cover;
             display: none;
             z-index: 4; /* Убедитесь, что взрыв находится выше всех элементов */
@@ -164,12 +164,40 @@
             background-color: black;
             color: white;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             font-size: 36px;
             font-family: 'PixelFont', Arial, sans-serif;
             z-index: 10;
             display: none;
+        }
+
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: grey;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .button:hover {
+            background-color: darkgrey;
+        }
+
+        .message {
+            margin-bottom: 20px;
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% {
+                opacity: 1;
+            }
+            25%, 75% {
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -184,7 +212,11 @@
         <div class="timer" id="timer">20</div>
     </div>
     <div class="explosion" id="explosion"></div>
-    <div class="end-screen" id="end-screen">Thanks for playing <3</div>
+    <div class="end-screen" id="end-screen">
+        <div class="message">PLANE IS CRASHED</div>
+        <button class="button" onclick="retryGame()">RETRY</button>
+        <button class="button" onclick="quitGame()">QUIT</button>
+    </div>
 
     <script>
         const plane = document.getElementById('plane');
@@ -294,11 +326,16 @@
             explosion.style.left = `${planeRect.left + planeRect.width / 2 - 50}px`; // Центрируем по оси X
             explosion.style.top = `${planeRect.top + planeRect.height / 2 - 50}px`; // Центрируем по оси Y
             explosion.style.display = 'block';
+            explosion.style.animation = 'blink 1s infinite';
             plane.style.display = 'none';
             setTimeout(() => {
                 explosion.style.display = 'none';
-                endGame();
-            }, 1500); // Длительность анимации взрыва
+                showEndScreen();
+            }, 4000); // Время анимации взрыва
+        }
+
+        function showEndScreen() {
+            endScreen.style.display = 'flex';
         }
 
         function startGame() {
@@ -333,6 +370,14 @@
                 plane.style.display = 'none';
                 endScreen.style.display = 'flex';
             }, 3000); // Время анимации полета самолета вверх
+        }
+
+        function retryGame() {
+            window.location.reload();
+        }
+
+        function quitGame() {
+            window.close();
         }
     </script>
 </body>
