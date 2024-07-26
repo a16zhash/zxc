@@ -129,6 +129,16 @@
             z-index: 2; /* Убедитесь, что метеориты находятся выше фона */
         }
 
+        .explosion {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-image: url('https://media.tenor.com/igZCc-gVpjsAAAAi/%D0%B2%D0%B7%D1%80%D1%8B%D0%B2.gif');
+            background-size: cover;
+            display: none;
+            z-index: 3; /* Убедитесь, что взрыв находится выше всех элементов */
+        }
+
         .score {
             position: absolute;
             top: 10px;
@@ -173,6 +183,7 @@
         <div class="score">Score: 0</div>
         <div class="timer" id="timer">20</div>
     </div>
+    <div class="explosion" id="explosion"></div>
     <div class="end-screen" id="end-screen">Thanks for playing <3</div>
 
     <script>
@@ -183,8 +194,10 @@
         const loadingScreen = document.getElementById('loading-screen');
         const endScreen = document.getElementById('end-screen');
         const background = document.getElementById('background');
+        const explosion = document.getElementById('explosion');
         let score = 0;
         let isDragging = false;
+        let gameOver = false;
 
         window.addEventListener('load', () => {
             loadingScreen.style.display = 'none';
@@ -192,15 +205,19 @@
         });
 
         plane.addEventListener('touchstart', (event) => {
-            isDragging = true;
+            if (!gameOver) {
+                isDragging = true;
+            }
         });
 
         plane.addEventListener('touchend', (event) => {
-            isDragging = false;
+            if (!gameOver) {
+                isDragging = false;
+            }
         });
 
         gameContainer.addEventListener('touchmove', (event) => {
-            if (isDragging) {
+            if (isDragging && !gameOver) {
                 const touch = event.touches[0];
                 const planeWidth = plane.offsetWidth;
                 let newLeft = touch.clientX - planeWidth / 2;
@@ -224,7 +241,7 @@
                 if (starRect.bottom > window.innerHeight) {
                     star.remove();
                     clearInterval(fallInterval);
-                } else if (starRect.top < planeRect.bottom &&
+                } else if (!gameOver && starRect.top < planeRect.bottom &&
                     starRect.bottom > planeRect.top &&
                     starRect.left < planeRect.right &&
                     starRect.right > planeRect.left) {
@@ -254,14 +271,34 @@
 
             let fallInterval = setInterval(() => {
                 const meteorRect = meteor.getBoundingClientRect();
+                const planeRect = plane.getBoundingClientRect();
 
                 if (meteorRect.bottom > window.innerHeight) {
                     meteor.remove();
                     clearInterval(fallInterval);
+                } else if (!gameOver && meteorRect.top < planeRect.bottom &&
+                    meteorRect.bottom > planeRect.top &&
+                    meteorRect.left < planeRect.right &&
+                    meteorRect.right > planeRect.left) {
+                    meteor.remove();
+                    clearInterval(fallInterval);
+                    triggerExplosion(meteorRect);
                 } else {
                     meteor.style.top = `${meteorRect.top + fallSpeed}px`;
                 }
             }, 30);
+        }
+
+        function triggerExplosion(meteorRect) {
+            gameOver = true;
+            explosion.style.left = `${meteorRect.left}px`;
+            explosion.style.top = `${meteorRect.top}px`;
+            explosion.style.display = 'block';
+            plane.style.display = 'none';
+            setTimeout(() => {
+                explosion.style.display = 'none';
+                endGame();
+            }, 1000); // Длительность анимации взрыва
         }
 
         function startGame() {
@@ -277,6 +314,10 @@
         function startTimer() {
             let timeLeft = 20; // Уменьшено до 20 секунд
             const timerInterval = setInterval(() => {
+                if (gameOver) {
+                    clearInterval(timerInterval);
+                    return;
+                }
                 timeLeft--;
                 timerElement.textContent = timeLeft;
                 if (timeLeft <= 0) {
