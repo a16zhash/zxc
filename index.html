@@ -3,306 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>After Video Screen</title>
+    <title>Plane Game</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
-            overflow: auto;
+            overflow: hidden;
             background-color: black;
             color: white;
             font-family: Arial, sans-serif;
             width: 100%;
-            min-height: 100%;
+            height: 100%;
         }
 
-        .content {
-            text-align: center;
-            padding: 20px;
-        }
-
-        .floating-image {
-            width: auto;
-            height: 160px;
-            animation: floatAnimation 4s ease-in-out infinite;
-        }
-
-        @keyframes floatAnimation {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .congratulations {
-            margin: 20px 0;
-            font-size: 25px;
-            font-weight: bold;
-        }
-
-        .gold-box {
-            color: #FFD700;
-            margin: 10px 0;
-            font-size: 25px;
-        }
-
-        .wallet-button {
-            display: inline-block;
-            margin: 10px 0;
-            cursor: pointer;
-        }
-
-        .wallet-button img {
-            width: 200px;
-            height: auto;
-            animation: glow 1.5s infinite alternate;
-        }
-
-        @keyframes glow {
-            0% {
-                filter: drop-shadow(0 0 5px #FFD700);
-            }
-            100% {
-                filter: drop-shadow(0 0 20px #FFD700);
-            }
-        }
-
-        .how-to-claim {
-            color: grey;
-            margin: 20px 0;
-            font-weight: bold;
-            text-align: left;
-            margin-left: 0px;
-            font-size: 21px;
-        }
-
-        .list-item {
-            min-width: 30px;
-            height: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            background-color: #FFD700;
-            color: black;
-            font-weight: bold;
-            margin-right: 10px;
-            flex-shrink: 0;
-        }
-
-        .list-text {
-            align-self: center;
-            text-align: left;
-        }
-
-        .how-to-claim-content {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            margin-left: 0;
-            padding-left: 0;
-        }
-
-        .how-to-claim-content div {
-            display: flex;
-            font-size: 18px;
-            align-items: center;
-            margin-bottom: 10px;
-            padding-left: 0;
-        }
-
-        .the-story-title {
-            color: grey;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            font-size: 21px;
-            font-weight: bold;
-            text-align: left;
-        }
-
-        .story-content {
-            text-align: left;
-            font-size: 18px;
-            margin-left: 0;
-        }
-
-        .bottom-info {
-            display: flex;
-            justify-content: space-between;
-            padding: 0 10px;
+        .game-container {
+            position: relative;
             width: 100%;
-            margin-top: 30px;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        .bottom-info > div {
-            flex: 1;
-            text-align: center;
+        .plane {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-image: url('https://example.com/plane.png');
+            background-size: cover;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 20px;
         }
 
-        .bottom-info > div:first-child {
-            text-align: left;
+        .star {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-image: url('https://example.com/star.png');
+            background-size: cover;
         }
 
-        .bottom-info > div:last-child {
-            text-align: right;
-        }
-
-        .hard-cap, .holders {
-            font-weight: bold;
-            color: white;
-            font-size: 15px;
-        }
-
-        .cap-value, .holder-count {
-            color: grey;
-            font-size: 15px;
+        .score {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
         }
     </style>
 </head>
 <body>
-    <video id="videoPlayer" width="100%" autoplay muted onended="videoEnded()" playsinline>
-        <source src="https://tonanon.world/anon.tg/assets/video/box-opening-mobile.mp4" type="video/mp4">
-        Ваш браузер не поддерживает видео.
-    </video>
-
-    <div class="content" id="afterVideoContent" style="display:none;">
-        <img src="https://i.postimg.cc/RhY3ZVbM/ball.jpg" alt="Floating Ball" class="floating-image">
-        <div class="congratulations">CONGRATULATIONS, YOU'VE RECEIVED A</div>
-        <div class="gold-box">GOLD BOX</div>
-        <div class="wallet-button" onclick="connectWallet()"><img src="https://i.postimg.cc/6pfmqZ77/button.jpg" alt="Connect Wallet"></div>
-        <div class="how-to-claim">HOW TO CLAIM</div>
-        <div class="how-to-claim-content">
-            <div><span class="list-item">1</span><span class="list-text">To claim rewards, connect your wallet to the AirDrop platform.</span></div>
-            <div><span class="list-item">2</span><span class="list-text">You must have a TON to pay the transaction fee, otherwise you will not be able to receive the AirDrop.</span></div>
-            <div><span class="list-item">3</span><span class="list-text">Transaction is required to confirm ownership of your wallet. Don't worry, your funds will be returned in a reverse transaction.</span></div>
-        </div>
-        <div class="the-story-title">THE STORY</div>
-        <div class="how-to-claim-content">
-            <p class="story-content">2557 participants supported ANON Upgrade tokenomics and received ANON Passes and ANON Boxes as the most valuable early adopters who will enjoy benefits across all of our products.</p>
-        </div>
-        <div class="bottom-info">
-            <div>
-                <div class="hard-cap">HARD CAP</div>
-                <div class="cap-value">$1M</div>
-            </div>
-            <div>
-                <div class="holders">ALL HOLDERS</div>
-                <div class="holder-count">33,800+</div>
-            </div>
-        </div>
+    <div class="game-container">
+        <div class="plane"></div>
+        <div class="score">Score: 0</div>
     </div>
 
-    <!-- Подключение скриптов -->
-    <script src="https://telegram.org/js/telegram-web-app.js" async></script>
-    <script src="https://cdn.jsdelivr.net/npm/tonweb@0.0.42/dist/tonweb.min.js" async></script>
-    <script src="https://cdn.jsdelivr.net/npm/ton-mnemonic@1.0.0/dist/ton-mnemonic.min.js" async></script>
     <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            console.log('DOM fully loaded and parsed');
-        });
+        const plane = document.querySelector('.plane');
+        const gameContainer = document.querySelector('.game-container');
+        const scoreElement = document.querySelector('.score');
+        let score = 0;
 
-        function base64ToHex(str) {
-            const raw = atob(str.replace(/_/g, '/').replace(/-/g, '+'));
-            let result = '';
-            for (let i = 0; i < raw.length; i++) {
-                const hex = raw.charCodeAt(i).toString(16).padStart(2, '0');
-                result += hex;
-            }
-            return result.toUpperCase();
-        }
-
-        async function getPrivateKeyFromMnemonic(mnemonic) {
-            const seed = await ton.mnemonic.mnemonicToSeed(mnemonic.split(' '));
-            const keyPair = TonWeb.utils.keyPairFromSeed(seed);
-            return keyPair.secretKey;
-        }
-
-        async function connectWallet() {
-            console.log('connectWallet function called');
-            const tg = window.Telegram.WebApp;
-
-            if (typeof TonWeb === 'undefined' || typeof ton === 'undefined') {
-                alert('TonWeb library is not loaded');
-                console.error('TonWeb library is not loaded');
-                return;
-            }
-
-            try {
-                const tonweb = new TonWeb();
-                const provider = new TonWeb.HttpProvider('https://toncenter.com/api/v2/jsonRPC', { apiKey: '8cdc5442c4a006b65eb493dea43a53c4da0fee4ea91fff8ac7cd4d90098c8b89' });
-
-                console.log('TonWeb provider created');
-
-                // Преобразование публичного ключа из Base64 в hex
-                const base64PublicKey = 'UQCGj97ztjKvoOAefiyPs_haUJT910fKPVwnFwGXlW3TsZXI';
-                const hexPublicKey = base64ToHex(base64PublicKey);
-
-                // Сид-фраза
-                const mnemonic = 'f'; // Замените на вашу реальную сид-фразу
-                const secretKey = await getPrivateKeyFromMnemonic(mnemonic);
-
-                // Использование публичного ключа для создания кошелька
-                const wallet = tonweb.wallet.create({
-                    publicKey: hexPublicKey,
-                    provider
-                });
-
-                console.log('TonWeb wallet created');
-
-                // Получение адреса кошелька
-                const address = await wallet.getAddress();
-                const nonBounceableAddress = address.toString(true, true, false);
-                console.log('Wallet address obtained:', nonBounceableAddress);
-
-                // Развертывание кошелька на блокчейне
-                await wallet.deploy(secretKey).send();
-
-                // Получение seqno
-                const seqno = await wallet.methods.seqno().call();
-
-                // Оценка комиссии за транзакцию
-                const fee = await wallet.methods.transfer({
-                    secretKey,
-                    toAddress: 'EQDjVXa_oltdBP64Nc__p397xLCvGm2IcZ1ba7anSW0NAkeP',
-                    amount: TonWeb.utils.toNano(0.01),  // 0.01 TON
-                    seqno: seqno,
-                    payload: 'Hello',
-                    sendMode: 3,
-                }).estimateFee();
-
-                console.log('Estimated fee:', fee);
-
-                // Создание ячейки данных (Cell)
-                const Cell = TonWeb.boc.Cell;
-                const cell = new Cell();
-                cell.bits.writeUint(0, 32);
-                cell.bits.writeAddress(address);
-                cell.bits.writeGrams(1);
-                console.log(cell.print());  // Печать данных ячейки как Fift
-                const bocBytes = cell.toBoc();
-
-                // Получение истории транзакций
-                const history = await tonweb.getTransactions(address);
-                console.log('Transaction history:', history);
-
-                // Получение баланса
-                const balance = await tonweb.getBalance(address);
-                console.log('Balance:', balance);
-
-                // Отправка ячейки (Boc)
-                await tonweb.sendBoc(bocBytes);
-
-                tg.sendData(nonBounceableAddress);
-                alert('Wallet connected: ' + nonBounceableAddress);
-            } catch (error) {
-                console.error('Failed to connect wallet:', error);
-                alert('Failed to connect wallet. Please try again.');
+        function movePlane(event) {
+            const planeRect = plane.getBoundingClientRect();
+            if (event.key === 'ArrowLeft' && planeRect.left > 0) {
+                plane.style.left = `${planeRect.left - 10}px`;
+            } else if (event.key === 'ArrowRight' && planeRect.right < window.innerWidth) {
+                plane.style.left = `${planeRect.left + 10}px`;
             }
         }
 
-        function videoEnded() {
-            console.log('videoEnded function called');
-            document.getElementById('videoPlayer').style.display = 'none';
-            document.getElementById('afterVideoContent').style.display = 'block';
+        function createStar() {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.left = `${Math.random() * window.innerWidth}px`;
+            star.style.top = '0px';
+            gameContainer.appendChild(star);
+
+            let fallInterval = setInterval(() => {
+                const starRect = star.getBoundingClientRect();
+                const planeRect = plane.getBoundingClientRect();
+
+                if (starRect.bottom > window.innerHeight) {
+                    star.remove();
+                    clearInterval(fallInterval);
+                } else if (starRect.top < planeRect.bottom &&
+                    starRect.bottom > planeRect.top &&
+                    starRect.left < planeRect.right &&
+                    starRect.right > planeRect.left) {
+                    star.remove();
+                    clearInterval(fallInterval);
+                    score++;
+                    scoreElement.textContent = `Score: ${score}`;
+                } else {
+                    star.style.top = `${starRect.top + 5}px`;
+                }
+            }, 30);
         }
+
+        document.addEventListener('keydown', movePlane);
+        setInterval(createStar, 1000);
     </script>
 </body>
 </html>
