@@ -291,8 +291,8 @@
 
         function triggerExplosion(meteorRect) {
             gameOver = true;
-            explosion.style.left = `${meteorRect.left}px`;
-            explosion.style.top = `${meteorRect.top}px`;
+            explosion.style.left = `${meteorRect.left - 25}px`; // Центрировать взрыв по оси X
+            explosion.style.top = `${meteorRect.top - 25}px`; // Центрировать взрыв по оси Y
             explosion.style.display = 'block';
             plane.style.display = 'none';
             setTimeout(() => {
