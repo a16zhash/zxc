@@ -282,18 +282,19 @@
                     meteorRect.right > planeRect.left) {
                     meteor.remove();
                     clearInterval(fallInterval);
-                    triggerExplosion(meteorRect);
+                    triggerExplosion(planeRect);
                 } else {
                     meteor.style.top = `${meteorRect.top + fallSpeed}px`;
                 }
             }, 30);
         }
 
-        function triggerExplosion(meteorRect) {
+        function triggerExplosion(planeRect) {
             gameOver = true;
-            explosion.style.left = `${meteorRect.left - 25}px`; // Центрировать взрыв по оси X
-            explosion.style.top = `${meteorRect.top - 25}px`; // Центрировать взрыв по оси Y
+            explosion.style.left = `${planeRect.left - 25}px`; // Центрировать взрыв по оси X
+            explosion.style.top = `${planeRect.top - 25}px`; // Центрировать взрыв по оси Y
             explosion.style.display = 'block';
+            console.log(`Explosion position: left ${explosion.style.left}, top ${explosion.style.top}`);
             plane.style.display = 'none';
             setTimeout(() => {
                 explosion.style.display = 'none';
