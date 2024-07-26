@@ -131,8 +131,8 @@
 
         .explosion {
             position: absolute;
-            width: 100px;
-            height: 100px;
+            width: 500px; /* Увеличено в 5 раз */
+            height: 500px; /* Увеличено в 5 раз */
             background-image: url('https://i.ibb.co/9rCNn2z/Pngtree-3d-fire-explosion-transparent-background-15537891.png');
             background-size: cover;
             display: none;
@@ -323,15 +323,15 @@
 
         function triggerExplosion(planeRect) {
             gameOver = true;
-            explosion.style.left = `${planeRect.left + planeRect.width / 2 - 50}px`; // Центрируем по оси X
-            explosion.style.top = `${planeRect.top + planeRect.height / 2 - 50}px`; // Центрируем по оси Y
+            explosion.style.left = `${planeRect.left + planeRect.width / 2 - 250}px`; // Центрируем по оси X
+            explosion.style.top = `${planeRect.top + planeRect.height / 2 - 250}px`; // Центрируем по оси Y
             explosion.style.display = 'block';
             explosion.style.animation = 'blink 1s infinite';
             plane.style.display = 'none';
             setTimeout(() => {
                 explosion.style.display = 'none';
                 showEndScreen();
-            }, 4000); // Время анимации взрыва
+            }, 1000); // Время анимации взрыва
         }
 
         function showEndScreen() {
