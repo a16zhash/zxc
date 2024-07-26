@@ -31,7 +31,7 @@
             z-index: 0;
         }
 
-        .background {
+        .background, .background2 {
             position: absolute;
             top: 0;
             left: 0;
@@ -39,13 +39,26 @@
             height: 200%; /* Двойная высота для плавного движения */
             background-image: url('https://i.ibb.co/6HBJQvj/Pngtree-nature-deep-space-cosmos-background-5494719.png');
             background-size: cover;
-            background-repeat: repeat-y;
+            background-repeat: no-repeat;
+        }
+
+        .background {
             animation: moveBackground 20s linear infinite;
+        }
+
+        .background2 {
+            top: -100%;
+            animation: moveBackground2 20s linear infinite;
         }
 
         @keyframes moveBackground {
             0% { transform: translateY(0); }
-            100% { transform: translateY(-50%); }
+            100% { transform: translateY(100%); }
+        }
+
+        @keyframes moveBackground2 {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(0); }
         }
 
         .game-container {
@@ -167,6 +180,7 @@
     <div class="loading-screen" id="loading-screen">Loading...</div>
     <div class="background-container">
         <div class="background" id="background"></div>
+        <div class="background2" id="background2"></div>
     </div>
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
@@ -183,6 +197,7 @@
         const loadingScreen = document.getElementById('loading-screen');
         const endScreen = document.getElementById('end-screen');
         const background = document.getElementById('background');
+        const background2 = document.getElementById('background2');
         let score = 0;
         let isDragging = false;
 
@@ -289,6 +304,7 @@
         function endGame() {
             plane.classList.add('plane-end');
             background.style.animationPlayState = 'paused';
+            background2.style.animationPlayState = 'paused';
             setTimeout(() => {
                 plane.style.display = 'none';
                 endScreen.style.display = 'flex';
