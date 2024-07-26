@@ -21,16 +21,10 @@
             width: 100%;
             height: 100vh;
             overflow: hidden;
-        }
-
-        .background-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1; /* Поместить изображение на задний план */
+            background-image: url('https://i.ibb.co/bQ8WYyX/galaxy-earth-network-126341-1920x1080.jpg'); /* Новое фоновое изображение */
+            background-size: cover; /* Сохраняет пропорции и масштабирует, чтобы заполнить контейнер */
+            background-position: center; /* Центрирует изображение */
+            background-repeat: no-repeat; /* Убирает повторение изображения */
         }
 
         .plane {
@@ -62,7 +56,6 @@
 </head>
 <body>
     <div class="game-container" id="game-container">
-        <img src="https://i.ibb.co/t4Gg8Sn/background.png" alt="Background" class="background-image">
         <div class="plane" id="plane"></div>
         <div class="score">Score: 0</div>
     </div>
