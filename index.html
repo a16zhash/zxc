@@ -28,11 +28,26 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 200%; /* Двойная высота для плавного движения */
+            height: 100%;
             background-image: url('https://i.ibb.co/6HBJQvj/Pngtree-nature-deep-space-cosmos-background-5494719.png');
             background-size: cover;
             background-position: top;
             animation: moveBackground 20s linear infinite;
+            z-index: 0;
+        }
+
+        .background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.ibb.co/6HBJQvj/Pngtree-nature-deep-space-cosmos-background-5494719.png');
+            background-size: cover;
+            background-position: top;
+            animation: moveBackground 20s linear infinite;
+            z-index: -1;
         }
 
         @keyframes moveBackground {
@@ -70,7 +85,7 @@
             height: 30px;
             background-image: url('https://i.ibb.co/VCszgYL/starforgame.png');
             background-size: cover;
-            z-index: 10; /* Убедитесь, что звезды находятся выше фона */
+            z-index: 15; /* Убедитесь, что звезды находятся выше фона */
         }
 
         .score {
@@ -78,7 +93,7 @@
             top: 10px;
             left: 10px;
             font-size: 20px;
-            z-index: 10; /* Убедитесь, что счет находится выше фона */
+            z-index: 15; /* Убедитесь, что счет находится выше фона */
         }
     </style>
 </head>
