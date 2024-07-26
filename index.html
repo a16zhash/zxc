@@ -121,6 +121,14 @@
             z-index: 2; /* Убедитесь, что звезды находятся выше фона */
         }
 
+        .meteor {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-size: cover;
+            z-index: 2; /* Убедитесь, что метеориты находятся выше фона */
+        }
+
         .score {
             position: absolute;
             top: 10px;
@@ -230,12 +238,39 @@
             }, 30);
         }
 
+        function createMeteor() {
+            const meteorTypes = [
+                'https://i.ibb.co/WPDvwBZ/Pngtree-massive-asteroids-comet-meteor-or-14860493.png',
+                'https://i.ibb.co/Cv3054G/Pngtree-celestial-impact-massive-asteroids-comet-15013694.png'
+            ];
+            const meteor = document.createElement('div');
+            meteor.classList.add('meteor');
+            meteor.style.backgroundImage = `url(${meteorTypes[Math.floor(Math.random() * meteorTypes.length)]})`;
+            meteor.style.left = `${Math.random() * window.innerWidth}px`;
+            meteor.style.top = '0px';
+            gameContainer.appendChild(meteor);
+
+            let fallSpeed = Math.random() < 0.5 ? 10 : 5; // 50% шанс падения в 2 раза быстрее
+
+            let fallInterval = setInterval(() => {
+                const meteorRect = meteor.getBoundingClientRect();
+
+                if (meteorRect.bottom > window.innerHeight) {
+                    meteor.remove();
+                    clearInterval(fallInterval);
+                } else {
+                    meteor.style.top = `${meteorRect.top + fallSpeed}px`;
+                }
+            }, 30);
+        }
+
         function startGame() {
             plane.classList.add('plane-start');
             setTimeout(() => {
                 plane.classList.remove('plane-start');
                 startTimer();
                 setInterval(createStar, 1000);
+                setInterval(createMeteor, 2000); // Метеориты создаются каждые 2 секунды
             }, 5000); // Задержка в 5 секунд для анимации самолета
         }
 
