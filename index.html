@@ -135,6 +135,7 @@
             height: 100px;
             background-image: url('https://media.tenor.com/igZCc-gVpjsAAAAi/%D0%B2%D0%B7%D1%80%D1%8B%D0%B2.gif');
             background-size: cover;
+            background-repeat: no-repeat;
             display: none;
             z-index: 3; /* Убедитесь, что взрыв находится выше всех элементов */
         }
@@ -291,8 +292,8 @@
 
         function triggerExplosion(planeRect) {
             gameOver = true;
-            explosion.style.left = `${planeRect.left}px`; // Позиция взрыва по оси X
-            explosion.style.top = `${planeRect.top}px`; // Позиция взрыва по оси Y
+            explosion.style.left = `${planeRect.left + planeRect.width / 2 - 50}px`; // Центрируем по оси X
+            explosion.style.top = `${planeRect.top + planeRect.height / 2 - 50}px`; // Центрируем по оси Y
             explosion.style.display = 'block';
             plane.style.display = 'none';
             setTimeout(() => {
@@ -328,7 +329,6 @@
         }
 
         function endGame() {
-            plane.classList.add('plane-end');
             background.style.animationPlayState = 'paused';
             setTimeout(() => {
                 plane.style.display = 'none';
