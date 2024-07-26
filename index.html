@@ -72,8 +72,8 @@
 
         .plane {
             position: absolute;
-            width: 57.5px; /* Увеличено на 15% */
-            height: 57.5px; /* Увеличено на 15% */
+            width: 70px; /* Увеличено на 15% */
+            height: 70px; /* Увеличено на 15% */
             background-image: url('https://i.ibb.co/0rqH1tr/planeforgame.png');
             background-size: cover;
             left: 50%;
@@ -123,8 +123,8 @@
 
         .meteor {
             position: absolute;
-            width: 50px;
-            height: 50px;
+            width: 100px; /* Увеличено в 2 раза */
+            height: 100px; /* Увеличено в 2 раза */
             background-size: cover;
             z-index: 2; /* Убедитесь, что метеориты находятся выше фона */
         }
@@ -330,7 +330,7 @@
             plane.style.display = 'none';
             setTimeout(() => {
                 explosion.style.display = 'none';
-                showEndScreen();
+                setTimeout(showEndScreen, 2000); // Задержка в 2 секунды перед отображением экрана окончания
             }, 1000); // Время анимации взрыва
         }
 
