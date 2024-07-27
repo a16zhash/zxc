@@ -5,11 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plane Game</title>
     <style>
-        @font-face {
-            font-family: 'PixelFont';
-            src: url('https://yourfonturl.com/pixelfont.ttf'); /* Замените на URL вашего пиксельного шрифта */
-        }
-
         body, html {
             margin: 0;
             padding: 0;
@@ -19,54 +14,6 @@
             font-family: Arial, sans-serif;
             width: 100%;
             height: 100%;
-        }
-
-        .background-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 0;
-        }
-
-        .background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://i.ibb.co/txsd4Cp/pngwing-com.png');
-            background-size: cover;
-            background-repeat: no-repeat;
-            z-index: -1;
-        }
-
-        .game-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-            display: none; /* Скрыть до начала игры */
-        }
-
-        .loading-screen, .end-screen, .congrats-screen {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            z-index: 10;
-            display: none; /* Скрыть до соответствующего события */
         }
 
         .start-screen {
@@ -98,107 +45,6 @@
             background-color: darkgrey;
         }
 
-        .star {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background-image: url('https://i.ibb.co/VCszgYL/starforgame.png');
-            background-size: cover;
-            z-index: 2; /* Убедитесь, что звезды находятся выше фона */
-        }
-
-        .meteor {
-            position: absolute;
-            background-size: cover;
-            z-index: 2; /* Убедитесь, что метеориты находятся выше фона */
-        }
-
-        .explosion {
-            position: absolute;
-            width: 200px; /* Увеличено в 2 раза */
-            height: 200px; /* Увеличено в 2 раза */
-            background-image: url('https://i.ibb.co/9rCNn2z/Pngtree-3d-fire-explosion-transparent-background-15537891.png');
-            background-size: cover;
-            display: none;
-            z-index: 5; /* Убедитесь, что взрыв находится выше всех элементов */
-        }
-
-        .score {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 20px;
-            z-index: 2; /* Убедитесь, что счет находится выше фона */
-            display: none; /* Скрыть до начала игры */
-        }
-
-        .timer {
-            position: absolute;
-            top: 20%; /* Поднято выше */
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 48px;
-            font-family: 'PixelFont', Arial, sans-serif;
-            z-index: 2;
-            display: none; /* Скрыть до начала игры */
-        }
-
-        .end-screen {
-            display: none; /* Скрыть до конца игры */
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            position: absolute;
-            bottom: 20px; /* Расположить кнопки у нижнего края */
-            width: 100%;
-        }
-
-        .button {
-            margin-top: 20px; /* Расстояние между кнопками */
-            padding: 10px 20px;
-            background-color: grey;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 18px;
-        }
-
-        .button:hover {
-            background-color: darkgrey;
-        }
-
-        .message {
-            margin-bottom: 20px; /* Увеличено расстояние снизу */
-        }
-
-        @keyframes blink {
-            0%, 50%, 100% {
-                opacity: 1;
-            }
-            25%, 75% {
-                opacity: 0;
-            }
-        }
-
-        .fade {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            background: linear-gradient(to bottom, black, transparent);
-            z-index: 1;
-        }
-
-        .congrats-screen {
-            display: none; /* Скрыть до соответствующего события */
-            flex-direction: column;
-        }
-
         #webgl-container {
             position: absolute;
             top: 0;
@@ -211,45 +57,15 @@
     </style>
 </head>
 <body>
-    <div class="loading-screen" id="loading-screen">Loading...</div>
     <div class="start-screen" id="start-screen">
         <button class="start-button" onclick="startGame()">START</button>
     </div>
-    <div class="background-container">
-        <div class="background" id="background"></div>
-    </div>
     <div id="webgl-container"></div>
-    <div class="game-container" id="game-container">
-        <div class="score" id="score">Score: 0</div>
-        <div class="timer" id="timer">20</div>
-    </div>
-    <div class="explosion" id="explosion"></div>
-    <div class="end-screen" id="end-screen">
-        <div class="message">PLANE IS CRASHED</div>
-        <div class="button-container">
-            <button class="button" onclick="retryGame()">RETRY</button>
-            <button class="button" onclick="quitGame()">QUIT</button>
-        </div>
-    </div>
-    <div class="congrats-screen" id="congrats-screen">
-        <div class="message">CONGRATULATIONS!</div>
-        <div id="earned-score">YOU EARNED: 0</div>
-    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@loaders.gl/gltf@2.3.13/dist.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three/examples/js/loaders/GLTFLoader.js"></script>
     <script>
         let scene, camera, renderer, plane;
-        let isDragging = false;
-        let gameOver = false;
-        let score = 0;
-        let gameIntervals = []; // Массив для хранения интервалов
-
-        window.addEventListener('load', () => {
-            loadingScreen.style.display = 'none';
-            init();
-        });
 
         function init() {
             // Сцена
@@ -284,164 +100,10 @@
             renderer.render(scene, camera);
         }
 
-        // Обработчики событий для управления самолетом
         function startGame() {
-            // Сброс всех состояний
-            resetGame();
-
-            startScreen.style.display = 'none';
-            endScreen.style.display = 'none';
-            gameContainer.style.display = 'block'; // Показать контейнер игры
-            document.getElementById('webgl-container').style.display = 'block'; // Показать контейнер WebGL
-            scoreElement.style.display = 'block'; // Показать счет
-            timerElement.style.display = 'block'; // Показать таймер
-
-            setTimeout(() => {
-                startTimer();
-                gameIntervals.push(setInterval(createStar, 1000)); // Сохранить интервал
-                gameIntervals.push(setInterval(createMeteor, 2000)); // Метеориты создаются каждые 2 секунды
-            }, 5000); // Задержка в 5 секунд для анимации самолета
-        }
-
-        function createStar() {
-            const star = document.createElement('div');
-            star.classList.add('star');
-            star.style.left = `${Math.random() * window.innerWidth}px`;
-            star.style.top = '0px';
-            gameContainer.appendChild(star);
-
-            let fallInterval = setInterval(() => {
-                const starRect = star.getBoundingClientRect();
-                const planeRect = plane.getBoundingClientRect();
-
-                if (starRect.bottom > window.innerHeight) {
-                    star.remove();
-                    clearInterval(fallInterval);
-                } else if (!gameOver && starRect.top < planeRect.bottom &&
-                    starRect.bottom > planeRect.top &&
-                    starRect.left < planeRect.right &&
-                    starRect.right > planeRect.left) {
-                    star.remove();
-                    clearInterval(fallInterval);
-                    score++;
-                    scoreElement.textContent = `Score: ${score}`;
-                } else {
-                    star.style.top = `${starRect.top + 5}px`;
-                }
-            }, 30);
-            gameIntervals.push(fallInterval); // Сохранить интервал
-        }
-
-        function createMeteor() {
-            const meteorTypes = [
-                'https://i.ibb.co/WPDvwBZ/Pngtree-massive-asteroids-comet-meteor-or-14860493.png',
-                'https://i.ibb.co/Cv3054G/Pngtree-celestial-impact-massive-asteroids-comet-15013694.png'
-            ];
-            const meteor = document.createElement('div');
-            meteor.classList.add('meteor');
-
-            // Установить случайный размер метеорита (оригинальный, 50% или 30% от оригинала)
-            const sizeModifier = Math.random() < 0.5 ? 0.5 : 0.7;
-            meteor.style.width = `${100 * sizeModifier}px`;
-            meteor.style.height = `${100 * sizeModifier}px`;
-
-            meteor.style.backgroundImage = `url(${meteorTypes[Math.floor(Math.random() * meteorTypes.length)]})`;
-            meteor.style.left = `${Math.random() * window.innerWidth}px`;
-            meteor.style.top = '0px';
-            gameContainer.appendChild(meteor);
-
-            let fallSpeed = Math.random() < 0.5 ? 10 : 5; // 50% шанс падения в 2 раза быстрее
-
-            let fallInterval = setInterval(() => {
-                const meteorRect = meteor.getBoundingClientRect();
-                const planeRect = plane.getBoundingClientRect();
-
-                if (meteorRect.bottom > window.innerHeight) {
-                    meteor.remove();
-                    clearInterval(fallInterval);
-                } else if (!gameOver && meteorRect.top < planeRect.bottom &&
-                    meteorRect.bottom > planeRect.top &&
-                    meteorRect.left < planeRect.right &&
-                    meteorRect.right > planeRect.left) {
-                    meteor.remove();
-                    clearInterval(fallInterval);
-                    triggerExplosion(planeRect);
-                } else {
-                    meteor.style.top = `${meteorRect.top + fallSpeed}px`;
-                }
-            }, 30);
-            gameIntervals.push(fallInterval); // Сохранить интервал
-        }
-
-        function triggerExplosion(planeRect) {
-            gameOver = true;
-            explosion.style.left = `${planeRect.left + planeRect.width / 2 - 100}px`; // Центрируем по оси X
-            explosion.style.top = `${planeRect.top + planeRect.height / 2 - 100}px`; // Центрируем по оси Y
-            explosion.style.display = 'block';
-            explosion.style.animation = 'blink 1s infinite';
-            plane.visible = false;
-            setTimeout(() => {
-                explosion.style.display = 'none';
-                setTimeout(showEndScreen, 2000); // Задержка в 2 секунды перед отображением экрана окончания
-            }, 1000); // Время анимации взрыва
-        }
-
-        function showEndScreen() {
-            endScreen.style.display = 'flex';
-        }
-
-        function startTimer() {
-            let timeLeft = 20; // Уменьшено до 20 секунд
-            const timerInterval = setInterval(() => {
-                if (gameOver) {
-                    clearInterval(timerInterval);
-                    return;
-                }
-                timeLeft--;
-                timerElement.textContent = timeLeft;
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    endGameSuccess();
-                }
-            }, 1000);
-            gameIntervals.push(timerInterval); // Сохранить интервал
-        }
-
-        function endGameSuccess() {
-            gameOver = true;
-            plane.visible = false;
-            setTimeout(() => {
-                congratsScreen.style.display = 'flex';
-                earnedScore.textContent = `YOU EARNED: ${score}`;
-                setTimeout(() => {
-                    congratsScreen.style.display = 'none';
-                    startScreen.style.display = 'flex';
-                }, 3000); // Задержка в 3 секунды перед возвращением на стартовый экран
-            }, 3000); // Время анимации полета самолета вверх
-        }
-
-        function retryGame() {
-            resetGame();
-            startGame(); // Запустить игру заново
-        }
-
-        function quitGame() {
-            window.close();
-        }
-
-        function resetGame() {
-            // Остановить все интервалы
-            gameIntervals.forEach(clearInterval);
-            gameIntervals = []; // Очистить массив интервалов
-
-            // Удалить все звезды и метеориты
-            document.querySelectorAll('.star').forEach(star => star.remove());
-            document.querySelectorAll('.meteor').forEach(meteor => meteor.remove());
-
-            gameOver = false;
-            score = 0;
-            scoreElement.textContent = `Score: ${score}`;
-            plane.visible = true;
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('webgl-container').style.display = 'block';
+            init(); // Инициализировать сцену и рендерер
         }
     </script>
 </body>
