@@ -1,4 +1,4 @@
-Понял, вы хотите, чтобы статичный фон отображался только после нажатия кнопки "START". Вот обновленный код:
+Давайте исправим это, чтобы кнопка "START" работала правильно, и начальный экран был полностью черным, пока не начнется игра. Вот обновленный код:
 
 ```html
 <!DOCTYPE html>
@@ -44,6 +44,7 @@
             background-size: cover;
             background-repeat: repeat-y;
             animation: moveBackground 20s linear infinite;
+            display: none; /* Скрыть до начала игры */
         }
 
         @keyframes moveBackground {
@@ -73,10 +74,13 @@
             height: 100%;
             overflow: hidden;
             z-index: 2;
+            display: none; /* Скрыть до начала игры */
         }
 
         .loading-screen, .start-screen {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             background-color: black;
@@ -176,6 +180,7 @@
             left: 10px;
             font-size: 20px;
             z-index: 3; /* Убедитесь, что счет находится выше фона */
+            display: none; /* Скрыть до начала игры */
         }
 
         .timer {
@@ -186,6 +191,7 @@
             font-size: 48px;
             font-family: 'PixelFont', Arial, sans-serif;
             z-index: 3;
+            display: none; /* Скрыть до начала игры */
         }
 
         .end-screen {
@@ -269,7 +275,9 @@
         let gameOver = false;
 
         window.addEventListener('load', () => {
-            loadingScreen.style.display = 'none';
+            loadingScreen.style.display = 'none
+
+';
         });
 
         plane.addEventListener('touchstart', (event) => {
@@ -284,9 +292,7 @@
             }
         });
 
-        gameContainer.addEventListener('touch
-
-move', (event) => {
+        gameContainer.addEventListener('touchmove', (event) => {
             if (isDragging && !gameOver) {
                 const touch = event.touches[0];
                 const planeWidth = plane.offsetWidth;
@@ -379,7 +385,11 @@ move', (event) => {
         function startGame() {
             startScreen.style.display = 'none';
             staticBackground.style.display = 'block'; // Показать статичный фон
+            gameContainer.style.display = 'block'; // Показать контейнер игры
+            background.style.display = 'block'; // Показать фон
             plane.style.display = 'block'; // Показать самолет
+            scoreElement.style.display = 'block'; // Показать счет
+            timerElement.style.display = 'block'; // Показать таймер
             plane.classList.add('plane-start');
             setTimeout(() => {
                 plane.classList.remove('plane-start');
@@ -426,6 +436,6 @@ move', (event) => {
 ```
 
 Изменения:
-1. Статичный фон скрыт (`display: none;`) до нажатия кнопки "START".
-2. Самолет также скрыт до начала игры.
-3. Добавлена функция `startGame`, которая отображает статичный фон и самолет после нажатия кнопки "START".
+1. Добавлены стили `display: none;` для начального скрытия элементов игры, таких как фон, статичный фон, самолет, счет и таймер.
+2. Обновлена функция `startGame`, чтобы показать эти элементы при начале игры.
+3. Убедился, что стартовый экран покрывает весь экран до начала игры.
