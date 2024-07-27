@@ -1,3 +1,8 @@
+Хорошо, давайте обновим основной фон и настроим дополнительные фоны, чтобы они отображались вместе, каждый раз в случайном порядке.
+
+Вот обновленный код:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -283,7 +288,9 @@
     </div>
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
-        <div class="score" id="score">Score: 0</div>
+        <div class="score" id="score">Score: 0
+
+</div>
         <div class="timer" id="timer">20</div>
     </div>
     <div class="explosion" id="explosion"></div>
@@ -310,9 +317,11 @@
         const congratsScreen = document.getElementById('congrats-screen');
         const earnedScore = document.getElementById('earned-score');
         const background = document.getElementById('background');
-        const secondBackground1 = document.getElementById('second-background-1');
-        const secondBackground2 = document.getElementById('second-background-2');
-        const secondBackground3 = document.getElementById('second-background-3');
+        const secondBackgrounds = [
+            document.getElementById('second-background-1'),
+            document.getElementById('second-background-2'),
+            document.getElementById('second-background-3')
+        ];
         const explosion = document.getElementById('explosion');
         let score = 0;
         let isDragging = false;
@@ -439,20 +448,24 @@
 
             startScreen.style.display = 'none';
             endScreen.style.display = 'none';
-            secondBackground1.style.display = 'block'; // Показать second-background-1
-            secondBackground2.style.display = 'none'; // Скрыть second-background-2
-            secondBackground3.style.display = 'none'; // Скрыть second-background-3
             gameContainer.style.display = 'block'; // Показать контейнер игры
             plane.style.display = 'block'; // Показать самолет
             scoreElement.style.display = 'block'; // Показать счет
             timerElement.style.display = 'block'; // Показать таймер
             plane.classList.add('plane-start');
+
+            // Перемешать фоны
+            const shuffledBackgrounds = shuffleArray(secondBackgrounds);
+            shuffledBackgrounds.forEach((bg, index) => {
+                bg.style.zIndex = index + 1;
+                bg.style.display = 'block';
+            });
+
             setTimeout(() => {
                 plane.classList.remove('plane-start');
                 startTimer();
                 gameIntervals.push(setInterval(createStar, 1000)); // Сохранить интервал
                 gameIntervals.push(setInterval(createMeteor, 2000)); // Метеориты создаются каждые 2 секунды
-                switchBackgrounds(); // Начать переключение фонов
             }, 5000); // Задержка в 5 секунд для анимации самолета
         }
 
@@ -507,6 +520,8 @@
         function resetGame() {
             // Остановить все интервалы
             gameIntervals.forEach(clearInterval);
+
+
             gameIntervals = []; // Очистить массив интервалов
 
             // Удалить все звезды и метеориты
@@ -519,19 +534,28 @@
             plane.classList.remove('plane-end');
             plane.classList.remove('plane-start');
             background.style.animationPlayState = 'running';
+
+            // Скрыть все дополнительные фоны
+            secondBackgrounds.forEach(bg => bg.style.display = 'none');
         }
 
-        function switchBackgrounds() {
-            let currentBackgroundIndex = 0;
-            const backgrounds = [secondBackground1, secondBackground2, secondBackground3];
-
-            setInterval(() => {
-                backgrounds.forEach((bg, index) => {
-                    bg.style.display = index === currentBackgroundIndex ? 'block' : 'none';
-                });
-                currentBackgroundIndex = (currentBackgroundIndex + 1) % backgrounds.length;
-            }, 20000); // Меняем фон каждые 20 секунд
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
         }
     </script>
 </body>
 </html>
+```
+
+Этот код:
+
+1. Устанавливает новый основной фон.
+2. Перемешивает и показывает все три дополнительные фона в случайном порядке каждый раз, когда начинается игра.
+3. Запускает игру после нажатия кнопки "START", отображая все элементы игры.
+4. Переключается на финишные меню при победе или столкновении самолета с метеоритом.
+
+Проверьте, работает ли всё корректно.
