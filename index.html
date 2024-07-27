@@ -1,6 +1,3 @@
-Конечно, вот обновленный код без дополнительного фона:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,10 +37,28 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://i.ibb.co/txsd4Cp/pngwing-com.png');
+            background-image: url('https://i.ibb.co/wRR6ZR8/image-from-rawpixel-id-12672331-png.png');
             background-size: cover;
             background-repeat: no-repeat;
             z-index: -1;
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200%; /* Увеличиваем высоту для эффекта движения */
+            background-image: url('https://i.ibb.co/98BKFZZ/image-from-rawpixel-id-12779138-png.png');
+            background-size: cover;
+            background-repeat: repeat-y;
+            animation: moveStars 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes moveStars {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
         }
 
         .game-container {
@@ -253,6 +268,7 @@
     </div>
     <div class="background-container">
         <div class="background" id="background"></div>
+        <div class="stars" id="stars"></div>
     </div>
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
@@ -282,9 +298,8 @@
         const endScreen = document.getElementById('end-screen');
         const congratsScreen = document.getElementById('congrats-screen');
         const earnedScore = document.getElementById('earned-score');
-        const
-
- background = document.getElementById('background');
+        const background = document.getElementById('background');
+        const stars = document.getElementById('stars');
         const explosion = document.getElementById('explosion');
         let score = 0;
         let isDragging = false;
@@ -492,6 +507,3 @@
     </script>
 </body>
 </html>
-```
-
-Теперь у вас есть только основной фон, без дополнительных фонов.
