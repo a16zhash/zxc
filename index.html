@@ -1,8 +1,3 @@
-Хорошо, давайте обновим основной фон и настроим дополнительные фоны, чтобы они отображались вместе, каждый раз в случайном порядке.
-
-Вот обновленный код:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,6 +40,7 @@
             background-image: url('https://i.ibb.co/Jcd148g/Pngtree-simple-black-solid-color-background-1323796.png');
             background-size: cover;
             background-repeat: no-repeat;
+            z-index: -1;
         }
 
         .second-background {
@@ -52,15 +48,16 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 200%; /* Увеличиваем высоту для эффекта движения */
             background-size: cover;
             background-repeat: no-repeat;
             animation: moveBackground 20s linear infinite;
+            z-index: 0;
         }
 
         @keyframes moveBackground {
             0% { transform: translateY(0); }
-            100% { transform: translateY(-100%); }
+            100% { transform: translateY(-50%); }
         }
 
         .second-background-1 {
@@ -82,7 +79,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            z-index: 3;
+            z-index: 1;
             display: none; /* Скрыть до начала игры */
         }
 
@@ -139,7 +136,7 @@
             left: 50%;
             transform: translateX(-50%);
             bottom: 25vh; /* Используем 25% высоты окна */
-            z-index: 4; /* Убедитесь, что самолет находится выше фона */
+            z-index: 2; /* Убедитесь, что самолет находится выше фона */
             display: none; /* Скрыть до начала игры */
         }
 
@@ -179,13 +176,13 @@
             height: 30px;
             background-image: url('https://i.ibb.co/VCszgYL/starforgame.png');
             background-size: cover;
-            z-index: 4; /* Убедитесь, что звезды находятся выше фона */
+            z-index: 2; /* Убедитесь, что звезды находятся выше фона */
         }
 
         .meteor {
             position: absolute;
             background-size: cover;
-            z-index: 4; /* Убедитесь, что метеориты находятся выше фона */
+            z-index: 2; /* Убедитесь, что метеориты находятся выше фона */
         }
 
         .explosion {
@@ -203,7 +200,7 @@
             top: 10px;
             left: 10px;
             font-size: 20px;
-            z-index: 4; /* Убедитесь, что счет находится выше фона */
+            z-index: 2; /* Убедитесь, что счет находится выше фона */
             display: none; /* Скрыть до начала игры */
         }
 
@@ -214,7 +211,7 @@
             transform: translate(-50%, -50%);
             font-size: 48px;
             font-family: 'PixelFont', Arial, sans-serif;
-            z-index: 4;
+            z-index: 2;
             display: none; /* Скрыть до начала игры */
         }
 
@@ -288,9 +285,7 @@
     </div>
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
-        <div class="score" id="score">Score: 0
-
-</div>
+        <div class="score" id="score">Score: 0</div>
         <div class="timer" id="timer">20</div>
     </div>
     <div class="explosion" id="explosion"></div>
@@ -456,8 +451,7 @@
 
             // Перемешать фоны
             const shuffledBackgrounds = shuffleArray(secondBackgrounds);
-            shuffledBackgrounds.forEach((bg, index) => {
-                bg.style.zIndex = index + 1;
+            shuffledBackgrounds.forEach(bg => {
                 bg.style.display = 'block';
             });
 
@@ -520,8 +514,6 @@
         function resetGame() {
             // Остановить все интервалы
             gameIntervals.forEach(clearInterval);
-
-
             gameIntervals = []; // Очистить массив интервалов
 
             // Удалить все звезды и метеориты
@@ -549,13 +541,3 @@
     </script>
 </body>
 </html>
-```
-
-Этот код:
-
-1. Устанавливает новый основной фон.
-2. Перемешивает и показывает все три дополнительные фона в случайном порядке каждый раз, когда начинается игра.
-3. Запускает игру после нажатия кнопки "START", отображая все элементы игры.
-4. Переключается на финишные меню при победе или столкновении самолета с метеоритом.
-
-Проверьте, работает ли всё корректно.
