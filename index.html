@@ -1,4 +1,9 @@
-Попробуем еще раз с небольшими корректировками, чтобы убедиться, что статичное изображение отображается правильно внизу экрана. Возможно, нам нужно задать явные размеры и положение для всех элементов. Вот обновленный код:
+Отлично, что изображение появилось! Чтобы оно отображалось с самого начала игры, нужно убедиться, что контейнер со статичным фоном не скрывается или не перекрывается другими элементами. Попробуем следующие изменения:
+
+1. Убедимся, что статичный фон загружается сразу.
+2. Проверим z-index всех элементов, чтобы статичный фон не был скрыт.
+
+Вот обновленный код:
 
 ```html
 <!DOCTYPE html>
@@ -221,8 +226,8 @@
     <div class="loading-screen" id="loading-screen">Loading...</div>
     <div class="background-container">
         <div class="background" id="background"></div>
-        <div class="static-background" id="static-background"></div>
     </div>
+    <div class="static-background" id="static-background"></div>
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
         <div class="score">Score: 0</div>
@@ -243,6 +248,7 @@
         const loadingScreen = document.getElementById('loading-screen');
         const endScreen = document.getElementById('end-screen');
         const background = document.getElementById('background');
+        const staticBackground = document.getElementById('static-background');
         const explosion = document.getElementById('explosion');
         let score = 0;
         let isDragging = false;
@@ -250,6 +256,7 @@
 
         window.addEventListener('load', () => {
             loadingScreen.style.display = 'none';
+            staticBackground.style.display = 'block'; // Обеспечить, что статичный фон виден сразу
             startGame();
         });
 
@@ -269,7 +276,9 @@
             if (isDragging && !gameOver) {
                 const touch = event.touches[0];
                 const planeWidth = plane.offsetWidth;
-                let newLeft = touch.clientX - planeWidth / 2;
+                let newLeft = touch.clientX - planeWidth /
+
+ 2;
                 newLeft = Math.max(0, newLeft); // не выходить за левый край
                 newLeft = Math.min(gameContainer.offsetWidth - planeWidth, newLeft); // не выходить за правый край
                 plane.style.left = `${newLeft}px`;
@@ -277,9 +286,7 @@
         });
 
         function createStar() {
-            const star
-
- = document.createElement('div');
+            const star = document.createElement('div');
             star.classList.add('star');
             star.style.left = `${Math.random() * window.innerWidth}px`;
             star.style.top = '0px';
@@ -402,3 +409,7 @@
 </body>
 </html>
 ```
+
+Изменения:
+1. Убедился, что `staticBackground.style.display = 'block';` установлено при загрузке окна, чтобы статичный фон был виден с самого начала.
+2. Проверил, чтобы z-index для всех элементов был установлен правильно, чтобы фон и элементы отображались корректно.
