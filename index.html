@@ -1,4 +1,4 @@
-Конечно, давайте обновим код, чтобы после нажатия кнопки "RETRY" игра начиналась заново без перехода в стартовое меню.
+Понял вас. Давайте обновим код, чтобы после нажатия кнопки "RETRY" все метеориты и звезды удалялись с экрана и начинали появляться заново.
 
 ```html
 <!DOCTYPE html>
@@ -278,10 +278,10 @@
     <script>
         const plane = document.getElementById('plane');
         const gameContainer = document.getElementById('game-container');
-        const scoreElement = document.querySelector('.score');
-        const timerElement
+        const scoreElement
 
- = document.getElementById('timer');
+ = document.querySelector('.score');
+        const timerElement = document.getElementById('timer');
         const loadingScreen = document.getElementById('loading-screen');
         const startScreen = document.getElementById('start-screen');
         const endScreen = document.getElementById('end-screen');
@@ -448,6 +448,10 @@
             gameIntervals.forEach(clearInterval);
             gameIntervals = []; // Очистить массив интервалов
 
+            // Удалить все звезды и метеориты
+            document.querySelectorAll('.star').forEach(star => star.remove());
+            document.querySelectorAll('.meteor').forEach(meteor => meteor.remove());
+
             gameOver = false;
             score = 0;
             scoreElement.textContent = `Score: ${score}`;
@@ -472,5 +476,5 @@
 ```
 
 Изменения:
-1. Добавлен массив `gameIntervals` для хранения всех интервалов, чтобы их можно было остановить при перезапуске игры.
-2. Функция `retryGame` теперь останавливает все текущие интервалы, сбрасывает состояние игры и запускает игру заново.
+1. Добавлена очистка всех текущих звёзд и метеоритов при перезапуске игры.
+2. При нажатии кнопки "RETRY" игра сбрасывается и начинается заново без перехода в стартовое меню.
