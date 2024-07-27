@@ -1,6 +1,3 @@
-Понял вас. Давайте исправим меню2, чтобы оно занимало весь экран при отображении. Вот обновленный код:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,7 +55,7 @@
             left: 0;
             width: 100%;
             height: 20vh; /* Используем 20% высоты окна */
-            background-image: url('https://i.ibb.co/vdpYVkr/Pngtree-space-background-3591568.png');
+            background-image: url('https://i.ibb.co/12Xy0fk/Pngtree-sunrise-in-space-3591477.png');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: bottom;
@@ -199,7 +196,7 @@
         }
 
         .button {
-            margin-top: 20px;
+            margin-top: 40px; /* Увеличено расстояние сверху */
             padding: 10px 20px;
             background-color: grey;
             color: white;
@@ -213,7 +210,7 @@
         }
 
         .message {
-            margin-bottom: 20px;
+            margin-bottom: 40px; /* Увеличено расстояние снизу */
         }
 
         @keyframes blink {
@@ -278,9 +275,7 @@
             }
         });
 
-        gameContainer.addEventListener('touchmove', (event
-
-) => {
+        gameContainer.addEventListener('touchmove', (event) => {
             if (isDragging && !gameOver) {
                 const touch = event.touches[0];
                 const planeWidth = plane.offsetWidth;
@@ -421,8 +416,3 @@
     </script>
 </body>
 </html>
-```
-
-Изменения:
-1. Убедился, что класс `.end-screen` также содержит стили для полного экрана и находится на переднем плане.
-2. Перенес `.end-screen` в список скрытых элементов до появления экрана окончания.
