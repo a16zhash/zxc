@@ -1,6 +1,6 @@
-Похоже, в коде кнопки "RETRY" были пропущены угловые скобки. Давайте исправим это.
+Конечно, давайте увеличим скорость фона на 20% и изменим направление движения фона на вниз.
 
-Вот исправленный код:
+Вот обновленный код:
 
 ```html
 <!DOCTYPE html>
@@ -38,20 +38,20 @@
 
         .background {
             position: absolute;
-            top: 0;
+            top: -100%; /* Начальная позиция выше экрана */
             left: 0;
             width: 100%;
             height: 200%;
             background-image: url('https://i.ibb.co/6HBJQvj/Pngtree-nature-deep-space-cosmos-background-5494719.png');
             background-size: cover;
             background-repeat: repeat-y;
-            animation: moveBackground 20s linear infinite;
+            animation: moveBackground 16.7s linear infinite; /* Увеличение скорости на 20% (20s / 1.2 = 16.7s) */
             display: none; /* Скрыть до начала игры */
         }
 
         @keyframes moveBackground {
             0% { transform: translateY(0); }
-            100% { transform: translateY(-50%); }
+            100% { transform: translateY(50%); }
         }
 
         .static-background {
@@ -284,12 +284,12 @@
         <div class="timer" id="timer">20</div>
     </div>
     <div class="explosion" id="explosion"></div>
-    <div class="end-screen" id="end-screen">
+    <div class="end-screen" id="end
+
+-screen">
         <div class="message">PLANE IS CRASHED</div>
         <div class="button-container">
-            <button class="
-
-button" onclick="startGame()">RETRY</button>
+            <button class="button" onclick="startGame()">RETRY</button>
             <button class="button" onclick="quitGame()">QUIT</button>
         </div>
     </div>
@@ -514,8 +514,10 @@ button" onclick="startGame()">RETRY</button>
             background.style.animationPlayState = 'running';
         }
     </script>
+
+
 </body>
 </html>
 ```
 
-Теперь кнопка "RETRY" должна отображаться и работать корректно.
+Теперь фон движется вниз со скоростью, увеличенной на 20%.
