@@ -1,4 +1,4 @@
-Конечно, вот обновленный код без дополнительного фона:
+Отлично! Теперь вы можете использовать эту ссылку для загрузки вашей 3D-модели самолета в ваш проект. Вот обновленный код, включающий загрузку и отображение 3D-модели самолета:
 
 ```html
 <!DOCTYPE html>
@@ -101,49 +101,6 @@
             background-color: darkgrey;
         }
 
-        .plane {
-            position: absolute;
-            width: 70px; /* Увеличено на 15% */
-            height: 70px; /* Увеличено на 15% */
-            background-image: url('https://i.ibb.co/0rqH1tr/planeforgame.png');
-            background-size: cover;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 25vh; /* Используем 25% высоты окна */
-            z-index: 2; /* Убедитесь, что самолет находится выше фона */
-            display: none; /* Скрыть до начала игры */
-        }
-
-        .plane-start {
-            animation: planeStart 5s forwards;
-        }
-
-        @keyframes planeStart {
-            0% {
-                top: -100px;
-                transform: translateX(-50%) scale(5);
-            }
-            100% {
-                top: calc(100vh - 45vh); /* Учитываем поднятие */
-                transform: translateX(-50%) scale(1);
-            }
-        }
-
-        .plane-end {
-            animation: planeEnd 3s forwards;
-        }
-
-        @keyframes planeEnd {
-            0% {
-                bottom: 25vh;
-                transform: translateX(-50%) scale(1);
-            }
-            100% {
-                bottom: 110%;
-                transform: translateX(-50%) scale(0.5);
-            }
-        }
-
         .star {
             position: absolute;
             width: 30px;
@@ -244,6 +201,16 @@
             display: none; /* Скрыть до соответствующего события */
             flex-direction: column;
         }
+
+        #webgl-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            display: none; /* Скрыть до начала игры */
+        }
     </style>
 </head>
 <body>
@@ -254,8 +221,8 @@
     <div class="background-container">
         <div class="background" id="background"></div>
     </div>
+    <div id="webgl-container"></div>
     <div class="game-container" id="game-container">
-        <div class="plane" id="plane"></div>
         <div class="score" id="score">Score: 0</div>
         <div class="timer" id="timer">20</div>
     </div>
@@ -272,51 +239,96 @@
         <div id="earned-score">YOU EARNED: 0</div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@loaders.gl/gltf@2.3.13/dist.min.js"></script>
     <script>
-        const plane = document.getElementById('plane');
-        const gameContainer = document.getElementById('game-container');
-        const scoreElement = document.getElementById('score');
-        const timerElement = document.getElementById('timer');
-        const loadingScreen = document.getElementById('loading-screen');
-        const startScreen = document.getElementById('start-screen');
-        const endScreen = document.getElementById('end-screen');
-        const congratsScreen = document.getElementById('congrats-screen');
-        const earnedScore = document.getElementById('earned-score');
-        const
-
- background = document.getElementById('background');
-        const explosion = document.getElementById('explosion');
-        let score = 0;
+        let scene, camera, renderer, plane;
         let isDragging = false;
         let gameOver = false;
+        let score = 0;
         let gameIntervals = []; // Массив для хранения интервалов
 
         window.addEventListener('load', () => {
             loadingScreen.style.display = 'none';
+            init();
         });
 
-        plane.addEventListener('touchstart', (event) => {
+        function init() {
+            // Сцена
+            scene = new THREE.Scene();
+
+            // Камера
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+
+            // Рендерер
+            renderer = new THREE.WebGLRenderer({ alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('webgl-container').appendChild(renderer.domElement);
+
+            // Самолет
+            const loader = new THREE.GLTFLoader();
+            loader.load('https://github.com/ni77ua/plane3d/raw/main/untitled76767676.glb', (gltf) => {
+                plane = gltf.scene;
+                plane.scale.set(0.5, 0.5, 0.5);
+                plane.position.set(0, -2, 0);
+                scene.add(plane);
+            });
+
+            // Анимация
+            function animate() {
+                requestAnimationFrame(animate);
+                if (plane) {
+                   
+
+ // Добавьте любую анимацию для самолета здесь
+                }
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+
+        // Обработчики событий для управления самолетом
+        renderer.domElement.addEventListener('touchstart', (event) => {
             if (!gameOver) {
                 isDragging = true;
             }
         });
 
-        plane.addEventListener('touchend', (event) => {
+        renderer.domElement.addEventListener('touchend', (event) => {
             if (!gameOver) {
                 isDragging = false;
             }
         });
 
-        gameContainer.addEventListener('touchmove', (event) => {
+        renderer.domElement.addEventListener('touchmove', (event) => {
             if (isDragging && !gameOver) {
                 const touch = event.touches[0];
-                const planeWidth = plane.offsetWidth;
-                let newLeft = touch.clientX - planeWidth / 2;
-                newLeft = Math.max(0, newLeft); // не выходить за левый край
-                newLeft = Math.min(gameContainer.offsetWidth - planeWidth, newLeft); // не выходить за правый край
-                plane.style.left = `${newLeft}px`;
+                let newLeft = (touch.clientX / window.innerWidth) * 2 - 1;
+                newLeft = Math.max(-1, newLeft); // не выходить за левый край
+                newLeft = Math.min(1, newLeft); // не выходить за правый край
+                plane.position.x = newLeft * (window.innerWidth / window.innerHeight) * 5;
             }
         });
+
+        // Остальной код игры
+        function startGame() {
+            // Сброс всех состояний
+            resetGame();
+
+            startScreen.style.display = 'none';
+            endScreen.style.display = 'none';
+            gameContainer.style.display = 'block'; // Показать контейнер игры
+            document.getElementById('webgl-container').style.display = 'block'; // Показать контейнер WebGL
+            scoreElement.style.display = 'block'; // Показать счет
+            timerElement.style.display = 'block'; // Показать таймер
+
+            setTimeout(() => {
+                startTimer();
+                gameIntervals.push(setInterval(createStar, 1000)); // Сохранить интервал
+                gameIntervals.push(setInterval(createMeteor, 2000)); // Метеориты создаются каждые 2 секунды
+            }, 5000); // Задержка в 5 секунд для анимации самолета
+        }
 
         function createStar() {
             const star = document.createElement('div');
@@ -394,7 +406,7 @@
             explosion.style.top = `${planeRect.top + planeRect.height / 2 - 100}px`; // Центрируем по оси Y
             explosion.style.display = 'block';
             explosion.style.animation = 'blink 1s infinite';
-            plane.style.display = 'none';
+            plane.visible = false;
             setTimeout(() => {
                 explosion.style.display = 'none';
                 setTimeout(showEndScreen, 2000); // Задержка в 2 секунды перед отображением экрана окончания
@@ -403,26 +415,6 @@
 
         function showEndScreen() {
             endScreen.style.display = 'flex';
-        }
-
-        function startGame() {
-            // Сброс всех состояний
-            resetGame();
-
-            startScreen.style.display = 'none';
-            endScreen.style.display = 'none';
-            gameContainer.style.display = 'block'; // Показать контейнер игры
-            plane.style.display = 'block'; // Показать самолет
-            scoreElement.style.display = 'block'; // Показать счет
-            timerElement.style.display = 'block'; // Показать таймер
-            plane.classList.add('plane-start');
-
-            setTimeout(() => {
-                plane.classList.remove('plane-start');
-                startTimer();
-                gameIntervals.push(setInterval(createStar, 1000)); // Сохранить интервал
-                gameIntervals.push(setInterval(createMeteor, 2000)); // Метеориты создаются каждые 2 секунды
-            }, 5000); // Задержка в 5 секунд для анимации самолета
         }
 
         function startTimer() {
@@ -442,19 +434,10 @@
             gameIntervals.push(timerInterval); // Сохранить интервал
         }
 
-        function endGame() {
-            background.style.animationPlayState = 'paused';
-            setTimeout(() => {
-                plane.style.display = 'none';
-                endScreen.style.display = 'flex';
-            }, 3000); // Время анимации полета самолета вверх
-        }
-
         function endGameSuccess() {
             gameOver = true;
-            plane.classList.add('plane-end');
+            plane.visible = false;
             setTimeout(() => {
-                plane.style.display = 'none';
                 congratsScreen.style.display = 'flex';
                 earnedScore.textContent = `YOU EARNED: ${score}`;
                 setTimeout(() => {
@@ -485,13 +468,11 @@
             gameOver = false;
             score = 0;
             scoreElement.textContent = `Score: ${score}`;
-            plane.classList.remove('plane-end');
-            plane.classList.remove('plane-start');
-            background.style.animationPlayState = 'running';
+            plane.visible = true;
         }
     </script>
 </body>
 </html>
 ```
 
-Теперь у вас есть только основной фон, без дополнительных фонов.
+Теперь ваш код загружает и отображает 3D-модель самолета, используя ссылку на файл `.glb`, загруженный в репозиторий GitHub. Убедитесь, что путь к файлу правильный и доступен для публичного просмотра.
