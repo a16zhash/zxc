@@ -1,6 +1,4 @@
-В предыдущем коде три изображения второго фона идут одновременно. Давайте исправим это, чтобы они появлялись по очереди, создавая непрерывный эффект движения.
-
-Мы можем использовать анимации CSS и JavaScript для смены изображений по очереди.
+Прошу прощения за неудобства. Давайте исправим это.
 
 Вот обновленный код:
 
@@ -288,12 +286,12 @@
     </div>
     <div class="second-background second-background-1" id="second-background-1"></div>
     <div class="second-background second-background-2" id="second-background-2"></div>
-    <div class="second-background second-background-3" id="second-background-3
-
-"></div>
+    <div class="second-background second-background-3" id="second-background-3"></div>
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
-        <div class="score" id="score">Score: 0</div>
+        <div class="score" id="score
+
+">Score: 0</div>
         <div class="timer" id="timer">20</div>
     </div>
     <div class="explosion" id="explosion"></div>
@@ -502,9 +500,7 @@
                     congratsScreen.style.display = 'none';
                     startScreen.style.display = 'flex';
                 }, 3000); // Задержка в 3 секунды перед возвращением на стартовый экран
-            }, 3000); // Время анимации пол
-
-ета самолета вверх
+            }, 3000); // Время анимации полета самолета вверх
         }
 
         function retryGame() {
@@ -513,7 +509,9 @@
         }
 
         function quitGame() {
-            window.close();
+            window.close
+
+();
         }
 
         function resetGame() {
@@ -549,4 +547,4 @@
 </html>
 ```
 
-В этом обновленном коде фоны второго плана будут меняться каждые 20 секунд, создавая эффект непрерывного полета.
+Теперь проверьте, чтобы убедиться, что все работает правильно.
