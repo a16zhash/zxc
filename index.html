@@ -68,6 +68,7 @@
         let scene, camera, renderer, plane;
 
         function init() {
+            console.log('Initializing scene...');
             // Сцена
             scene = new THREE.Scene();
 
@@ -83,11 +84,14 @@
             // Самолет
             const loader = new THREE.GLTFLoader();
             loader.load('https://github.com/ni77ua/plane3d/raw/main/untitled76767676.glb', (gltf) => {
+                console.log('Model loaded');
                 plane = gltf.scene;
                 plane.scale.set(0.5, 0.5, 0.5);
                 plane.position.set(0, -2, 0);
                 scene.add(plane);
                 animate(); // Запускаем анимацию только после загрузки модели
+            }, undefined, (error) => {
+                console.error('An error occurred while loading the model:', error);
             });
         }
 
@@ -101,6 +105,7 @@
         }
 
         function startGame() {
+            console.log('Starting game...');
             document.getElementById('start-screen').style.display = 'none';
             document.getElementById('webgl-container').style.display = 'block';
             init(); // Инициализировать сцену и рендерер
