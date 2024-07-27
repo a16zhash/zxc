@@ -1,3 +1,6 @@
+Понял вас. Давайте обновим код, чтобы кнопки "RETRY" и "QUIT" были по центру и не мешали надписи "PLANE IS CRASHED".
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -195,8 +198,18 @@
             display: none; /* Скрыть до конца игры */
         }
 
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: absolute;
+            bottom: 20px; /* Расположить кнопки у нижнего края */
+            width: 100%;
+        }
+
         .button {
-            margin-top: 40px; /* Увеличено расстояние сверху */
+            margin-top: 20px; /* Расстояние между кнопками */
             padding: 10px 20px;
             background-color: grey;
             color: white;
@@ -210,7 +223,7 @@
         }
 
         .message {
-            margin-bottom: 40px; /* Увеличено расстояние снизу */
+            margin-bottom: 20px; /* Увеличено расстояние снизу */
         }
 
         @keyframes blink {
@@ -240,8 +253,10 @@
     <div class="explosion" id="explosion"></div>
     <div class="end-screen" id="end-screen">
         <div class="message">PLANE IS CRASHED</div>
-        <button class="button" onclick="retryGame()">RETRY</button>
-        <button class="button" onclick="quitGame()">QUIT</button>
+        <div class="button-container">
+            <button class="button" onclick="retryGame()">RETRY</button>
+            <button class="button" onclick="quitGame()">QUIT</button>
+        </div>
     </div>
 
     <script>
@@ -256,7 +271,9 @@
         const staticBackground = document.getElementById('static-background');
         const explosion = document.getElementById('explosion');
         let score = 0;
-        let isDragging = false;
+        let
+
+ isDragging = false;
         let gameOver = false;
 
         window.addEventListener('load', () => {
@@ -416,3 +433,8 @@
     </script>
 </body>
 </html>
+```
+
+Изменения:
+1. Обновлен статичный фон на новый URL.
+2. Кнопки "RETRY" и "QUIT" помещены в контейнер `.button-container` и расположены у нижнего края экрана.
