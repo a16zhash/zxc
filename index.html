@@ -1,4 +1,4 @@
-Давайте внесем изменения в код, чтобы после нажатия кнопки "START" стартовый фон и кнопка исчезали, а игра начиналась.
+Конечно, давайте обновим код, чтобы после нажатия кнопки "RETRY" игра начиналась заново без перехода в стартовое меню.
 
 ```html
 <!DOCTYPE html>
@@ -279,9 +279,9 @@
         const plane = document.getElementById('plane');
         const gameContainer = document.getElementById('game-container');
         const scoreElement = document.querySelector('.score');
-        const timerElement =
+        const timerElement
 
- document.getElementById('timer');
+ = document.getElementById('timer');
         const loadingScreen = document.getElementById('loading-screen');
         const startScreen = document.getElementById('start-screen');
         const endScreen = document.getElementById('end-screen');
@@ -291,6 +291,7 @@
         let score = 0;
         let isDragging = false;
         let gameOver = false;
+        let gameIntervals = []; // Массив для хранения интервалов
 
         window.addEventListener('load', () => {
             loadingScreen.style.display = 'none';
@@ -345,6 +346,7 @@
                     star.style.top = `${starRect.top + 5}px`;
                 }
             }, 30);
+            gameIntervals.push(fallInterval); // Сохранить интервал
         }
 
         function createMeteor() {
@@ -379,6 +381,7 @@
                     meteor.style.top = `${meteorRect.top + fallSpeed}px`;
                 }
             }, 30);
+            gameIntervals.push(fallInterval); // Сохранить интервал
         }
 
         function triggerExplosion(planeRect) {
@@ -410,8 +413,8 @@
             setTimeout(() => {
                 plane.classList.remove('plane-start');
                 startTimer();
-                setInterval(createStar, 1000);
-                setInterval(createMeteor, 2000); // Метеориты создаются каждые 2 секунды
+                gameIntervals.push(setInterval(createStar, 1000)); // Сохранить интервал
+                gameIntervals.push(setInterval(createMeteor, 2000)); // Метеориты создаются каждые 2 секунды
             }, 5000); // Задержка в 5 секунд для анимации самолета
         }
 
@@ -429,6 +432,7 @@
                     endGame();
                 }
             }, 1000);
+            gameIntervals.push(timerInterval); // Сохранить интервал
         }
 
         function endGame() {
@@ -440,7 +444,23 @@
         }
 
         function retryGame() {
-            window.location.reload();
+            // Остановить все интервалы
+            gameIntervals.forEach(clearInterval);
+            gameIntervals = []; // Очистить массив интервалов
+
+            gameOver = false;
+            score = 0;
+            scoreElement.textContent = `Score: ${score}`;
+            endScreen.style.display = 'none';
+            plane.style.display = 'block';
+            plane.classList.add('plane-start');
+            setTimeout(() => {
+                plane.classList.remove('plane-start');
+                background.style.animationPlayState = 'running';
+                startTimer();
+                gameIntervals.push(setInterval(createStar, 1000)); // Звезды создаются каждые 1 секунду
+                gameIntervals.push(setInterval(createMeteor, 2000)); // Метеориты создаются каждые 2 секунды
+            }, 5000); // Задержка в 5 секунд для анимации самолета
         }
 
         function quitGame() {
@@ -452,5 +472,5 @@
 ```
 
 Изменения:
-1. Убедился, что после нажатия кнопки "START" стартовый экран и кнопка пропадают.
-2. Все элементы игры появляются после нажатия кнопки "START".
+1. Добавлен массив `gameIntervals` для хранения всех интервалов, чтобы их можно было остановить при перезапуске игры.
+2. Функция `retryGame` теперь останавливает все текущие интервалы, сбрасывает состояние игры и запускает игру заново.
