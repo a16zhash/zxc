@@ -1,8 +1,3 @@
-Давайте попробуем более надежный способ отображения статичного фона, чтобы он корректно отображался на всех устройствах. Попробуем использовать фиксированные размеры и расположение для статичного фона и самолета.
-
-Попробуйте этот обновленный код:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,7 +54,7 @@
             left: 0;
             width: 100%;
             height: 20vh; /* Используем 20% высоты окна */
-            background-image: url('https://i.ibb.co/12Xy0fk/Pngtree-sunrise-in-space-3591477.png');
+            background-image: url('https://i.ibb.co/vdpYVkr/Pngtree-space-background-3591568.png');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: bottom;
@@ -76,7 +71,7 @@
             z-index: 2;
         }
 
-        .loading-screen {
+        .loading-screen, .start-screen {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -86,6 +81,19 @@
             align-items: center;
             font-size: 24px;
             z-index: 10;
+        }
+
+        .start-button {
+            padding: 10px 20px;
+            background-color: grey;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .start-button:hover {
+            background-color: darkgrey;
         }
 
         .plane {
@@ -221,6 +229,9 @@
 </head>
 <body>
     <div class="loading-screen" id="loading-screen">Loading...</div>
+    <div class="start-screen" id="start-screen">
+        <button class="start-button" onclick="startGame()">START</button>
+    </div>
     <div class="background-container">
         <div class="background" id="background"></div>
     </div>
@@ -243,6 +254,7 @@
         const scoreElement = document.querySelector('.score');
         const timerElement = document.getElementById('timer');
         const loadingScreen = document.getElementById('loading-screen');
+        const startScreen = document.getElementById('start-screen');
         const endScreen = document.getElementById('end-screen');
         const background = document.getElementById('background');
         const staticBackground = document.getElementById('static-background');
@@ -254,7 +266,6 @@
         window.addEventListener('load', () => {
             loadingScreen.style.display = 'none';
             staticBackground.style.display = 'block'; // Обеспечить, что статичный фон виден сразу
-            startGame();
         });
 
         plane.addEventListener('touchstart', (event) => {
@@ -275,9 +286,7 @@
                 const planeWidth = plane.offsetWidth;
                 let newLeft = touch.clientX - planeWidth / 2;
                 newLeft = Math.max(0, newLeft); // не выходить за левый край
-                newLeft = Math.min(gameContainer.offsetWidth - planeWidth,
-
- newLeft); // не выходить за правый край
+                newLeft = Math.min(gameContainer.offsetWidth - planeWidth, newLeft); // не выходить за правый край
                 plane.style.left = `${newLeft}px`;
             }
         });
@@ -362,6 +371,7 @@
         }
 
         function startGame() {
+            startScreen.style.display = 'none';
             plane.classList.add('plane-start');
             setTimeout(() => {
                 plane.classList.remove('plane-start');
@@ -405,8 +415,3 @@
     </script>
 </body>
 </html>
-```
-
-Изменения:
-1. Использование относительных единиц (`vh`) для высоты статичного фона и положения самолета.
-2. Позиционирование фона и самолета с использованием `bottom` и `vh` для лучшей адаптации к разным экранам.
