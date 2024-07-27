@@ -1,4 +1,4 @@
-Понял, мы добавим статичное изображение внизу экрана и сделаем так, чтобы оно всегда было видно. Вот обновленный код:
+Давайте попробуем улучшить код, чтобы статичный фон отображался корректно. Добавим дополнительный контейнер для фона и обеспечим правильное наложение элементов:
 
 ```html
 <!DOCTYPE html>
@@ -44,6 +44,7 @@
             background-size: cover;
             background-repeat: repeat-y;
             animation: moveBackground 20s linear infinite;
+            z-index: 0;
         }
 
         .static-background {
@@ -95,7 +96,7 @@
             left: 50%;
             transform: translateX(-50%);
             bottom: 250px; /* Поднято выше от нижнего края с учетом статичного фона */
-            z-index: 2; /* Убедитесь, что самолет находится выше фона */
+            z-index: 3; /* Убедитесь, что самолет находится выше фона */
         }
 
         .plane-start {
@@ -134,7 +135,7 @@
             height: 30px;
             background-image: url('https://i.ibb.co/VCszgYL/starforgame.png');
             background-size: cover;
-            z-index: 2; /* Убедитесь, что звезды находятся выше фона */
+            z-index: 3; /* Убедитесь, что звезды находятся выше фона */
         }
 
         .meteor {
@@ -142,7 +143,7 @@
             width: 100px; /* Увеличено в 2 раза */
             height: 100px; /* Увеличено в 2 раза */
             background-size: cover;
-            z-index: 2; /* Убедитесь, что метеориты находятся выше фона */
+            z-index: 3; /* Убедитесь, что метеориты находятся выше фона */
         }
 
         .explosion {
@@ -160,7 +161,7 @@
             top: 10px;
             left: 10px;
             font-size: 20px;
-            z-index: 2; /* Убедитесь, что счет находится выше фона */
+            z-index: 3; /* Убедитесь, что счет находится выше фона */
         }
 
         .timer {
@@ -170,7 +171,7 @@
             transform: translate(-50%, -50%);
             font-size: 48px;
             font-family: 'PixelFont', Arial, sans-serif;
-            z-index: 2;
+            z-index: 3;
         }
 
         .end-screen {
@@ -278,10 +279,10 @@
 
         function createStar() {
             const star = document.createElement('div');
-            star.classList.add('star');
-            star.style
+           
 
-.left = `${Math.random() * window.innerWidth}px`;
+ star.classList.add('star');
+            star.style.left = `${Math.random() * window.innerWidth}px`;
             star.style.top = '0px';
             gameContainer.appendChild(star);
 
@@ -403,4 +404,4 @@
 </html>
 ```
 
-В этом коде добавлен элемент `div` с классом `static-background`, который всегда будет отображаться внизу экрана, имитируя землю. Самолет будет лететь выше этого статичного фона.
+Попробуйте этот код, и статичное изображение земли должно отображаться внизу экрана, а остальная часть фона должна двигаться.
