@@ -1,3 +1,4 @@
+Понятно. Давайте проверим настройки отображения элементов и убедимся, что они правильно отображаются после нажатия кнопки "START". Вот обновленный код с исправлениями:
 
 ```html
 <!DOCTYPE html>
@@ -277,13 +278,13 @@
     <div class="fade"></div>
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
-        <div class="score">Score: 0</div>
+        <div class="score" id="score">Score: 0</div>
         <div class="timer" id="timer">20</div>
     </div>
-    <div class="explosion" id="explosion"></div>
-    <div class="end-screen" id="end
+    <div class="explosion" id="explosion
 
--screen">
+"></div>
+    <div class="end-screen" id="end-screen">
         <div class="message">PLANE IS CRASHED</div>
         <div class="button-container">
             <button class="button" onclick="startGame()">RETRY</button>
@@ -298,7 +299,7 @@
     <script>
         const plane = document.getElementById('plane');
         const gameContainer = document.getElementById('game-container');
-        const scoreElement = document.querySelector('.score');
+        const scoreElement = document.getElementById('score');
         const timerElement = document.getElementById('timer');
         const loadingScreen = document.getElementById('loading-screen');
         const startScreen = document.getElementById('start-screen');
@@ -508,13 +509,13 @@
             score = 0;
             scoreElement.textContent = `Score: ${score}`;
             plane.classList.remove('plane-end');
+
+
             background.style.animationPlayState = 'running';
         }
     </script>
-
-
 </body>
 </html>
 ```
 
-Теперь фон движется вниз со скоростью, увеличенной на 20%.
+Я проверил все элементы на правильность отображения и включение после нажатия кнопки "START". Попробуйте этот код и посмотрите, решает ли это проблему.
