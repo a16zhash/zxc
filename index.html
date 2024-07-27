@@ -1,3 +1,6 @@
+Попробуем еще раз с небольшими корректировками, чтобы убедиться, что статичное изображение отображается правильно внизу экрана. Возможно, нам нужно задать явные размеры и положение для всех элементов. Вот обновленный код:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -218,8 +221,8 @@
     <div class="loading-screen" id="loading-screen">Loading...</div>
     <div class="background-container">
         <div class="background" id="background"></div>
+        <div class="static-background" id="static-background"></div>
     </div>
-    <div class="static-background" id="static-background"></div>
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
         <div class="score">Score: 0</div>
@@ -274,7 +277,9 @@
         });
 
         function createStar() {
-            const star = document.createElement('div');
+            const star
+
+ = document.createElement('div');
             star.classList.add('star');
             star.style.left = `${Math.random() * window.innerWidth}px`;
             star.style.top = '0px';
@@ -396,3 +401,4 @@
     </script>
 </body>
 </html>
+```
