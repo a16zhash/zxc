@@ -1,4 +1,4 @@
-Конечно, давайте внесем эти изменения, чтобы после победы игрок мог начать игру заново и чтобы на экране поздравления отображалось количество пойманных звездочек.
+Давайте исправим эту проблему. Мы внесем изменения, чтобы состояние игры сбрасывалось корректно при повторном запуске.
 
 Вот обновленный код:
 
@@ -286,10 +286,10 @@
     <div class="explosion" id="explosion"></div>
     <div class="end-screen" id="end-screen">
         <div class="message">PLANE IS CRASHED</div>
-        <div class="button-container
+        <div class="button-container">
+            <button class="button" onclick
 
-">
-            <button class="button" onclick="retryGame()">RETRY</button>
+="retryGame()">RETRY</button>
             <button class="button" onclick="quitGame()">QUIT</button>
         </div>
     </div>
@@ -431,6 +431,9 @@
         }
 
         function startGame() {
+            // Сброс всех состояний
+            resetGame();
+
             startScreen.style.display = 'none';
             staticBackground.style.display = 'block'; // Показать статичный фон
             gameContainer.style.display = 'block'; // Показать контейнер игры
@@ -487,6 +490,15 @@
         }
 
         function retryGame() {
+            resetGame();
+            startGame(); // Запустить игру заново
+        }
+
+        function quitGame() {
+            window.close();
+        }
+
+        function resetGame() {
             // Остановить все интервалы
             gameIntervals.forEach(clearInterval);
             gameIntervals = []; // Очистить массив интервалов
@@ -498,12 +510,8 @@
             gameOver = false;
             score = 0;
             scoreElement.textContent = `Score: ${score}`;
-            endScreen.style.display = 'none';
-            startGame(); // Запустить игру заново
-        }
-
-        function quitGame() {
-            window.close();
+            plane.classList.remove('plane-end');
+            background.style.animationPlayState = 'running';
         }
     </script>
 </body>
@@ -511,8 +519,8 @@
 ```
 
 Изменения:
-1. Добавлен элемент `earnedScore` для отображения количества пойманных звездочек.
-2. В `endGameSuccess()` добавлено отображение количества пойманных звездочек.
-3. Функция `retryGame()` теперь запускает игру заново
+1. Добавлена функция `resetGame`, которая сбрасывает состояние игры, удаляет все звезды и метеориты,
 
- без возврата на стартовый экран.
+ останавливает все интервалы и сбрасывает переменные.
+2. В начале функции `startGame` вызывается функция `resetGame` для корректного сброса состояния перед началом новой игры.
+3. Удалена функция `retryGame` и теперь она просто вызывает `startGame`, чтобы начать игру заново с полностью сброшенным состоянием.
