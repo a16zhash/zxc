@@ -1,3 +1,6 @@
+Понял, вы хотите, чтобы статичный фон отображался только после нажатия кнопки "START". Вот обновленный код:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,6 +62,7 @@
             background-repeat: no-repeat;
             background-position: bottom;
             z-index: 1;
+            display: none; /* Скрыть до нажатия кнопки START */
         }
 
         .game-container {
@@ -106,6 +110,7 @@
             transform: translateX(-50%);
             bottom: 25vh; /* Используем 25% высоты окна */
             z-index: 3; /* Убедитесь, что самолет находится выше фона */
+            display: none; /* Скрыть до начала игры */
         }
 
         .plane-start {
@@ -265,7 +270,6 @@
 
         window.addEventListener('load', () => {
             loadingScreen.style.display = 'none';
-            staticBackground.style.display = 'block'; // Обеспечить, что статичный фон виден сразу
         });
 
         plane.addEventListener('touchstart', (event) => {
@@ -280,7 +284,9 @@
             }
         });
 
-        gameContainer.addEventListener('touchmove', (event) => {
+        gameContainer.addEventListener('touch
+
+move', (event) => {
             if (isDragging && !gameOver) {
                 const touch = event.touches[0];
                 const planeWidth = plane.offsetWidth;
@@ -372,6 +378,8 @@
 
         function startGame() {
             startScreen.style.display = 'none';
+            staticBackground.style.display = 'block'; // Показать статичный фон
+            plane.style.display = 'block'; // Показать самолет
             plane.classList.add('plane-start');
             setTimeout(() => {
                 plane.classList.remove('plane-start');
@@ -415,3 +423,9 @@
     </script>
 </body>
 </html>
+```
+
+Изменения:
+1. Статичный фон скрыт (`display: none;`) до нажатия кнопки "START".
+2. Самолет также скрыт до начала игры.
+3. Добавлена функция `startGame`, которая отображает статичный фон и самолет после нажатия кнопки "START".
