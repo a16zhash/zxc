@@ -1,4 +1,4 @@
-Конечно! Давайте добавим эту функциональность в наш код.
+Конечно, давайте внесем эти изменения, чтобы после победы игрок мог начать игру заново и чтобы на экране поздравления отображалось количество пойманных звездочек.
 
 Вот обновленный код:
 
@@ -264,6 +264,7 @@
 
         .congrats-screen {
             display: none; /* Скрыть до соответствующего события */
+            flex-direction: column;
         }
     </style>
 </head>
@@ -285,15 +286,16 @@
     <div class="explosion" id="explosion"></div>
     <div class="end-screen" id="end-screen">
         <div class="message">PLANE IS CRASHED</div>
-        <div class="button-container">
-            <button class="button" onclick="retryGame()">RETRY</button>
-            <button class="button" onclick="quit
+        <div class="button-container
 
-Game()">QUIT</button>
+">
+            <button class="button" onclick="retryGame()">RETRY</button>
+            <button class="button" onclick="quitGame()">QUIT</button>
         </div>
     </div>
     <div class="congrats-screen" id="congrats-screen">
         <div class="message">CONGRATULATIONS!</div>
+        <div id="earned-score">YOU EARNED: 0</div>
     </div>
 
     <script>
@@ -305,6 +307,7 @@ Game()">QUIT</button>
         const startScreen = document.getElementById('start-screen');
         const endScreen = document.getElementById('end-screen');
         const congratsScreen = document.getElementById('congrats-screen');
+        const earnedScore = document.getElementById('earned-score');
         const background = document.getElementById('background');
         const staticBackground = document.getElementById('static-background');
         const explosion = document.getElementById('explosion');
@@ -475,6 +478,7 @@ Game()">QUIT</button>
             setTimeout(() => {
                 plane.style.display = 'none';
                 congratsScreen.style.display = 'flex';
+                earnedScore.textContent = `YOU EARNED: ${score}`;
                 setTimeout(() => {
                     congratsScreen.style.display = 'none';
                     startScreen.style.display = 'flex';
@@ -495,15 +499,7 @@ Game()">QUIT</button>
             score = 0;
             scoreElement.textContent = `Score: ${score}`;
             endScreen.style.display = 'none';
-            plane.style.display = 'block';
-            plane.classList.add('plane-start');
-            setTimeout(() => {
-                plane.classList.remove('plane-start');
-                background.style.animationPlayState = 'running';
-                startTimer();
-                gameIntervals.push(setInterval(createStar, 1000)); // Звезды создаются каждые 1 секунду
-                gameIntervals.push(setInterval(createMeteor, 2000)); // Метеориты создаются каждые 2 секунды
-            }, 5000); // Задержка в 5 секунд для анимации самолета
+            startGame(); // Запустить игру заново
         }
 
         function quitGame() {
@@ -515,8 +511,8 @@ Game()">QUIT</button>
 ```
 
 Изменения:
-1. Добавлена проверка на время в функции `startTimer()`, чтобы
+1. Добавлен элемент `earnedScore` для отображения количества пойманных звездочек.
+2. В `endGameSuccess()` добавлено отображение количества пойманных звездочек.
+3. Функция `retryGame()` теперь запускает игру заново
 
- при достижении 20 секунд срабатывала функция `endGameSuccess()`.
-2. В `endGameSuccess()` самолет улетает вверх, появляется надпись "CONGRATULATIONS!", и через 3 секунды возвращается стартовый экран.
-3. Добавлен новый экран с поздравлением `congrats-screen`.
+ без возврата на стартовый экран.
