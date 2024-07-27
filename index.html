@@ -1,4 +1,4 @@
-Давайте исправим эту проблему. Мы внесем изменения, чтобы состояние игры сбрасывалось корректно при повторном запуске.
+Конечно, давайте сделаем так, чтобы кнопка "RETRY" работала так же, как и кнопка "START" в стартовом меню.
 
 Вот обновленный код:
 
@@ -287,9 +287,9 @@
     <div class="end-screen" id="end-screen">
         <div class="message">PLANE IS CRASHED</div>
         <div class="button-container">
-            <button class="button" onclick
+            <
 
-="retryGame()">RETRY</button>
+button class="button" onclick="startGame()">RETRY</button>
             <button class="button" onclick="quitGame()">QUIT</button>
         </div>
     </div>
@@ -435,6 +435,7 @@
             resetGame();
 
             startScreen.style.display = 'none';
+            endScreen.style.display = 'none';
             staticBackground.style.display = 'block'; // Показать статичный фон
             gameContainer.style.display = 'block'; // Показать контейнер игры
             background.style.display = 'block'; // Показать фон
@@ -490,7 +491,6 @@
         }
 
         function retryGame() {
-            resetGame();
             startGame(); // Запустить игру заново
         }
 
@@ -519,8 +519,7 @@
 ```
 
 Изменения:
-1. Добавлена функция `resetGame`, которая сбрасывает состояние игры, удаляет все звезды и метеориты,
+1. В функции `startGame` добавлено скрытие экрана конца игры
 
- останавливает все интервалы и сбрасывает переменные.
-2. В начале функции `startGame` вызывается функция `resetGame` для корректного сброса состояния перед началом новой игры.
-3. Удалена функция `retryGame` и теперь она просто вызывает `startGame`, чтобы начать игру заново с полностью сброшенным состоянием.
+ `endScreen`.
+2. Кнопка "RETRY" в экране конца игры теперь вызывает функцию `startGame`, что обеспечивает такой же запуск игры, как и кнопка "START" в стартовом меню.
