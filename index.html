@@ -36,16 +36,28 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 200%;
             background-image: url('https://i.ibb.co/6HBJQvj/Pngtree-nature-deep-space-cosmos-background-5494719.png');
             background-size: cover;
             background-repeat: repeat-y;
             animation: moveBackground 20s linear infinite;
         }
 
+        .static-background {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px; /* Высота статичного фона */
+            background-image: url('https://i.ibb.co/12Xy0fk/Pngtree-sunrise-in-space-3591477.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: 1;
+        }
+
         @keyframes moveBackground {
             0% { transform: translateY(0); }
-            100% { transform: translateY(-100%); }
+            100% { transform: translateY(-50%); }
         }
 
         .game-container {
@@ -55,7 +67,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            z-index: 1;
+            z-index: 2;
         }
 
         .loading-screen {
@@ -205,6 +217,7 @@
     <div class="loading-screen" id="loading-screen">Loading...</div>
     <div class="background-container">
         <div class="background" id="background"></div>
+        <div class="static-background" id="static-background"></div>
     </div>
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
