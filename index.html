@@ -1,4 +1,9 @@
-Понял вас. Давайте обновим код, чтобы после нажатия кнопки "RETRY" все метеориты и звезды удалялись с экрана и начинали появляться заново.
+Конечно, давайте внесем эти изменения.
+
+1. Сделаем размер метеоритов случайным: они будут на 50% или 30% меньше текущего размера.
+2. Добавим новый статичный фон и сделаем его верхнюю часть невидимой.
+
+Вот обновленный код:
 
 ```html
 <!DOCTYPE html>
@@ -174,8 +179,6 @@
 
         .meteor {
             position: absolute;
-            width: 100px; /* Увеличено в 2 раза */
-            height: 100px; /* Увеличено в 2 раза */
             background-size: cover;
             z-index: 3; /* Убедитесь, что метеориты находятся выше фона */
         }
@@ -250,6 +253,16 @@
                 opacity: 0;
             }
         }
+
+        .fade {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, black, transparent);
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
@@ -261,6 +274,7 @@
         <div class="background" id="background"></div>
     </div>
     <div class="static-background" id="static-background"></div>
+    <div class="fade"></div>
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
         <div class="score">Score: 0</div>
@@ -271,16 +285,16 @@
         <div class="message">PLANE IS CRASHED</div>
         <div class="button-container">
             <button class="button" onclick="retryGame()">RETRY</button>
-            <button class="button" onclick="quitGame()">QUIT</button>
+            <button class="button" onclick="quitGame
+
+()">QUIT</button>
         </div>
     </div>
 
     <script>
         const plane = document.getElementById('plane');
         const gameContainer = document.getElementById('game-container');
-        const scoreElement
-
- = document.querySelector('.score');
+        const scoreElement = document.querySelector('.score');
         const timerElement = document.getElementById('timer');
         const loadingScreen = document.getElementById('loading-screen');
         const startScreen = document.getElementById('start-screen');
@@ -356,6 +370,12 @@
             ];
             const meteor = document.createElement('div');
             meteor.classList.add('meteor');
+
+            // Установить случайный размер метеорита (оригинальный, 50% или 30% от оригинала)
+            const sizeModifier = Math.random() < 0.5 ? 0.5 : 0.7;
+            meteor.style.width = `${100 * sizeModifier}px`;
+            meteor.style.height = `${100 * sizeModifier}px`;
+
             meteor.style.backgroundImage = `url(${meteorTypes[Math.floor(Math.random() * meteorTypes.length)]})`;
             meteor.style.left = `${Math.random() * window.innerWidth}px`;
             meteor.style.top = '0px';
@@ -476,5 +496,5 @@
 ```
 
 Изменения:
-1. Добавлена очистка всех текущих звёзд и метеоритов при перезапуске игры.
-2. При нажатии кнопки "RETRY" игра сбрасывается и начинается заново без перехода в стартовое меню.
+1. Добавлен CSS-класс `.fade` для создания верхней части статичного фона полностью невидимой.
+2. В функции `createMeteor` установлены случайные размеры метеоритов (50% или 30% от оригинала).
