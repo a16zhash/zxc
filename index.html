@@ -1,4 +1,4 @@
-Конечно, давайте обновим ваш код, чтобы использовать только один дополнительный фон. Вот обновленный код:
+Конечно, вот обновленный код без дополнительного фона:
 
 ```html
 <!DOCTYPE html>
@@ -40,28 +40,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('sandbox:/mnt/data/A_high-resolution_realistic_dark_cosmic_background.png');
-            background-size: cover;
-            background-repeat: no-repeat;
-            z-index: -1;
-        }
-
-        .additional-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 200%; /* Увеличиваем высоту для эффекта движения */
             background-image: url('https://i.ibb.co/wRR6ZR8/image-from-rawpixel-id-12672331-png.png');
             background-size: cover;
             background-repeat: no-repeat;
-            animation: moveBackground 20s linear infinite;
-            z-index: 0;
-        }
-
-        @keyframes moveBackground {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-50%); }
+            z-index: -1;
         }
 
         .game-container {
@@ -271,7 +253,6 @@
     </div>
     <div class="background-container">
         <div class="background" id="background"></div>
-        <div class="additional-background" id="additional-background"></div>
     </div>
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
@@ -287,9 +268,7 @@
         </div>
     </div>
     <div class="congrats-screen" id="congrats-screen">
-        <div class="message">
-
-CONGRATULATIONS!</div>
+        <div class="message">CONGRATULATIONS!</div>
         <div id="earned-score">YOU EARNED: 0</div>
     </div>
 
@@ -303,8 +282,9 @@ CONGRATULATIONS!</div>
         const endScreen = document.getElementById('end-screen');
         const congratsScreen = document.getElementById('congrats-screen');
         const earnedScore = document.getElementById('earned-score');
-        const background = document.getElementById('background');
-        const additionalBackground = document.getElementById('additional-background');
+        const
+
+ background = document.getElementById('background');
         const explosion = document.getElementById('explosion');
         let score = 0;
         let isDragging = false;
@@ -437,8 +417,6 @@ CONGRATULATIONS!</div>
             timerElement.style.display = 'block'; // Показать таймер
             plane.classList.add('plane-start');
 
-            additionalBackground.style.display = 'block'; // Показать дополнительный фон
-
             setTimeout(() => {
                 plane.classList.remove('plane-start');
                 startTimer();
@@ -510,13 +488,10 @@ CONGRATULATIONS!</div>
             plane.classList.remove('plane-end');
             plane.classList.remove('plane-start');
             background.style.animationPlayState = 'running';
-
-            // Скрыть дополнительный фон
-            additionalBackground.style.display = 'none';
         }
     </script>
 </body>
 </html>
 ```
 
-Теперь у вас есть основной фон и один дополнительный фон, который будет двигаться для создания эффекта полета.
+Теперь у вас есть только основной фон, без дополнительных фонов.
