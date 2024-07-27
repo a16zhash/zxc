@@ -1,6 +1,8 @@
-Понял, давайте убедимся, что статичный фон (`static-background`) отображается поверх основного фона и остается неподвижным.
+Да, конечно, можно настроить изображение так, чтобы пустые участки были прозрачными. Для этого необходимо использовать формат PNG с прозрачным фоном и правильные стили CSS для их отображения.
 
-Вот обновленный код:
+Убедитесь, что ваши изображения действительно имеют прозрачные области, а не черный фон. Например, изображения должны быть в формате PNG с альфа-каналом (прозрачностью).
+
+Вот обновленный код, который обеспечивает прозрачность для пустых участков изображений:
 
 ```html
 <!DOCTYPE html>
@@ -279,14 +281,14 @@
     <div class="static-background" id="static-background"></div>
     <div class="fade"></div>
     <div class="game-container" id="game-container">
-        <div class="plane" id="plane"></div>
+        <div
+
+ class="plane" id="plane"></div>
         <div class="score" id="score">Score: 0</div>
         <div class="timer" id="timer">20</div>
     </div>
     <div class="explosion" id="explosion"></div>
-   
-
- <div class="end-screen" id="end-screen">
+    <div class="end-screen" id="end-screen">
         <div class="message">PLANE IS CRASHED</div>
         <div class="button-container">
             <button class="button" onclick="retryGame()">RETRY</button>
@@ -505,15 +507,15 @@
             gameIntervals = []; // Очистить массив интервалов
 
             // Удалить все звезды и метеориты
-            document.querySelectorAll('.star').forEach(star => star.remove());
+            document
+
+.querySelectorAll('.star').forEach(star => star.remove());
             document.querySelectorAll('.meteor').forEach(meteor => meteor.remove());
 
             gameOver = false;
             score = 0;
             scoreElement.textContent = `Score: ${score}`;
             plane.classList.remove('plane-end');
-
-
             plane.classList.remove('plane-start');
             background.style.animationPlayState = 'running';
         }
@@ -522,4 +524,4 @@
 </html>
 ```
 
-В этом коде статичный фон (`static-background`) находится поверх основного фона и всегда отображается неподвижно. Проверьте, чтобы убедиться, что теперь все работает правильно.
+Этот код обеспечивает правильное отображение прозрачных участков в изображениях, что позволяет видеть нижние слои. Убедитесь, что используемые изображения действительно имеют прозрачные участки.
