@@ -1,8 +1,3 @@
-Прошу прощения за неудобства. Давайте исправим это.
-
-Вот обновленный код:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,7 +50,6 @@
             height: 100%;
             background-size: cover;
             background-repeat: no-repeat;
-            display: none;
             animation: moveBackground 20s linear infinite;
         }
 
@@ -283,15 +277,13 @@
     </div>
     <div class="background-container">
         <div class="background" id="background"></div>
+        <div class="second-background second-background-1" id="second-background-1"></div>
+        <div class="second-background second-background-2" id="second-background-2"></div>
+        <div class="second-background second-background-3" id="second-background-3"></div>
     </div>
-    <div class="second-background second-background-1" id="second-background-1"></div>
-    <div class="second-background second-background-2" id="second-background-2"></div>
-    <div class="second-background second-background-3" id="second-background-3"></div>
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
-        <div class="score" id="score
-
-">Score: 0</div>
+        <div class="score" id="score">Score: 0</div>
         <div class="timer" id="timer">20</div>
     </div>
     <div class="explosion" id="explosion"></div>
@@ -509,9 +501,7 @@
         }
 
         function quitGame() {
-            window.close
-
-();
+            window.close();
         }
 
         function resetGame() {
@@ -545,6 +535,3 @@
     </script>
 </body>
 </html>
-```
-
-Теперь проверьте, чтобы убедиться, что все работает правильно.
