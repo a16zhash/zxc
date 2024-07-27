@@ -1,11 +1,3 @@
-Отлично, что изображение появилось! Чтобы оно отображалось с самого начала игры, нужно убедиться, что контейнер со статичным фоном не скрывается или не перекрывается другими элементами. Попробуем следующие изменения:
-
-1. Убедимся, что статичный фон загружается сразу.
-2. Проверим z-index всех элементов, чтобы статичный фон не был скрыт.
-
-Вот обновленный код:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,10 +50,10 @@
 
         .static-background {
             position: absolute;
-            bottom: 0;
+            bottom: -50px; /* Сдвинуто на 50px ниже */
             left: 0;
             width: 100%;
-            height: 200px; /* Высота статичного фона */
+            height: 250px; /* Увеличена высота */
             background-image: url('https://i.ibb.co/12Xy0fk/Pngtree-sunrise-in-space-3591477.png');
             background-size: cover;
             background-repeat: no-repeat;
@@ -99,7 +91,7 @@
             background-size: cover;
             left: 50%;
             transform: translateX(-50%);
-            bottom: 250px; /* Поднято выше от нижнего края с учетом статичного фона */
+            bottom: 150px; /* Опущено ниже */
             z-index: 3; /* Убедитесь, что самолет находится выше фона */
         }
 
@@ -113,7 +105,7 @@
                 transform: translateX(-50%) scale(5);
             }
             100% {
-                top: calc(100vh - 370px); /* Учитываем поднятие */
+                top: calc(100vh - 270px); /* Учитываем поднятие */
                 transform: translateX(-50%) scale(1);
             }
         }
@@ -124,7 +116,7 @@
 
         @keyframes planeEnd {
             0% {
-                bottom: 250px;
+                bottom: 150px;
                 transform: translateX(-50%) scale(1);
             }
             100% {
@@ -276,9 +268,7 @@
             if (isDragging && !gameOver) {
                 const touch = event.touches[0];
                 const planeWidth = plane.offsetWidth;
-                let newLeft = touch.clientX - planeWidth /
-
- 2;
+                let newLeft = touch.clientX - planeWidth / 2;
                 newLeft = Math.max(0, newLeft); // не выходить за левый край
                 newLeft = Math.min(gameContainer.offsetWidth - planeWidth, newLeft); // не выходить за правый край
                 plane.style.left = `${newLeft}px`;
@@ -408,8 +398,3 @@
     </script>
 </body>
 </html>
-```
-
-Изменения:
-1. Убедился, что `staticBackground.style.display = 'block';` установлено при загрузке окна, чтобы статичный фон был виден с самого начала.
-2. Проверил, чтобы z-index для всех элементов был установлен правильно, чтобы фон и элементы отображались корректно.
