@@ -1,7 +1,4 @@
-Конечно, давайте внесем эти изменения.
-
-1. Сделаем размер метеоритов случайным: они будут на 50% или 30% меньше текущего размера.
-2. Добавим новый статичный фон и сделаем его верхнюю часть невидимой.
+Конечно! Давайте добавим эту функциональность в наш код.
 
 Вот обновленный код:
 
@@ -82,7 +79,7 @@
             display: none; /* Скрыть до начала игры */
         }
 
-        .loading-screen, .end-screen {
+        .loading-screen, .end-screen, .congrats-screen {
             position: absolute;
             top: 0;
             left: 0;
@@ -94,6 +91,7 @@
             align-items: center;
             font-size: 24px;
             z-index: 10;
+            display: none; /* Скрыть до соответствующего события */
         }
 
         .start-screen {
@@ -263,6 +261,10 @@
             background: linear-gradient(to bottom, black, transparent);
             z-index: 1;
         }
+
+        .congrats-screen {
+            display: none; /* Скрыть до соответствующего события */
+        }
     </style>
 </head>
 <body>
@@ -285,10 +287,13 @@
         <div class="message">PLANE IS CRASHED</div>
         <div class="button-container">
             <button class="button" onclick="retryGame()">RETRY</button>
-            <button class="button" onclick="quitGame
+            <button class="button" onclick="quit
 
-()">QUIT</button>
+Game()">QUIT</button>
         </div>
+    </div>
+    <div class="congrats-screen" id="congrats-screen">
+        <div class="message">CONGRATULATIONS!</div>
     </div>
 
     <script>
@@ -299,6 +304,7 @@
         const loadingScreen = document.getElementById('loading-screen');
         const startScreen = document.getElementById('start-screen');
         const endScreen = document.getElementById('end-screen');
+        const congratsScreen = document.getElementById('congrats-screen');
         const background = document.getElementById('background');
         const staticBackground = document.getElementById('static-background');
         const explosion = document.getElementById('explosion');
@@ -449,7 +455,7 @@
                 timerElement.textContent = timeLeft;
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
-                    endGame();
+                    endGameSuccess();
                 }
             }, 1000);
             gameIntervals.push(timerInterval); // Сохранить интервал
@@ -460,6 +466,19 @@
             setTimeout(() => {
                 plane.style.display = 'none';
                 endScreen.style.display = 'flex';
+            }, 3000); // Время анимации полета самолета вверх
+        }
+
+        function endGameSuccess() {
+            gameOver = true;
+            plane.classList.add('plane-end');
+            setTimeout(() => {
+                plane.style.display = 'none';
+                congratsScreen.style.display = 'flex';
+                setTimeout(() => {
+                    congratsScreen.style.display = 'none';
+                    startScreen.style.display = 'flex';
+                }, 3000); // Задержка в 3 секунды перед возвращением на стартовый экран
             }, 3000); // Время анимации полета самолета вверх
         }
 
@@ -496,5 +515,8 @@
 ```
 
 Изменения:
-1. Добавлен CSS-класс `.fade` для создания верхней части статичного фона полностью невидимой.
-2. В функции `createMeteor` установлены случайные размеры метеоритов (50% или 30% от оригинала).
+1. Добавлена проверка на время в функции `startTimer()`, чтобы
+
+ при достижении 20 секунд срабатывала функция `endGameSuccess()`.
+2. В `endGameSuccess()` самолет улетает вверх, появляется надпись "CONGRATULATIONS!", и через 3 секунды возвращается стартовый экран.
+3. Добавлен новый экран с поздравлением `congrats-screen`.
