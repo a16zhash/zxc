@@ -1,8 +1,8 @@
-Да, конечно, можно настроить изображение так, чтобы пустые участки были прозрачными. Для этого необходимо использовать формат PNG с прозрачным фоном и правильные стили CSS для их отображения.
+В предыдущем коде три изображения второго фона идут одновременно. Давайте исправим это, чтобы они появлялись по очереди, создавая непрерывный эффект движения.
 
-Убедитесь, что ваши изображения действительно имеют прозрачные области, а не черный фон. Например, изображения должны быть в формате PNG с альфа-каналом (прозрачностью).
+Мы можем использовать анимации CSS и JavaScript для смены изображений по очереди.
 
-Вот обновленный код, который обеспечивает прозрачность для пустых участков изображений:
+Вот обновленный код:
 
 ```html
 <!DOCTYPE html>
@@ -40,34 +40,42 @@
 
         .background {
             position: absolute;
-            top: -100%; /* Начальная позиция выше экрана */
+            top: 0;
             left: 0;
             width: 100%;
-            height: 200%;
-            background-image: url('https://i.ibb.co/6HBJQvj/Pngtree-nature-deep-space-cosmos-background-5494719.png');
+            height: 100%;
+            background-image: url('https://i.ibb.co/5MMwyJY/mlechnyj-put-zvezdy-zvezdnoe-nebo-875605-3840x2160.jpg');
             background-size: cover;
-            background-repeat: repeat-y;
-            animation: moveBackground 16.7s linear infinite; /* Увеличение скорости на 20% (20s / 1.2 = 16.7s) */
-            display: none; /* Скрыть до начала игры */
+            background-repeat: no-repeat;
+        }
+
+        .second-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: none;
+            animation: moveBackground 20s linear infinite;
         }
 
         @keyframes moveBackground {
             0% { transform: translateY(0); }
-            100% { transform: translateY(50%); }
+            100% { transform: translateY(-100%); }
         }
 
-        .static-background {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 20vh; /* Используем 20% высоты окна */
-            background-image: url('https://i.ibb.co/12Xy0fk/Pngtree-sunrise-in-space-3591477.png');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: bottom;
-            z-index: 2;
-            display: none; /* Скрыть до нажатия кнопки START */
+        .second-background-1 {
+            background-image: url('https://i.ibb.co/Wg1QXzL/klipartz-com-2.png');
+        }
+
+        .second-background-2 {
+            background-image: url('https://i.ibb.co/6HBJQvj/Pngtree-nature-deep-space-cosmos-background-5494719.png');
+        }
+
+        .second-background-3 {
+            background-image: url('https://i.ibb.co/Qn1Lyb4/Pngtree-realistic-purple-galaxy-milky-way-5952466.png');
         }
 
         .game-container {
@@ -278,12 +286,13 @@
     <div class="background-container">
         <div class="background" id="background"></div>
     </div>
-    <div class="static-background" id="static-background"></div>
-    <div class="fade"></div>
-    <div class="game-container" id="game-container">
-        <div
+    <div class="second-background second-background-1" id="second-background-1"></div>
+    <div class="second-background second-background-2" id="second-background-2"></div>
+    <div class="second-background second-background-3" id="second-background-3
 
- class="plane" id="plane"></div>
+"></div>
+    <div class="game-container" id="game-container">
+        <div class="plane" id="plane"></div>
         <div class="score" id="score">Score: 0</div>
         <div class="timer" id="timer">20</div>
     </div>
@@ -311,7 +320,9 @@
         const congratsScreen = document.getElementById('congrats-screen');
         const earnedScore = document.getElementById('earned-score');
         const background = document.getElementById('background');
-        const staticBackground = document.getElementById('static-background');
+        const secondBackground1 = document.getElementById('second-background-1');
+        const secondBackground2 = document.getElementById('second-background-2');
+        const secondBackground3 = document.getElementById('second-background-3');
         const explosion = document.getElementById('explosion');
         let score = 0;
         let isDragging = false;
@@ -438,9 +449,10 @@
 
             startScreen.style.display = 'none';
             endScreen.style.display = 'none';
-            staticBackground.style.display = 'block'; // Показать статичный фон
+            secondBackground1.style.display = 'block'; // Показать second-background-1
+            secondBackground2.style.display = 'none'; // Скрыть second-background-2
+            secondBackground3.style.display = 'none'; // Скрыть second-background-3
             gameContainer.style.display = 'block'; // Показать контейнер игры
-            background.style.display = 'block'; // Показать фон
             plane.style.display = 'block'; // Показать самолет
             scoreElement.style.display = 'block'; // Показать счет
             timerElement.style.display = 'block'; // Показать таймер
@@ -450,6 +462,7 @@
                 startTimer();
                 gameIntervals.push(setInterval(createStar, 1000)); // Сохранить интервал
                 gameIntervals.push(setInterval(createMeteor, 2000)); // Метеориты создаются каждые 2 секунды
+                switchBackgrounds(); // Начать переключение фонов
             }, 5000); // Задержка в 5 секунд для анимации самолета
         }
 
@@ -489,7 +502,9 @@
                     congratsScreen.style.display = 'none';
                     startScreen.style.display = 'flex';
                 }, 3000); // Задержка в 3 секунды перед возвращением на стартовый экран
-            }, 3000); // Время анимации полета самолета вверх
+            }, 3000); // Время анимации пол
+
+ета самолета вверх
         }
 
         function retryGame() {
@@ -507,9 +522,7 @@
             gameIntervals = []; // Очистить массив интервалов
 
             // Удалить все звезды и метеориты
-            document
-
-.querySelectorAll('.star').forEach(star => star.remove());
+            document.querySelectorAll('.star').forEach(star => star.remove());
             document.querySelectorAll('.meteor').forEach(meteor => meteor.remove());
 
             gameOver = false;
@@ -519,9 +532,21 @@
             plane.classList.remove('plane-start');
             background.style.animationPlayState = 'running';
         }
+
+        function switchBackgrounds() {
+            let currentBackgroundIndex = 0;
+            const backgrounds = [secondBackground1, secondBackground2, secondBackground3];
+
+            setInterval(() => {
+                backgrounds.forEach((bg, index) => {
+                    bg.style.display = index === currentBackgroundIndex ? 'block' : 'none';
+                });
+                currentBackgroundIndex = (currentBackgroundIndex + 1) % backgrounds.length;
+            }, 20000); // Меняем фон каждые 20 секунд
+        }
     </script>
 </body>
 </html>
 ```
 
-Этот код обеспечивает правильное отображение прозрачных участков в изображениях, что позволяет видеть нижние слои. Убедитесь, что используемые изображения действительно имеют прозрачные участки.
+В этом обновленном коде фоны второго плана будут меняться каждые 20 секунд, создавая эффект непрерывного полета.
