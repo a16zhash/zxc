@@ -1,4 +1,4 @@
-Понял вас. Давайте обновим код, чтобы после нажатия кнопки "START" фон и кнопка стартового экрана пропадали, и начиналась игра.
+Давайте внесем изменения в код, чтобы после нажатия кнопки "START" стартовый фон и кнопка исчезали, а игра начиналась.
 
 ```html
 <!DOCTYPE html>
@@ -278,10 +278,10 @@
     <script>
         const plane = document.getElementById('plane');
         const gameContainer = document.getElementById('game-container');
-        const scoreElement = document.querySelector('.score
+        const scoreElement = document.querySelector('.score');
+        const timerElement =
 
-');
-        const timerElement = document.getElementById('timer');
+ document.getElementById('timer');
         const loadingScreen = document.getElementById('loading-screen');
         const startScreen = document.getElementById('start-screen');
         const endScreen = document.getElementById('end-screen');
@@ -452,5 +452,5 @@
 ```
 
 Изменения:
-1. Обновлен фон стартового экрана с изображением, предоставленным вами.
-2. Убедился, что после нажатия кнопки "START" фон и кнопка стартового экрана пропадают, и начинается игра.
+1. Убедился, что после нажатия кнопки "START" стартовый экран и кнопка пропадают.
+2. Все элементы игры появляются после нажатия кнопки "START".
