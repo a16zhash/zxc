@@ -1,6 +1,3 @@
-Давайте попробуем улучшить код, чтобы статичный фон отображался корректно. Добавим дополнительный контейнер для фона и обеспечим правильное наложение элементов:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -279,9 +276,7 @@
 
         function createStar() {
             const star = document.createElement('div');
-           
-
- star.classList.add('star');
+            star.classList.add('star');
             star.style.left = `${Math.random() * window.innerWidth}px`;
             star.style.top = '0px';
             gameContainer.appendChild(star);
@@ -402,6 +397,3 @@
     </script>
 </body>
 </html>
-```
-
-Попробуйте этот код, и статичное изображение земли должно отображаться внизу экрана, а остальная часть фона должна двигаться.
