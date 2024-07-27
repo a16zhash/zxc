@@ -1,3 +1,6 @@
+Понял, давайте убедимся, что статичный фон (`static-background`) отображается поверх основного фона и остается неподвижным.
+
+Вот обновленный код:
 
 ```html
 <!DOCTYPE html>
@@ -61,7 +64,7 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-position: bottom;
-            z-index: 1;
+            z-index: 2;
             display: none; /* Скрыть до нажатия кнопки START */
         }
 
@@ -72,7 +75,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            z-index: 2;
+            z-index: 3;
             display: none; /* Скрыть до начала игры */
         }
 
@@ -129,7 +132,7 @@
             left: 50%;
             transform: translateX(-50%);
             bottom: 25vh; /* Используем 25% высоты окна */
-            z-index: 3; /* Убедитесь, что самолет находится выше фона */
+            z-index: 4; /* Убедитесь, что самолет находится выше фона */
             display: none; /* Скрыть до начала игры */
         }
 
@@ -169,13 +172,13 @@
             height: 30px;
             background-image: url('https://i.ibb.co/VCszgYL/starforgame.png');
             background-size: cover;
-            z-index: 3; /* Убедитесь, что звезды находятся выше фона */
+            z-index: 4; /* Убедитесь, что звезды находятся выше фона */
         }
 
         .meteor {
             position: absolute;
             background-size: cover;
-            z-index: 3; /* Убедитесь, что метеориты находятся выше фона */
+            z-index: 4; /* Убедитесь, что метеориты находятся выше фона */
         }
 
         .explosion {
@@ -193,7 +196,7 @@
             top: 10px;
             left: 10px;
             font-size: 20px;
-            z-index: 3; /* Убедитесь, что счет находится выше фона */
+            z-index: 4; /* Убедитесь, что счет находится выше фона */
             display: none; /* Скрыть до начала игры */
         }
 
@@ -204,7 +207,7 @@
             transform: translate(-50%, -50%);
             font-size: 48px;
             font-family: 'PixelFont', Arial, sans-serif;
-            z-index: 3;
+            z-index: 4;
             display: none; /* Скрыть до начала игры */
         }
 
@@ -280,10 +283,10 @@
         <div class="score" id="score">Score: 0</div>
         <div class="timer" id="timer">20</div>
     </div>
-    <div class="explosion" id
+    <div class="explosion" id="explosion"></div>
+   
 
-="explosion"></div>
-    <div class="end-screen" id="end-screen">
+ <div class="end-screen" id="end-screen">
         <div class="message">PLANE IS CRASHED</div>
         <div class="button-container">
             <button class="button" onclick="retryGame()">RETRY</button>
@@ -508,13 +511,15 @@
             gameOver = false;
             score = 0;
             scoreElement.textContent = `Score: ${score}`;
-            plane
+            plane.classList.remove('plane-end');
 
-.classList.remove('plane-end');
+
             plane.classList.remove('plane-start');
             background.style.animationPlayState = 'running';
         }
     </script>
 </body>
 </html>
+```
 
+В этом коде статичный фон (`static-background`) находится поверх основного фона и всегда отображается неподвижно. Проверьте, чтобы убедиться, что теперь все работает правильно.
