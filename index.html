@@ -1,6 +1,3 @@
-
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +31,7 @@
             z-index: 0;
         }
 
-        .background {
+        .background, .background-secondary {
             position: absolute;
             top: 0;
             left: 0;
@@ -43,7 +40,16 @@
             background-image: url('https://i.ibb.co/6HBJQvj/Pngtree-nature-deep-space-cosmos-background-5494719.png');
             background-size: cover;
             background-repeat: no-repeat;
-            z-index: -1;
+        }
+
+        .background-secondary {
+            opacity: 0.6;
+            animation: moveBackground 10s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100%); }
         }
 
         .game-container {
@@ -253,6 +259,7 @@
     </div>
     <div class="background-container">
         <div class="background" id="background"></div>
+        <div class="background-secondary" id="background-secondary"></div>
     </div>
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
@@ -282,9 +289,8 @@
         const endScreen = document.getElementById('end-screen');
         const congratsScreen = document.getElementById('congrats-screen');
         const earnedScore = document.getElementById('earned-score');
-        const
-
- background = document.getElementById('background');
+        const background = document.getElementById('background');
+        const backgroundSecondary = document.getElementById('background-secondary');
         const explosion = document.getElementById('explosion');
         let score = 0;
         let isDragging = false;
@@ -492,5 +498,3 @@
     </script>
 </body>
 </html>
-```
-
