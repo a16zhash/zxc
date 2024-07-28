@@ -31,33 +31,26 @@
             z-index: 0;
         }
 
-        .background {
+        .background, .background-secondary {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 135%; /* Высота увеличена на 35% */
             background-image: url('https://i.ibb.co/6HBJQvj/Pngtree-nature-deep-space-cosmos-background-5494719.png');
             background-size: cover;
             background-repeat: no-repeat;
         }
 
         .background-secondary {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 200%; /* Делаем высоту в 2 раза больше */
-            background-image: url('https://i.ibb.co/6HBJQvj/Pngtree-nature-deep-space-cosmos-background-5494719.png');
-            background-size: cover;
-            background-repeat: repeat-y;
+            top: 65%; /* Второе изображение начинается с 65% высоты */
             opacity: 0.6;
             animation: moveBackground 20s linear infinite;
         }
 
         @keyframes moveBackground {
             0% { transform: translateY(0); }
-            100% { transform: translateY(-50%); }
+            100% { transform: translateY(-35%); } /* Двигаем на 35% высоты */
         }
 
         .game-container {
@@ -267,8 +260,7 @@
     </div>
     <div class="background-container">
         <div class="background" id="background"></div>
-        <div class="background-secondary" id="background-secondary-1"></div>
-        <div class="background-secondary" id="background-secondary-2"></div>
+        <div class="background-secondary" id="background-secondary"></div>
     </div>
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
@@ -299,8 +291,7 @@
         const congratsScreen = document.getElementById('congrats-screen');
         const earnedScore = document.getElementById('earned-score');
         const background = document.getElementById('background');
-        const backgroundSecondary1 = document.getElementById('background-secondary-1');
-        const backgroundSecondary2 = document.getElementById('background-secondary-2');
+        const backgroundSecondary = document.getElementById('background-secondary');
         const explosion = document.getElementById('explosion');
         let score = 0;
         let isDragging = false;
