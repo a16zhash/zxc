@@ -409,14 +409,16 @@
             plane.style.display = 'block'; // Показать самолет
             scoreElement.style.display = 'block'; // Показать счет
             timerElement.style.display = 'block'; // Показать таймер
+
+            // Запускаем анимацию только один раз перед началом игры
             plane.classList.add('plane-start');
 
-            setTimeout(() => {
+            plane.addEventListener('animationend', () => {
                 plane.classList.remove('plane-start');
                 startTimer();
                 gameIntervals.push(setInterval(createStar, 1000)); // Сохранить интервал
                 gameIntervals.push(setInterval(createMeteor, 2000)); // Метеориты создаются каждые 2 секунды
-            }, 5000); // Задержка в 5 секунд для анимации самолета
+            }, { once: true }); // Убеждаемся, что анимация выполнится только один раз
         }
 
         function startTimer() {
@@ -479,7 +481,6 @@
             score = 0;
             scoreElement.textContent = `Score: ${score}`;
             plane.classList.remove('plane-end');
-            plane.classList.remove('plane-start');
         }
     </script>
 </body>
