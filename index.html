@@ -31,42 +31,39 @@
             z-index: 0;
         }
 
-        .background {
+        .moving-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200%; /* Увеличенная высота для плавного движения */
+            background-image: url('https://i.ibb.co/6HBJQvj/Pngtree-nature-deep-space-cosmos-background-5494719.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: 1;
+            animation: moveBackground 10s linear infinite; /* Анимация движения вниз */
+        }
+
+        @keyframes moveBackground {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-50%);
+            }
+        }
+
+        .static-background {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://i.ibb.co/6HBJQvj/Pngtree-nature-deep-space-cosmos-background-5494719.png');
+            background-image: url('https://i.ibb.co/L1F7TNq/Pngtree-sunrise-in-space-3591477.png');
             background-size: cover;
             background-repeat: no-repeat;
-            z-index: 1; /* Основной фон */
+            z-index: 2; /* Статический основной фон поверх движущегося */
         }
-
-        .stars-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 300%;
-            background-size: cover;
-            background-repeat: repeat-y;
-            animation: moveStars 7.5s linear infinite;
-            z-index: 2; /* Слои со звездами поверх основного фона */
-        }
-
-        @keyframes moveStars {
-            0% {
-                transform: translateY(-100%);
-            }
-            100% {
-                transform: translateY(0);
-            }
-        }
-
-        .stars1 { background-image: url('https://i.ibb.co/rtrpBgN/lasttree.png'); }
-        .stars2 { background-image: url('https://i.ibb.co/jyGnjH4/stars1.png'); }
-        .stars3 { background-image: url('https://i.ibb.co/JzxV4pp/stars2.png'); }
 
         .game-container {
             position: absolute;
@@ -132,7 +129,7 @@
             left: 50%;
             transform: translateX(-50%);
             bottom: 25vh;
-            z-index: 4; /* Убедитесь, что самолет находится выше слоев фона */
+            z-index: 4; /* Убедитесь, что самолет находится выше фонов */
             display: none; /* Скрыть до начала игры */
         }
 
@@ -172,13 +169,13 @@
             height: 30px;
             background-image: url('https://i.ibb.co/VCszgYL/starforgame.png');
             background-size: cover;
-            z-index: 4; /* Убедитесь, что звезды находятся выше слоев фона */
+            z-index: 4; /* Убедитесь, что звезды находятся выше фонов */
         }
 
         .meteor {
             position: absolute;
             background-size: cover;
-            z-index: 4; /* Убедитесь, что метеориты находятся выше слоев фона */
+            z-index: 4; /* Убедитесь, что метеориты находятся выше фонов */
         }
 
         .explosion {
@@ -196,7 +193,7 @@
             top: 10px;
             left: 10px;
             font-size: 20px;
-            z-index: 4; /* Убедитесь, что счет находится выше слоев фона */
+            z-index: 4; /* Убедитесь, что счет находится выше фонов */
             display: none; /* Скрыть до начала игры */
         }
 
@@ -274,10 +271,8 @@
         <button class="start-button" onclick="startGame()">START</button>
     </div>
     <div class="background-container">
-        <div class="background" id="background"></div>
-        <div class="stars-overlay stars1" id="stars-overlay1"></div>
-        <div class="stars-overlay stars2" id="stars-overlay2"></div>
-        <div class="stars-overlay stars3" id="stars-overlay3"></div>
+        <div class="moving-background" id="moving-background"></div>
+        <div class="static-background" id="static-background"></div>
     </div>
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
@@ -307,11 +302,8 @@
         const endScreen = document.getElementById('end-screen');
         const congratsScreen = document.getElementById('congrats-screen');
         const earnedScore = document.getElementById('earned-score');
-        const background = document.getElementById('background');
+        const movingBackground = document.getElementById('moving-background');
         const explosion = document.getElementById('explosion');
-        const starsOverlay1 = document.getElementById('stars-overlay1');
-        const starsOverlay2 = document.getElementById('stars-overlay2');
-        const starsOverlay3 = document.getElementById('stars-overlay3');
         let score = 0;
         let isDragging = false;
         let gameOver = false;
