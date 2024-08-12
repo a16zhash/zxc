@@ -26,7 +26,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%; /* Изменено на 100% */
+            height: 100%;
             overflow: hidden;
             z-index: 0;
         }
@@ -39,7 +39,29 @@
             height: 100%;
             background-image: url('https://i.ibb.co/6HBJQvj/Pngtree-nature-deep-space-cosmos-background-5494719.png');
             background-size: cover;
-            background-repeat: no-repeat; /* Фон статичен, анимация удалена */
+            background-repeat: no-repeat;
+        }
+
+        .stars-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200%;
+            background-image: url('https://i.ibb.co/rtrpBgN/lasttree.png');
+            background-size: cover;
+            background-repeat: repeat-y;
+            animation: moveStars 15s linear infinite;
+            z-index: 1; /* Делаем слой со звездами выше основного фона */
+        }
+
+        @keyframes moveStars {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-100%);
+            }
         }
 
         .game-container {
@@ -49,7 +71,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            z-index: 1;
+            z-index: 2;
             display: none; /* Скрыть до начала игры */
         }
 
@@ -99,14 +121,14 @@
 
         .plane {
             position: absolute;
-            width: 70px; /* Увеличено на 15% */
-            height: 70px; /* Увеличено на 15% */
+            width: 70px;
+            height: 70px;
             background-image: url('https://i.ibb.co/0rqH1tr/planeforgame.png');
             background-size: cover;
             left: 50%;
             transform: translateX(-50%);
-            bottom: 25vh; /* Используем 25% высоты окна */
-            z-index: 2; /* Убедитесь, что самолет находится выше фона */
+            bottom: 7vh;
+            z-index: 3; /* Убедитесь, что самолет находится выше слоев фона */
             display: none; /* Скрыть до начала игры */
         }
 
@@ -146,19 +168,19 @@
             height: 30px;
             background-image: url('https://i.ibb.co/VCszgYL/starforgame.png');
             background-size: cover;
-            z-index: 2; /* Убедитесь, что звезды находятся выше фона */
+            z-index: 3; /* Убедитесь, что звезды находятся выше слоев фона */
         }
 
         .meteor {
             position: absolute;
             background-size: cover;
-            z-index: 2; /* Убедитесь, что метеориты находятся выше фона */
+            z-index: 3; /* Убедитесь, что метеориты находятся выше слоев фона */
         }
 
         .explosion {
             position: absolute;
-            width: 200px; /* Увеличено в 2 раза */
-            height: 200px; /* Увеличено в 2 раза */
+            width: 200px;
+            height: 200px;
             background-image: url('https://i.ibb.co/9rCNn2z/Pngtree-3d-fire-explosion-transparent-background-15537891.png');
             background-size: cover;
             display: none;
@@ -170,18 +192,18 @@
             top: 10px;
             left: 10px;
             font-size: 20px;
-            z-index: 2; /* Убедитесь, что счет находится выше фона */
+            z-index: 3; /* Убедитесь, что счет находится выше слоев фона */
             display: none; /* Скрыть до начала игры */
         }
 
         .timer {
             position: absolute;
-            top: 20%; /* Поднято выше */
+            top: 20%;
             left: 50%;
             transform: translate(-50%, -50%);
             font-size: 48px;
             font-family: 'PixelFont', Arial, sans-serif;
-            z-index: 2;
+            z-index: 3;
             display: none; /* Скрыть до начала игры */
         }
 
@@ -195,12 +217,12 @@
             align-items: center;
             flex-direction: column;
             position: absolute;
-            bottom: 20px; /* Расположить кнопки у нижнего края */
+            bottom: 20px;
             width: 100%;
         }
 
         .button {
-            margin-top: 20px; /* Расстояние между кнопками */
+            margin-top: 20px;
             padding: 10px 20px;
             background-color: grey;
             color: white;
@@ -214,7 +236,7 @@
         }
 
         .message {
-            margin-bottom: 20px; /* Увеличено расстояние снизу */
+            margin-bottom: 20px;
         }
 
         @keyframes blink {
@@ -249,6 +271,7 @@
     </div>
     <div class="background-container">
         <div class="background" id="background"></div>
+        <div class="stars-overlay" id="stars-overlay"></div>
     </div>
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
