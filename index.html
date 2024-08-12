@@ -47,22 +47,25 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 200%;
-            background-image: url('https://i.ibb.co/rtrpBgN/lasttree.png');
+            height: 300%;
             background-size: cover;
             background-repeat: repeat-y;
-            animation: moveStars 15s linear infinite;
-            z-index: 1; /* Делаем слой со звездами выше основного фона */
+            animation: moveStars 7.5s linear infinite;
+            z-index: 1;
         }
 
         @keyframes moveStars {
             0% {
-                transform: translateY(0);
-            }
-            100% {
                 transform: translateY(-100%);
             }
+            100% {
+                transform: translateY(0);
+            }
         }
+
+        .stars1 { background-image: url('https://i.ibb.co/rtrpBgN/lasttree.png'); }
+        .stars2 { background-image: url('https://i.ibb.co/jyGnjH4/stars1.png'); }
+        .stars3 { background-image: url('https://i.ibb.co/JzxV4pp/stars2.png'); }
 
         .game-container {
             position: absolute;
@@ -127,7 +130,7 @@
             background-size: cover;
             left: 50%;
             transform: translateX(-50%);
-            bottom: 7vh;
+            bottom: 25vh;
             z-index: 3; /* Убедитесь, что самолет находится выше слоев фона */
             display: none; /* Скрыть до начала игры */
         }
@@ -271,7 +274,9 @@
     </div>
     <div class="background-container">
         <div class="background" id="background"></div>
-        <div class="stars-overlay" id="stars-overlay"></div>
+        <div class="stars-overlay stars1" id="stars-overlay1"></div>
+        <div class="stars-overlay stars2" id="stars-overlay2"></div>
+        <div class="stars-overlay stars3" id="stars-overlay3"></div>
     </div>
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
@@ -303,6 +308,9 @@
         const earnedScore = document.getElementById('earned-score');
         const background = document.getElementById('background');
         const explosion = document.getElementById('explosion');
+        const starsOverlay1 = document.getElementById('stars-overlay1');
+        const starsOverlay2 = document.getElementById('stars-overlay2');
+        const starsOverlay3 = document.getElementById('stars-overlay3');
         let score = 0;
         let isDragging = false;
         let gameOver = false;
