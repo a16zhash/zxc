@@ -26,31 +26,26 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 200%; /* Увеличение высоты контейнера */
             overflow: hidden;
             z-index: 0;
         }
 
-        .background, .background-secondary {
+        .background {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 135%; /* Высота увеличена на 35% */
+            height: 100%;
             background-image: url('https://i.ibb.co/6HBJQvj/Pngtree-nature-deep-space-cosmos-background-5494719.png');
             background-size: cover;
-            background-repeat: no-repeat;
-        }
-
-        .background-secondary {
-            top: 65%; /* Второе изображение начинается с 65% высоты */
-            opacity: 0.6;
-            animation: moveBackground 20s linear infinite;
+            background-repeat: repeat-y;
+            animation: moveBackground 10s linear infinite; /* Увеличение скорости анимации */
         }
 
         @keyframes moveBackground {
             0% { transform: translateY(0); }
-            100% { transform: translateY(-35%); } /* Двигаем на 35% высоты */
+            100% { transform: translateY(-50%); }
         }
 
         .game-container {
@@ -116,7 +111,7 @@
             background-size: cover;
             left: 50%;
             transform: translateX(-50%);
-            bottom: 10vh; /* Используем 25% высоты окна */
+            bottom: 7vh; /* Используем 25% высоты окна */
             z-index: 2; /* Убедитесь, что самолет находится выше фона */
             display: none; /* Скрыть до начала игры */
         }
@@ -260,7 +255,6 @@
     </div>
     <div class="background-container">
         <div class="background" id="background"></div>
-        <div class="background-secondary" id="background-secondary"></div>
     </div>
     <div class="game-container" id="game-container">
         <div class="plane" id="plane"></div>
@@ -291,7 +285,6 @@
         const congratsScreen = document.getElementById('congrats-screen');
         const earnedScore = document.getElementById('earned-score');
         const background = document.getElementById('background');
-        const backgroundSecondary = document.getElementById('background-secondary');
         const explosion = document.getElementById('explosion');
         let score = 0;
         let isDragging = false;
