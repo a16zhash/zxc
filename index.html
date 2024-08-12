@@ -153,12 +153,10 @@
 
         @keyframes planeStart {
             0% {
-                top: -100px;
-                transform: translateX(-50%) scale(5);
+                transform: translate(-50%, -500px) scale(5);
             }
             100% {
-                top: calc(100vh - 45vh); /* Учитываем поднятие */
-                transform: translateX(-50%) scale(1);
+                transform: translate(-50%, 25vh) scale(1);
             }
         }
 
@@ -168,12 +166,10 @@
 
         @keyframes planeEnd {
             0% {
-                bottom: 25vh;
-                transform: translateX(-50%) scale(1);
+                transform: translate(-50%, 25vh) scale(1);
             }
             100% {
-                bottom: 110%;
-                transform: translateX(-50%) scale(0.5);
+                transform: translate(-50%, -100%) scale(0.5);
             }
         }
 
