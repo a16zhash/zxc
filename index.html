@@ -102,9 +102,25 @@
             animation: float 2s infinite ease-in-out, blink 1.5s infinite alternate;
         }
 
+        .x-button {
+            position: fixed;
+            bottom: 120px;
+            right: 220px;
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            animation: float-x 2.5s infinite ease-in-out, blink 2s infinite alternate;
+        }
+
         @keyframes float {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes float-x {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
             100% { transform: translateY(0px); }
         }
 
@@ -137,6 +153,10 @@
 
     <a href="https://t.me/centure42" target="_blank">
         <img src="https://i.ibb.co/wh5m8MV3/Pngtree-telegram-icon-logo-6044231.png" alt="Telegram" class="telegram-button">
+    </a>
+
+    <a href="https://x.com/crypto_nekit" target="_blank">
+        <img src="https://i.ibb.co/gnhrDFC/pngimg-com-x-logo-PNG11.png" alt="X" class="x-button">
     </a>
 </body>
 </html>
