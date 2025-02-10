@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +15,7 @@
             background-position: center;
             background-repeat: no-repeat;
             color: #c9d1d9;
+            overflow-x: hidden;
         }
 
         header {
@@ -50,6 +50,7 @@
         .hero {
             text-align: center;
             padding: 50px 20px;
+            text-shadow: -1px -2px 0 #000, 1px -2px 0 #000, -1px 2px 0 #000, 2px 2px 0 #000;
         }
 
         .hero h1 {
@@ -59,7 +60,7 @@
         .hero p {
             font-size: 28px;
             margin-top: 20px;
-            color: #DCDCDC
+            color: #DCDCDC;
         }
 
         .cta {
@@ -90,27 +91,41 @@
         footer p {
             font-size: 14px;
         }
+
+        .telegram-button {
+            position: fixed;
+            bottom: 90px;
+            right: 40px;
+            width: 160px;
+            height: 160px;
+            cursor: pointer;
+            animation: float 2s infinite ease-in-out, blink 1.5s infinite alternate;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="logo">$YEBank</div>
         <nav>
-            <a href="#about">About</a>
-            <a href="#features">Features</a>
-            <a href="#tokenomics">Tokenomics</a>
-            <a href="#contact">Contact</a>
+            <a href="https://t.me/centure42" target="_blank">About</a>
+            <a href="https://t.me/centure42" target="_blank">Contact</a>
         </nav>
     </header>
 
     <section class="hero">
         <h1>Welcome to $YEBank Kitchen</h1>
-        <p>We are excited to introduce our new themed Bank, where delicious food and modern technology come together to create a unique experience! In our restaurant, you can enjoy signature burgers in a one-of-a-kind atmosphere, and pay for your order using cryptocurrency.
-
-We aim to stay ahead of the curve by offering convenience and innovation to our guests. At our burger joint, you’ll not only enjoy great service but also the option to pay securely and easily with cryptocurrencies.
-
-Come join us and be part of the trend!
-The next big thing in cryptocurrency innovation. Join us and be part of the future.</p>
+        <p>We are excited to introduce our new themed Bank, where delicious food and modern technology come together to create a unique experience! In our restaurant, you can enjoy signature burgers in a one-of-a-kind atmosphere, and pay for your order using cryptocurrency.</p>
         <div class="cta">
             <a href="#">Franchee Get Started soon</a>
         </div>
@@ -119,5 +134,9 @@ The next big thing in cryptocurrency innovation. Join us and be part of the futu
     <footer>
         <p>&copy; 2025 YourCrypto. All rights reserved.</p>
     </footer>
+
+    <a href="https://t.me/centure42" target="_blank">
+        <img src="https://i.ibb.co/wh5m8MV3/Pngtree-telegram-icon-logo-6044231.png" alt="Telegram" class="telegram-button">
+    </a>
 </body>
 </html>
