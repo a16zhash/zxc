@@ -14,7 +14,6 @@ body {
     font-size: var(--size-font);
     margin: 0;
     padding: 0;
-    min-height: 200vh; /* Увеличиваем высоту страницы для скролла */
 }
 
 .parallax {
@@ -114,7 +113,7 @@ body {
 
 .parallax__black-line-overflow {
     z-index: 20;
-    background-color: var(--color-black);
+    background-color: #000000; /* Указываем напрямую, чтобы избежать проблем с переменной */
     width: 100%;
     height: 2px;
     position: absolute;
@@ -129,13 +128,20 @@ body {
     min-height: 100vh;
     display: flex;
     position: relative;
-    background-color: var(--color-black); /* Чёрный фон */
+    background-color: #000000; /* Указываем напрямую, чтобы гарантировать чёрный цвет */
 }
 
 .osmo-icon-svg {
     width: 8em;
     position: relative;
-    fill: var(--color-light); /* Белый значок */
+    fill: #ffffff; /* Указываем напрямую, чтобы значок был белым */
+}
+
+.extra-content {
+    padding: var(--section-padding) var(--container-padding);
+    min-height: 100vh;
+    color: #ffffff;
+    text-align: center;
 }
 
 @media (orientation: landscape) {
