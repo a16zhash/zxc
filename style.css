@@ -14,8 +14,8 @@ body {
     font-size: var(--size-font);
     margin: 0;
     padding: 0;
-    min-height: 300vh; /* Увеличиваем высоту страницы для скролла */
-    overflow-x: hidden; /* Предотвращаем горизонтальный скролл */
+    min-height: 300vh;
+    overflow-x: hidden;
 }
 
 .parallax {
@@ -38,7 +38,7 @@ body {
 .parallax__visuals {
     width: 100%;
     max-width: none;
-    height: 100vh; /* Фиксируем высоту для корректной работы ScrollTrigger */
+    height: 100vh;
     position: absolute;
     top: 0;
     left: 0;
@@ -77,7 +77,7 @@ body {
 
 .parallax__layer-img[data-parallax-layer="4"] {
     z-index: 0;
-    opacity: 1;
+    opacity: 1; /* Убираем полупрозрачность для человека */
 }
 
 .parallax__layer-title {
