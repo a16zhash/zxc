@@ -41,8 +41,10 @@ h1 {
     border-radius: 8px;
     padding: 10px;
     text-align: center;
-    position: relative; /* Для позиционирования анимированного элемента */
-    overflow: hidden; /* Чтобы маска не выходила за границы */
+    position: relative;
+    overflow: hidden;
+    perspective: 1000px; /* Для 3D-эффекта параллакса */
+    transition: transform 0.1s ease;
 }
 .gift-card img {
     max-width: 100%;
@@ -58,34 +60,67 @@ h1 {
     text-decoration: underline;
 }
 
-/* Стили для анимации границы */
+/* Эффект размытия с CSS sin() */
+.gift-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    filter: blur(calc(5px * sin(var(--blur-angle, 0deg))));
+    z-index: -1;
+    animation: blurWave 4s infinite linear;
+}
+@keyframes blurWave {
+    to {
+        --blur-angle: 360deg;
+    }
+}
+
+/* Медиазапросы для адаптации к ориентации */
+@media (orientation: landscape) {
+    .gift-list {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+    .gift-card {
+        padding: 15px;
+    }
+}
+@media (orientation: portrait) {
+    .gift-list {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    .gift-card {
+        padding: 10px;
+    }
+}
+
+/* Стили для анимации границы (оставляем из предыдущего) */
 .trail-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none; /* Чтобы не мешать взаимодействию с карточкой */
+    pointer-events: none;
 }
-
 .trail {
     position: absolute;
     width: 10px;
     height: 10px;
-    background: #007bff; /* Цвет анимированной точки */
+    background: #007bff;
     border-radius: 50%;
-    offset-path: path('M 0 0 H 100% V 100% H 0 V 0'); /* Путь по периметру */
-    offset-anchor: 50% 50%; /* Центр точки */
+    offset-path: path('M 0 0 H 100% V 100% H 0 V 0');
+    offset-anchor: 50% 50%;
     animation: trail 6s infinite linear;
 }
-
 @keyframes trail {
     to {
         offset-distance: 100%;
     }
 }
-
-/* Маска для эффекта "просвечивания" границы */
 .trail-container::before {
     content: '';
     position: absolute;
