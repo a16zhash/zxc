@@ -1,26 +1,501 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Коллекция гифтов</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Plane Game</title>
+    <style>
+        @font-face {
+            font-family: 'PixelFont';
+            src: url('https://yourfonturl.com/pixelfont.ttf'); /* Замените на URL вашего пиксельного шрифта */
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            width: 100%;
+            height: 100%;
+        }
+
+        .background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .background, .background-secondary {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 135%; /* Высота увеличена на 35% */
+            background-image: url('https://i.ibb.co/6HBJQvj/Pngtree-nature-deep-space-cosmos-background-5494719.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .background-secondary {
+            top: 65%; /* Второе изображение начинается с 65% высоты */
+            opacity: 0.6;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-35%); } /* Двигаем на 35% высоты */
+        }
+
+        .game-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            display: none; /* Скрыть до начала игры */
+        }
+
+        .loading-screen, .end-screen, .congrats-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            z-index: 10;
+            display: none; /* Скрыть до соответствующего события */
+        }
+
+        .start-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.ibb.co/M7Y1JKt/A-spaceship-flying-through-space-with-burning-and.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            z-index: 10;
+        }
+
+        .start-button {
+            padding: 10px 20px;
+            background-color: grey;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .start-button:hover {
+            background-color: darkgrey;
+        }
+
+        .plane {
+            position: absolute;
+            width: 70px; /* Увеличено на 15% */
+            height: 70px; /* Увеличено на 15% */
+            background-image: url('https://i.ibb.co/0rqH1tr/planeforgame.png');
+            background-size: cover;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 25vh; /* Используем 25% высоты окна */
+            z-index: 2; /* Убедитесь, что самолет находится выше фона */
+            display: none; /* Скрыть до начала игры */
+        }
+
+        .plane-start {
+            animation: planeStart 5s forwards;
+        }
+
+        @keyframes planeStart {
+            0% {
+                top: -100px;
+                transform: translateX(-50%) scale(5);
+            }
+            100% {
+                top: calc(100vh - 45vh); /* Учитываем поднятие */
+                transform: translateX(-50%) scale(1);
+            }
+        }
+
+        .plane-end {
+            animation: planeEnd 3s forwards;
+        }
+
+        @keyframes planeEnd {
+            0% {
+                bottom: 25vh;
+                transform: translateX(-50%) scale(1);
+            }
+            100% {
+                bottom: 110%;
+                transform: translateX(-50%) scale(0.5);
+            }
+        }
+
+        .star {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-image: url('https://i.ibb.co/VCszgYL/starforgame.png');
+            background-size: cover;
+            z-index: 2; /* Убедитесь, что звезды находятся выше фона */
+        }
+
+        .meteor {
+            position: absolute;
+            background-size: cover;
+            z-index: 2; /* Убедитесь, что метеориты находятся выше фона */
+        }
+
+        .explosion {
+            position: absolute;
+            width: 200px; /* Увеличено в 2 раза */
+            height: 200px; /* Увеличено в 2 раза */
+            background-image: url('https://i.ibb.co/9rCNn2z/Pngtree-3d-fire-explosion-transparent-background-15537891.png');
+            background-size: cover;
+            display: none;
+            z-index: 5; /* Убедитесь, что взрыв находится выше всех элементов */
+        }
+
+        .score {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
+            z-index: 2; /* Убедитесь, что счет находится выше фона */
+            display: none; /* Скрыть до начала игры */
+        }
+
+        .timer {
+            position: absolute;
+            top: 20%; /* Поднято выше */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            font-family: 'PixelFont', Arial, sans-serif;
+            z-index: 2;
+            display: none; /* Скрыть до начала игры */
+        }
+
+        .end-screen {
+            display: none; /* Скрыть до конца игры */
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: absolute;
+            bottom: 20px; /* Расположить кнопки у нижнего края */
+            width: 100%;
+        }
+
+        .button {
+            margin-top: 20px; /* Расстояние между кнопками */
+            padding: 10px 20px;
+            background-color: grey;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .button:hover {
+            background-color: darkgrey;
+        }
+
+        .message {
+            margin-bottom: 20px; /* Увеличено расстояние снизу */
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% {
+                opacity: 1;
+            }
+            25%, 75% {
+                opacity: 0;
+            }
+        }
+
+        .fade {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, black, transparent);
+            z-index: 1;
+        }
+
+        .congrats-screen {
+            display: none; /* Скрыть до соответствующего события */
+            flex-direction: column;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Коллекция редких гифтов</h1>
-        <div class="filters">
-            <input type="text" id="search" placeholder="Поиск по названию...">
-            <select id="rarity">
-                <option value="">Все редкости</option>
-                <option value="common">Обычные</option>
-                <option value="rare">Редкие</option>
-                <option value="epic">Эпические</option>
-            </select>
-        </div>
-        <div class="gift-list" id="gift-list"></div>
+    <div class="loading-screen" id="loading-screen">Loading...</div>
+    <div class="start-screen" id="start-screen">
+        <button class="start-button" onclick="startGame()">START</button>
     </div>
-    <script src="script.js"></script>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <div class="background-container">
+        <div class="background" id="background"></div>
+        <div class="background-secondary" id="background-secondary"></div>
+    </div>
+    <div class="game-container" id="game-container">
+        <div class="plane" id="plane"></div>
+        <div class="score" id="score">Score: 0</div>
+        <div class="timer" id="timer">20</div>
+    </div>
+    <div class="explosion" id="explosion"></div>
+    <div class="end-screen" id="end-screen">
+        <div class="message">PLANE IS CRASHED</div>
+        <div class="button-container">
+            <button class="button" onclick="retryGame()">RETRY</button>
+            <button class="button" onclick="quitGame()">QUIT</button>
+        </div>
+    </div>
+    <div class="congrats-screen" id="congrats-screen">
+        <div class="message">CONGRATULATIONS!</div>
+        <div id="earned-score">YOU EARNED: 0</div>
+    </div>
+
+    <script>
+        const plane = document.getElementById('plane');
+        const gameContainer = document.getElementById('game-container');
+        const scoreElement = document.getElementById('score');
+        const timerElement = document.getElementById('timer');
+        const loadingScreen = document.getElementById('loading-screen');
+        const startScreen = document.getElementById('start-screen');
+        const endScreen = document.getElementById('end-screen');
+        const congratsScreen = document.getElementById('congrats-screen');
+        const earnedScore = document.getElementById('earned-score');
+        const background = document.getElementById('background');
+        const backgroundSecondary = document.getElementById('background-secondary');
+        const explosion = document.getElementById('explosion');
+        let score = 0;
+        let isDragging = false;
+        let gameOver = false;
+        let gameIntervals = []; // Массив для хранения интервалов
+
+        window.addEventListener('load', () => {
+            loadingScreen.style.display = 'none';
+        });
+
+        plane.addEventListener('touchstart', (event) => {
+            if (!gameOver) {
+                isDragging = true;
+            }
+        });
+
+        plane.addEventListener('touchend', (event) => {
+            if (!gameOver) {
+                isDragging = false;
+            }
+        });
+
+        gameContainer.addEventListener('touchmove', (event) => {
+            if (isDragging && !gameOver) {
+                const touch = event.touches[0];
+                const planeWidth = plane.offsetWidth;
+                let newLeft = touch.clientX - planeWidth / 2;
+                newLeft = Math.max(0, newLeft); // не выходить за левый край
+                newLeft = Math.min(gameContainer.offsetWidth - planeWidth, newLeft); // не выходить за правый край
+                plane.style.left = `${newLeft}px`;
+            }
+        });
+
+        function createStar() {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.left = `${Math.random() * window.innerWidth}px`;
+            star.style.top = '0px';
+            gameContainer.appendChild(star);
+
+            let fallInterval = setInterval(() => {
+                const starRect = star.getBoundingClientRect();
+                const planeRect = plane.getBoundingClientRect();
+
+                if (starRect.bottom > window.innerHeight) {
+                    star.remove();
+                    clearInterval(fallInterval);
+                } else if (!gameOver && starRect.top < planeRect.bottom &&
+                    starRect.bottom > planeRect.top &&
+                    starRect.left < planeRect.right &&
+                    starRect.right > planeRect.left) {
+                    star.remove();
+                    clearInterval(fallInterval);
+                    score++;
+                    scoreElement.textContent = `Score: ${score}`;
+                } else {
+                    star.style.top = `${starRect.top + 5}px`;
+                }
+            }, 30);
+            gameIntervals.push(fallInterval); // Сохранить интервал
+        }
+
+        function createMeteor() {
+            const meteorTypes = [
+                'https://i.ibb.co/WPDvwBZ/Pngtree-massive-asteroids-comet-meteor-or-14860493.png',
+                'https://i.ibb.co/Cv3054G/Pngtree-celestial-impact-massive-asteroids-comet-15013694.png'
+            ];
+            const meteor = document.createElement('div');
+            meteor.classList.add('meteor');
+
+            // Установить случайный размер метеорита (оригинальный, 50% или 30% от оригинала)
+            const sizeModifier = Math.random() < 0.5 ? 0.5 : 0.7;
+            meteor.style.width = `${100 * sizeModifier}px`;
+            meteor.style.height = `${100 * sizeModifier}px`;
+
+            meteor.style.backgroundImage = `url(${meteorTypes[Math.floor(Math.random() * meteorTypes.length)]})`;
+            meteor.style.left = `${Math.random() * window.innerWidth}px`;
+            meteor.style.top = '0px';
+            gameContainer.appendChild(meteor);
+
+            let fallSpeed = Math.random() < 0.5 ? 10 : 5; // 50% шанс падения в 2 раза быстрее
+
+            let fallInterval = setInterval(() => {
+                const meteorRect = meteor.getBoundingClientRect();
+                const planeRect = plane.getBoundingClientRect();
+
+                if (meteorRect.bottom > window.innerHeight) {
+                    meteor.remove();
+                    clearInterval(fallInterval);
+                } else if (!gameOver && meteorRect.top < planeRect.bottom &&
+                    meteorRect.bottom > planeRect.top &&
+                    meteorRect.left < planeRect.right &&
+                    meteorRect.right > planeRect.left) {
+                    meteor.remove();
+                    clearInterval(fallInterval);
+                    triggerExplosion(planeRect);
+                } else {
+                    meteor.style.top = `${meteorRect.top + fallSpeed}px`;
+                }
+            }, 30);
+            gameIntervals.push(fallInterval); // Сохранить интервал
+        }
+
+        function triggerExplosion(planeRect) {
+            gameOver = true;
+            explosion.style.left = `${planeRect.left + planeRect.width / 2 - 100}px`; // Центрируем по оси X
+            explosion.style.top = `${planeRect.top + planeRect.height / 2 - 100}px`; // Центрируем по оси Y
+            explosion.style.display = 'block';
+            explosion.style.animation = 'blink 1s infinite';
+            plane.style.display = 'none';
+            setTimeout(() => {
+                explosion.style.display = 'none';
+                setTimeout(showEndScreen, 2000); // Задержка в 2 секунды перед отображением экрана окончания
+            }, 1000); // Время анимации взрыва
+        }
+
+        function showEndScreen() {
+            endScreen.style.display = 'flex';
+        }
+
+        function startGame() {
+            // Сброс всех состояний
+            resetGame();
+
+            startScreen.style.display = 'none';
+            endScreen.style.display = 'none';
+            gameContainer.style.display = 'block'; // Показать контейнер игры
+            plane.style.display = 'block'; // Показать самолет
+            scoreElement.style.display = 'block'; // Показать счет
+            timerElement.style.display = 'block'; // Показать таймер
+            plane.classList.add('plane-start');
+
+            setTimeout(() => {
+                plane.classList.remove('plane-start');
+                startTimer();
+                gameIntervals.push(setInterval(createStar, 1000)); // Сохранить интервал
+                gameIntervals.push(setInterval(createMeteor, 2000)); // Метеориты создаются каждые 2 секунды
+            }, 5000); // Задержка в 5 секунд для анимации самолета
+        }
+
+        function startTimer() {
+            let timeLeft = 20; // Уменьшено до 20 секунд
+            const timerInterval = setInterval(() => {
+                if (gameOver) {
+                    clearInterval(timerInterval);
+                    return;
+                }
+                timeLeft--;
+                timerElement.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    endGameSuccess();
+                }
+            }, 1000);
+            gameIntervals.push(timerInterval); // Сохранить интервал
+        }
+
+        function endGame() {
+            background.style.animationPlayState = 'paused';
+            setTimeout(() => {
+                plane.style.display = 'none';
+                endScreen.style.display = 'flex';
+            }, 3000); // Время анимации полета самолета вверх
+        }
+
+        function endGameSuccess() {
+            gameOver = true;
+            plane.classList.add('plane-end');
+            setTimeout(() => {
+                plane.style.display = 'none';
+                congratsScreen.style.display = 'flex';
+                earnedScore.textContent = `YOU EARNED: ${score}`;
+                setTimeout(() => {
+                    congratsScreen.style.display = 'none';
+                    startScreen.style.display = 'flex';
+                }, 3000); // Задержка в 3 секунды перед возвращением на стартовый экран
+            }, 3000); // Время анимации полета самолета вверх
+        }
+
+        function retryGame() {
+            resetGame();
+            startGame(); // Запустить игру заново
+        }
+
+        function quitGame() {
+            window.close();
+        }
+
+        function resetGame() {
+            // Остановить все интервалы
+            gameIntervals.forEach(clearInterval);
+            gameIntervals = []; // Очистить массив интервалов
+
+            // Удалить все звезды и метеориты
+            document.querySelectorAll('.star').forEach(star => star.remove());
+            document.querySelectorAll('.meteor').forEach(meteor => meteor.remove());
+
+            gameOver = false;
+            score = 0;
+            scoreElement.textContent = `Score: ${score}`;
+            plane.classList.remove('plane-end');
+            plane.classList.remove('plane-start');
+            background.style.animationPlayState = 'running';
+        }
+    </script>
 </body>
 </html>
