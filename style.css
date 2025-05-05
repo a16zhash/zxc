@@ -22,22 +22,43 @@ body {
     height: 200px;
     border-radius: 10px;
     overflow: hidden;
-    perspective: 1000px; /* Для 3D-эффекта параллакса */
+    perspective: 1000px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    transition: transform 0.1s ease;
 }
 
-.card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.background, .foreground {
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.1s ease;
+}
+
+.background img, .foreground img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.background {
     z-index: 1;
 }
 
-/* Эффект размытия с CSS sin() */
+.foreground {
+    z-index: 2;
+}
+
+.foreground img {
+    /* Уменьшаем размер переднего плана, чтобы задний был виден по краям */
+    width: 80%;
+    height: 80%;
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    object-fit: contain; /* Сохраняем пропорции замка */
+}
+
 .card-overlay {
     position: absolute;
     top: 0;
@@ -45,18 +66,11 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(255, 255, 255, 0.2);
-    filter: blur(calc(10px * sin(var(--blur-angle, 0deg))));
-    z-index: 2;
-    animation: blurWave 4s infinite linear;
+    z-index: 3;
+    /* Заменяем sin() на JavaScript, так как sin() может не работать в Telegram Web App */
+    filter: blur(0px);
 }
 
-@keyframes blurWave {
-    to {
-        --blur-angle: 360deg;
-    }
-}
-
-/* Маска для эффекта "просвечивания" */
 .card-overlay::before {
     content: '';
     position: absolute;
@@ -67,14 +81,19 @@ body {
     border: 2px solid transparent;
     border-image: linear-gradient(45deg, #007bff, #00ff88) 1;
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 2% 2%, 98% 2%, 98% 98%, 2% 98%, 2% 2%);
-    z-index: 3;
+    z-index: 4;
 }
 
-/* Адаптация к ориентации */
 @media (orientation: landscape) {
     .card {
         width: 400px;
         height: 250px;
+    }
+    .foreground img {
+        width: 70%;
+        height: 70%;
+        top: 15%;
+        left: 15%;
     }
 }
 
@@ -82,5 +101,11 @@ body {
     .card {
         width: 300px;
         height: 200px;
+    }
+    .foreground img {
+        width: 80%;
+        height: 80%;
+        top: 10%;
+        left: 10%;
     }
 }
