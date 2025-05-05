@@ -14,17 +14,13 @@ body {
     font-size: var(--size-font);
     margin: 0;
     padding: 0;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    min-height: 200vh; /* Увеличиваем высоту страницы для скролла */
 }
 
 .parallax {
     width: 100%;
     position: relative;
     overflow: hidden;
-    background-color: #666; /* Светлый фон для проверки видимости человека */
 }
 
 .parallax__header {
@@ -65,22 +61,21 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    transition: transform 0.1s ease;
 }
 
 .parallax__layer-img[data-parallax-layer="1"] {
     z-index: 2;
-    opacity: 0.3; /* Уменьшаем прозрачность, чтобы видеть человека */
+    opacity: 0.3;
 }
 
 .parallax__layer-img[data-parallax-layer="2"] {
     z-index: 1;
-    opacity: 0.2; /* Ещё более прозрачный */
+    opacity: 0.2;
 }
 
 .parallax__layer-img[data-parallax-layer="4"] {
     z-index: 0;
-    opacity: 1; /* Человек полностью непрозрачный */
+    opacity: 1;
 }
 
 .parallax__layer-title {
@@ -93,7 +88,6 @@ body {
     top: 0;
     left: 0;
     z-index: 3;
-    transition: transform 0.1s ease;
 }
 
 .parallax__title {
@@ -126,6 +120,22 @@ body {
     position: absolute;
     bottom: -1px;
     left: 0;
+}
+
+.parallax__content {
+    padding: var(--section-padding) var(--container-padding);
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    display: flex;
+    position: relative;
+    background-color: var(--color-black); /* Чёрный фон */
+}
+
+.osmo-icon-svg {
+    width: 8em;
+    position: relative;
+    fill: var(--color-light); /* Белый значок */
 }
 
 @media (orientation: landscape) {
