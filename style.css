@@ -41,6 +41,8 @@ h1 {
     border-radius: 8px;
     padding: 10px;
     text-align: center;
+    position: relative; /* Для позиционирования анимированного элемента */
+    overflow: hidden; /* Чтобы маска не выходила за границы */
 }
 .gift-card img {
     max-width: 100%;
@@ -54,4 +56,45 @@ h1 {
 }
 .gift-card a:hover {
     text-decoration: underline;
+}
+
+/* Стили для анимации границы */
+.trail-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Чтобы не мешать взаимодействию с карточкой */
+}
+
+.trail {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #007bff; /* Цвет анимированной точки */
+    border-radius: 50%;
+    offset-path: path('M 0 0 H 100% V 100% H 0 V 0'); /* Путь по периметру */
+    offset-anchor: 50% 50%; /* Центр точки */
+    animation: trail 6s infinite linear;
+}
+
+@keyframes trail {
+    to {
+        offset-distance: 100%;
+    }
+}
+
+/* Маска для эффекта "просвечивания" границы */
+.trail-container::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 2px solid transparent;
+    border-image: linear-gradient(45deg, #007bff, #00ff88) 1;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 2% 2%, 98% 2%, 98% 98%, 2% 98%, 2% 2%);
+    z-index: 1;
 }
