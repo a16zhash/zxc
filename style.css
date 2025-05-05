@@ -24,6 +24,7 @@ body {
     width: 100%;
     position: relative;
     overflow: hidden;
+    background-color: #666; /* Светлый фон для проверки видимости человека */
 }
 
 .parallax__header {
@@ -68,18 +69,18 @@ body {
 }
 
 .parallax__layer-img[data-parallax-layer="1"] {
-    z-index: 2; /* Средний слой */
-    opacity: 0.6; /* Снижаем прозрачность, чтобы видеть нижние слои */
+    z-index: 2;
+    opacity: 0.3; /* Уменьшаем прозрачность, чтобы видеть человека */
 }
 
 .parallax__layer-img[data-parallax-layer="2"] {
-    z-index: 1; /* Нижний слой */
-    opacity: 0.4; /* Ещё более прозрачный */
+    z-index: 1;
+    opacity: 0.2; /* Ещё более прозрачный */
 }
 
 .parallax__layer-img[data-parallax-layer="4"] {
-    z-index: 0; /* Самый нижний слой (человек) */
-    opacity: 1; /* Полностью непрозрачный, чтобы человек был четко виден */
+    z-index: 0;
+    opacity: 1; /* Человек полностью непрозрачный */
 }
 
 .parallax__layer-title {
@@ -91,7 +92,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 3; /* Текст поверх всех слоев */
+    z-index: 3;
     transition: transform 0.1s ease;
 }
 
