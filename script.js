@@ -1,7 +1,6 @@
 const gifts = [
-    { id: 1, name: "Золотой дракон", image: "https://example.com/gift1.png", link: "https://gift-app.com/gift1", rarity: "epic" },
-    { id: 2, name: "Серебряный кот", image: "https://example.com/gift2.png", link: "https://gift-app.com/gift2", rarity: "rare" },
-    // Добавьте больше гифтов
+    { id: 1, name: "Золотой дракон", image: "https://via.placeholder.com/150", link: "https://gift-app.com/gift1", rarity: "epic" },
+    { id: 2, name: "Серебряный кот", image: "https://via.placeholder.com/150", link: "https://gift-app.com/gift2", rarity: "rare" },
 ];
 
 const giftList = document.getElementById('gift-list');
@@ -17,6 +16,9 @@ function renderGifts(filteredGifts) {
             <img src="${gift.image}" alt="${gift.name}">
             <p>${gift.name}</p>
             <a href="${gift.link}" target="_blank">Перейти</a>
+            <div class="trail-container">
+                <div class="trail"></div>
+            </div>
         `;
         giftList.appendChild(card);
     });
@@ -35,6 +37,5 @@ function filterGifts() {
 searchInput.addEventListener('input', filterGifts);
 rarityFilter.addEventListener('change', filterGifts);
 
-// Инициализация Telegram Web App
 window.Telegram.WebApp.ready();
 renderGifts(gifts);
