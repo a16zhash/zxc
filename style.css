@@ -37,17 +37,15 @@ body {
 }
 
 .parallax__visuals {
-    object-fit: cover;
     width: 100%;
     max-width: none;
-    height: 120%;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
 }
 
 .parallax__layers {
-    object-fit: cover;
     width: 100%;
     max-width: none;
     height: 100%;
@@ -62,24 +60,26 @@ body {
     object-fit: cover;
     width: 100%;
     max-width: none;
-    height: 117.5%;
+    height: 100%;
     position: absolute;
-    top: -17.5%;
+    top: 0;
     left: 0;
     transition: transform 0.1s ease;
 }
 
 .parallax__layer-img[data-parallax-layer="1"] {
     z-index: 1;
+    opacity: 0.8;
 }
 
 .parallax__layer-img[data-parallax-layer="2"] {
     z-index: 2;
-    opacity: 0.8; /* Делаем второй слой слегка прозрачным */
+    opacity: 0.6;
 }
 
 .parallax__layer-img[data-parallax-layer="4"] {
     z-index: 0;
+    opacity: 0.4;
 }
 
 .parallax__layer-title {
@@ -98,19 +98,16 @@ body {
 .parallax__title {
     pointer-events: auto;
     text-align: center;
-    text-transform: none;
     margin: 0;
-    font-family: Arial, sans-serif; /* Заменяем шрифт, так как PP Neue Corp Wide может не загрузиться */
+    font-family: Arial, sans-serif;
     font-size: 11vw;
     font-weight: 800;
     line-height: 1;
-    position: relative;
     color: var(--color-light);
 }
 
 .parallax__fade {
     z-index: 30;
-    object-fit: cover;
     width: 100%;
     max-width: none;
     height: 20%;
