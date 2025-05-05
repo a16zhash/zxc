@@ -1,187 +1,137 @@
-/* ------- Osmo [https://osmo.supply/] ------- */
-/* Osmo UI: https://slater.app/10324/23333.css */
+:root {
+    --color-neutral-900: #1a1a1a;
+    --color-light: #ffffff;
+    --size-font: 16px;
+    --section-padding: 20px;
+    --container-padding: 20px;
+    --color-black: #000000;
+    --color-dark-rgb: 0, 0, 0;
+}
 
 body {
-  background-color: var(--color-neutral-900);
-  color: var(--color-light);
-  font-size: var(--size-font);
-  margin: 0;
-  padding: 0;
-}
-
-.cloneable {
-  padding: var(--container-padding);
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  display: flex;
-  position: relative;
-}
-
-
-.parallax__fade {
-  --color-dark-rgb: 0, 0, 0;
-	background: linear-gradient(to top, rgba(var(--color-dark-rgb), 1) 0%, rgba(var(--color-dark-rgb), 0.738) 19%, rgba(var(--color-dark-rgb), 0.541) 34%, rgba(var(--color-dark-rgb), 0.382) 47%, rgba(var(--color-dark-rgb), 0.278) 56.5%, rgba(var(--color-dark-rgb), 0.194) 65%, rgba(var(--color-dark-rgb), 0.126) 73%, rgba(var(--color-dark-rgb), 0.075) 80.2%, rgba(var(--color-dark-rgb), 0.042) 86.1%, rgba(var(--color-dark-rgb), 0.021) 91%, rgba(var(--color-dark-rgb), 0.008) 95.2%, rgba(var(--color-dark-rgb), 0.002) 98.2%, transparent 100%);
-}
-
-.osmo-icon-svg {
-  width: 8em;
-  position: relative;
-}
-
-.parallax__header {
-  z-index: 2;
-  padding: var(--section-padding) var(--container-padding);
-  justify-content: center;
-  align-items: center;
-  min-height: 100svh;
-  display: flex;
-  position: relative;
+    background-color: var(--color-neutral-900);
+    color: var(--color-light);
+    font-size: var(--size-font);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .parallax {
-  width: 100%;
-  position: relative;
-  overflow: hidden;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
-.parallax__content {
-  padding: var(--section-padding) var(--container-padding);
-  justify-content: center;
-  align-items: center;
-  min-height: 100svh;
-  display: flex;
-  position: relative;
-}
-
-.cover {
-  object-fit: cover;
-  width: 100%;
-  max-width: none;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
+.parallax__header {
+    z-index: 2;
+    padding: var(--section-padding) var(--container-padding);
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    display: flex;
+    position: relative;
 }
 
 .parallax__visuals {
-  object-fit: cover;
-  width: 100%;
-  max-width: none;
-  height: 120%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.parallax__placeholder {
-  z-index: 0;
-  opacity: 0;
-  object-fit: cover;
-  width: 100%;
-  max-width: none;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
+    object-fit: cover;
+    width: 100%;
+    max-width: none;
+    height: 120%;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .parallax__layers {
-  object-fit: cover;
-  width: 100%;
-  max-width: none;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-}
-
-.cover-copy {
-  object-fit: cover;
-  width: 100%;
-  max-width: none;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.parallax__fade {
-  z-index: 30;
-  object-fit: cover;
-  width: 100%;
-  max-width: none;
-  height: 20%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
-
-.parallax__black-line-overflow {
-  z-index: 20;
-  background-color: var(--color-black);
-  width: 100%;
-  height: 2px;
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-}
-
-.parallax__title {
-  pointer-events: auto;
-  text-align: center;
-  text-transform: none;
-  margin-top: 0;
-  margin-bottom: .1em;
-  margin-right: .075em;
-  font-family: PP Neue Corp Wide, sans-serif;
-  font-size: 11vw;
-  font-weight: 800;
-  line-height: 1;
-  position: relative;
-}
-
-.parallax__radial-gradient {
-  z-index: 10;
-  background-image: radial-gradient(circle farthest-corner at 50% 50%, transparent, var(--color-black));
-  opacity: .5;
-  pointer-events: none;
-  mix-blend-mode: multiply;
-  position: fixed;
-  inset: 0;
-}
-
-.parallax__layer-title {
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100svh;
-  display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
+    object-fit: cover;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
 }
 
 .parallax__layer-img {
-  pointer-events: none;
-  object-fit: cover;
-  width: 100%;
-  max-width: none;
-  height: 117.5%;
-  position: absolute;
-  top: -17.5%;
-  left: 0;
+    pointer-events: none;
+    object-fit: cover;
+    width: 100%;
+    max-width: none;
+    height: 117.5%;
+    position: absolute;
+    top: -17.5%;
+    left: 0;
+    transition: transform 0.1s ease;
 }
 
-.parallax__layer-img.is-third {
-  top: -20%;
+.parallax__layer-img[data-parallax-layer="1"] {
+    z-index: 1;
 }
 
-@font-face {
-  font-family: 'PP Neue Corp Wide';
-  src: url('https://cdn.prod.website-files.com/671752cd4027f01b1b8f1c7f/6717e399d30a606fed425914_PPNeueCorp-WideUltrabold.woff2') format('woff2');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
+.parallax__layer-img[data-parallax-layer="2"] {
+    z-index: 2;
+    opacity: 0.8; /* Делаем второй слой слегка прозрачным */
+}
+
+.parallax__layer-img[data-parallax-layer="4"] {
+    z-index: 0;
+}
+
+.parallax__layer-title {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    transition: transform 0.1s ease;
+}
+
+.parallax__title {
+    pointer-events: auto;
+    text-align: center;
+    text-transform: none;
+    margin: 0;
+    font-family: Arial, sans-serif; /* Заменяем шрифт, так как PP Neue Corp Wide может не загрузиться */
+    font-size: 11vw;
+    font-weight: 800;
+    line-height: 1;
+    position: relative;
+    color: var(--color-light);
+}
+
+.parallax__fade {
+    z-index: 30;
+    object-fit: cover;
+    width: 100%;
+    max-width: none;
+    height: 20%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to top, rgba(var(--color-dark-rgb), 1) 0%, rgba(var(--color-dark-rgb), 0.738) 19%, rgba(var(--color-dark-rgb), 0.541) 34%, rgba(var(--color-dark-rgb), 0.382) 47%, rgba(var(--color-dark-rgb), 0.278) 56.5%, rgba(var(--color-dark-rgb), 0.194) 65%, rgba(var(--color-dark-rgb), 0.126) 73%, rgba(var(--color-dark-rgb), 0.075) 80.2%, rgba(var(--color-dark-rgb), 0.042) 86.1%, rgba(var(--color-dark-rgb), 0.021) 91%, rgba(var(--color-dark-rgb), 0.008) 95.2%, rgba(var(--color-dark-rgb), 0.002) 98.2%, transparent 100%);
+}
+
+.parallax__black-line-overflow {
+    z-index: 20;
+    background-color: var(--color-black);
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+}
+
+@media (orientation: landscape) {
+    .parallax__title {
+        font-size: 8vw;
+    }
 }
