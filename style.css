@@ -1,127 +1,63 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
     margin: 0;
     padding: 0;
-}
-.container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-h1 {
-    font-size: 24px;
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-}
-.filters {
+    background-color: #f5f5f5;
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
 }
-.filters input, .filters select {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    flex: 1;
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
-.gift-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-}
-.gift-card {
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    padding: 10px;
-    text-align: center;
+
+.card {
     position: relative;
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
     overflow: hidden;
     perspective: 1000px; /* Для 3D-эффекта параллакса */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     transition: transform 0.1s ease;
 }
-.gift-card img {
-    max-width: 100%;
-    border-radius: 5px;
-}
-.gift-card a {
-    display: inline-block;
-    margin-top: 10px;
-    color: #007bff;
-    text-decoration: none;
-}
-.gift-card a:hover {
-    text-decoration: underline;
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
 }
 
 /* Эффект размытия с CSS sin() */
-.gift-card::before {
-    content: '';
+.card-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.1);
-    filter: blur(calc(5px * sin(var(--blur-angle, 0deg))));
-    z-index: -1;
+    background: rgba(255, 255, 255, 0.2);
+    filter: blur(calc(10px * sin(var(--blur-angle, 0deg))));
+    z-index: 2;
     animation: blurWave 4s infinite linear;
 }
+
 @keyframes blurWave {
     to {
         --blur-angle: 360deg;
     }
 }
 
-/* Медиазапросы для адаптации к ориентации */
-@media (orientation: landscape) {
-    .gift-list {
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    }
-    .gift-card {
-        padding: 15px;
-    }
-}
-@media (orientation: portrait) {
-    .gift-list {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
-    .gift-card {
-        padding: 10px;
-    }
-}
-
-/* Стили для анимации границы (оставляем из предыдущего) */
-.trail-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-.trail {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: #007bff;
-    border-radius: 50%;
-    offset-path: path('M 0 0 H 100% V 100% H 0 V 0');
-    offset-anchor: 50% 50%;
-    animation: trail 6s infinite linear;
-}
-@keyframes trail {
-    to {
-        offset-distance: 100%;
-    }
-}
-.trail-container::before {
+/* Маска для эффекта "просвечивания" */
+.card-overlay::before {
     content: '';
     position: absolute;
     top: -2px;
@@ -131,5 +67,20 @@ h1 {
     border: 2px solid transparent;
     border-image: linear-gradient(45deg, #007bff, #00ff88) 1;
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 2% 2%, 98% 2%, 98% 98%, 2% 98%, 2% 2%);
-    z-index: 1;
+    z-index: 3;
+}
+
+/* Адаптация к ориентации */
+@media (orientation: landscape) {
+    .card {
+        width: 400px;
+        height: 250px;
+    }
+}
+
+@media (orientation: portrait) {
+    .card {
+        width: 300px;
+        height: 200px;
+    }
 }
