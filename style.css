@@ -21,8 +21,6 @@ html, body {
 
 body {
     min-height: 300vh;
-    overscroll-behavior: none;
-    -webkit-overflow-scrolling: touch;
 }
 
 .parallax {
