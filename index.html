@@ -4,7 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scroll Effects</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Встроенные стили для гарантированной видимости */
+        .svg-container {
+            display: block;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .svg-icon {
+            width: 150px;
+            height: 150px;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body data-theme="dark" data-sync-scrollbar="true" data-animate="true" data-snap="true">
     <header>
@@ -45,34 +60,41 @@
             <h2 class="fluid">Gellery of Gifts</h2>
         </section>
     </main>
-    <footer>for Community by ABC © 2025</footer>
- <svg class="w-9" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Определение текстуры для "крафтового" стиля -->
-            <defs>
-                <filter id="roughTexture">
-                    <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" result="noise"/>
-                    <feDiffuseLighting in="noise" lighting-color="#FFFFFF" surfaceScale="2">
-                        <feDistantLight azimuth="45" elevation="60"/>
-                    </feDiffuseLighting>
-                </filter>
-                <filter id="shadow">
-                    <feDropShadow dx="1" dy="1" stdDeviation="1" flood-color="#000000" flood-opacity="0.3"/>
-                </filter>
-            </defs>
-            <!-- Левая страница книги -->
-            <path d="M10 30 L50 10 L50 90 L10 70 Z" fill="#F5F5DC" stroke="#8B4513" stroke-width="1" filter="url(#roughTexture)"/>
-            <!-- Правая страница книги -->
-            <path d="M90 30 L50 10 L50 90 L90 70 Z" fill="#F5F5DC" stroke="#8B4513" stroke-width="1" filter="url(#roughTexture)"/>
-            <!-- Перо -->
-            <path d="M20 70 Q40 50 80 70" fill="none" stroke="#4682B4" stroke-width="2" stroke-linecap="round"/>
-            <path d="M20 70 L30 65 Q35 62 40 65 L45 70" fill="#4682B4" stroke="#4682B4" stroke-width="1"/>
-            <!-- Текст ABC на правой странице -->
-            <text x="70" y="50" font-size="12" font-family="Georgia, serif" fill="#000000" text-anchor="middle" filter="url(#shadow)">ABC</text>
-        </svg>
-    </a>   
-    <script src="https://cdn.skypack.dev/tweakpane@4.0.4"></script>
-    <script src="https://cdn.skypack.dev/gsap@3.12.0"></script>
-    <script src="https://cdn.skypack.dev/gsap@3.12.0/ScrollTrigger"></script>
-    <script src="script.js"></script>
+    <footer>
+        for Community by ABC © 2025
+        <div class="svg-container">
+            <a class="bear-link" href="https://twitter.com/intent/follow?screen_name=jh3yy" target="_blank" rel="noreferrer noopener">
+                <svg class="svg-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Определение текстуры для "крафтового" стиля -->
+                    <defs>
+                        <filter id="roughTexture">
+                            <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" result="noise"/>
+                            <feDiffuseLighting in="noise" lighting-color="#FFFFFF" surfaceScale="2">
+                                <feDistantLight azimuth="45" elevation="60"/>
+                            </feDiffuseLighting>
+                        </filter>
+                        <filter id="shadow">
+                            <feDropShadow dx="1" dy="1" stdDeviation="1" flood-color="#000000" flood-opacity="0.3"/>
+                        </filter>
+                    </defs>
+                    <!-- Левая страница книги -->
+                    <path d="M10 30 L50 10 L50 90 L10 70 Z" fill="#F5F5DC" stroke="#8B4513" stroke-width="1" filter="url(#roughTexture)"/>
+                    <!-- Правая страница книги -->
+                    <path d="M90 30 L50 10 L50 90 L90 70 Z" fill="#F5F5DC" stroke="#8B4513" stroke-width="1" filter="url(#roughTexture)"/>
+                    <!-- Перо -->
+                    <path d="M20 70 Q40 50 80 70" fill="none" stroke="#4682B4" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M20 70 L30 65 Q35 62 40 65 L45 70" fill="#4682B4" stroke="#4682B4" stroke-width="1"/>
+                    <!-- Текст ABC на правой странице -->
+                    <text x="70" y="50" font-size="12" font-family="Georgia, serif" fill="#000000" text-anchor="middle" filter="url(#shadow)">ABC</text>
+                </svg>
+            </a>
+        </div>
+    </footer>
+    <!-- Временно убраны скрипты и стили, чтобы исключить их влияние -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- <script src="https://cdn.skypack.dev/tweakpane@4.0.4"></script> -->
+    <!-- <script src="https://cdn.skypack.dev/gsap@3.12.0"></script> -->
+    <!-- <script src="https://cdn.skypack.dev/gsap@3.12.0/ScrollTrigger"></script> -->
+    <!-- <script src="script.js"></script> -->
 </body>
 </html>
